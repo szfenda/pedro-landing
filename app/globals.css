@@ -268,6 +268,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ===========================
+   PEDRO MASCOT BACKGROUND
+   =========================== */
+
+.pedro-mascot-bg {
+  /* Wymuszenie przezroczystości tła */
+  background-color: transparent !important;
+  /* Lepsze renderowanie przezroczystości */
+  image-rendering: auto;
+  /* Usuń wszelkie efekty które mogą wpływać na przezroczystość */
+  backdrop-filter: none;
+  filter: none;
+}
+
+/* ===========================
+   LOGO HOVER EFFECTS
+   =========================== */
+
+.logo-hover-effect {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-hover-effect:hover {
+  filter: brightness(1.1) drop-shadow(0 4px 8px rgba(204, 255, 0, 0.3));
+  transform: rotate(2deg) scale(1.05);
+}
+
+/* ===========================
    TEXT EFFECTS
    =========================== */
 

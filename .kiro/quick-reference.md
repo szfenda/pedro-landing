@@ -8,9 +8,11 @@ npm run build        # Production build
 npm run start        # Start production server
 npm run lint         # ESLint check
 
-# Asset processing (when needed)
-node organize-assets.js        # Organize asset structure
-node remove-backgrounds.js     # Remove icon backgrounds
+# Asset processing (BREAKTHROUGH ACHIEVED!)
+node remove-gray-background.js      # Pedro raccoon phone (DONE ✅)
+node remove-thumbs-up-background.js # Pedro thumbs up (DONE ✅)
+node remove-smartphone-background.js # Pedro smartphone (DONE ✅)
+# Same method can be applied to remaining 21 icon files
 ```
 
 ## Key File Locations
@@ -34,9 +36,11 @@ node remove-backgrounds.js     # Remove icon backgrounds
 └── styles/
     └── animations.css    # Advanced animations
 
-📁 Assets (Current Issue)
-├── assets/               # ❌ Current location (wrong)
-└── public/assets/        # ✅ Target location (correct)
+📁 Assets (TRANSPARENCY BREAKTHROUGH!)
+├── assets/               # 🔄 Source files with RGB(175,175,175) backgrounds
+└── public/assets/        # ✅ Organized structure with processed files
+    ├── images/mascots/   # ✅ 3 mascots with PERFECT transparency
+    └── icons/           # 🔄 21 files awaiting same processing
 ```
 
 ## Critical Design Values
@@ -167,10 +171,18 @@ npm install          # Reinstall dependencies
 6. **Build test:** `npm run build` before deployment
 
 ## Deployment Checklist
-- [ ] All assets in `/public/assets/` with transparent backgrounds
+- [x] **MAJOR WIN:** Mascot transparency issues solved (3/3 main graphics)
+- [x] All assets in `/public/assets/` with organized structure
+- [x] Asset paths corrected in `lib/assets.ts`
+- [ ] Remaining 21 icon files background removal (same proven method)
 - [ ] Store links updated from placeholders
 - [ ] Content finalized (no placeholder text)
 - [ ] Cross-browser testing completed
 - [ ] Mobile testing on real devices
 - [ ] Performance audit passed (Lighthouse >90)
 - [ ] Accessibility compliance verified
+
+## 🎉 BREAKTHROUGH ACHIEVED
+**Problem:** Mascot graphics had visible backgrounds despite "transparent" PNGs
+**Solution:** RGB(175,175,175) targeted removal + CSS background-image rendering
+**Result:** Perfect transparency on all 3 main Pedro mascot graphics

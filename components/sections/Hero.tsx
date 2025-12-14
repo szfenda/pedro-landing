@@ -76,13 +76,18 @@ export default function Hero() {
             >
                 {/* Main Mascot with Floating Animation */}
                 <div className="relative">
-                    <Image
-                        src={mascots.raccoonPhone}
-                        alt="Pedro mascot with phone"
-                        width={500}
-                        height={600}
-                        className="animate-float glow-lime will-animate"
-                        priority
+                    <div
+                        className="pedro-mascot-bg animate-float will-animate"
+                        style={{
+                            backgroundImage: `url(${mascots.raccoonPhone})`,
+                            width: '500px',
+                            height: '600px',
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center'
+                        }}
+                        role="img"
+                        aria-label="Pedro mascot with phone"
                     />
                 </div>
 

@@ -77,7 +77,7 @@ export default function Download() {
                     {/* Optional Pedro Smartphone Illustration */}
                     <div className="mt-12 hidden md:block">
                         <div className="relative inline-block">
-                            <Image
+                            <img
                                 src={mascots.smartphone}
                                 alt="Pedro with smartphone"
                                 width={200}

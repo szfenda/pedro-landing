@@ -90,7 +90,7 @@ export default function About() {
                     {/* Right Column - Illustration */}
                     <div className={`flex items-center justify-center ${isVisible ? 'scroll-reveal revealed' : 'scroll-reveal'}`} style={{ animationDelay: '0.4s' }}>
                         <div className="relative group">
-                            <Image
+                            <img
                                 src={mascots.thumbsUp}
                                 alt="Pedro giving thumbs up"
                                 width={400}

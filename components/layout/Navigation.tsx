@@ -22,9 +22,15 @@ export default function Navigation() {
                 <div className="flex items-center">
                     <button
                         onClick={() => smoothScrollTo('top')}
-                        className="text-white font-headline text-2xl md:text-3xl font-bold transition-all duration-300 hover:text-pedro-lime hover:rotate-2"
+                        className="transition-all duration-300 hover:rotate-2 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pedro-lime focus:ring-offset-2 focus:ring-offset-transparent rounded-lg p-1"
                     >
-                        PEDRO
+                        <img
+                            src={logos.main}
+                            alt="PEDRO Logo"
+                            width={120}
+                            height={40}
+                            className="h-8 md:h-10 w-auto logo-hover-effect"
+                        />
                     </button>
                 </div>
 

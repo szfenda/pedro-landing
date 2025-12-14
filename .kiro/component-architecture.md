@@ -19,13 +19,15 @@ components/
 
 ## Critical Components (Must Match Design 1:1)
 
-### Hero.tsx
+### Hero.tsx ✅ TRANSPARENCY FIXED
 **Layout:** 100vh height, 50/50 split
 - Left: Text + store badges over `back_left_under_text.png`
-- Right: `pedro_raccoon_phone.png` with floating animation over `back_right_under_phone.png`
+- Right: `pedro_raccoon_phone.png` with **PERFECT TRANSPARENCY** over `back_right_under_phone.png`
 - Divider: 2px solid #2D3436 between halves
 - Navigation: Fixed top with logo, black pill nav, login button
 - Scroll indicator: Bottom center with bounce animation
+
+**BREAKTHROUGH:** Uses CSS background-image instead of Next.js Image for perfect transparency rendering.
 
 **Key Elements:**
 ```tsx
@@ -74,12 +76,14 @@ NA PROMKI
 - Mobile: Burger menu with slide-down
 - Hover effects: Underline animation, button lift
 
-### About.tsx
+### About.tsx ✅ TRANSPARENCY FIXED
 **Layout:** 2-column (desktop) / 1-column (mobile)
 - H2: "Co to jest PEDRO?"
 - 3 bullet points with checkmark icons
-- Illustration: `Pedro_Thumbs_Up.png`
+- Illustration: `pedro_thumbs_up.png` with **PERFECT TRANSPARENCY**
 - Scroll reveal animations with stagger
+
+**FIXED:** Changed from Next.js Image to regular img tag for proper transparency rendering.
 
 ### B2B.tsx
 **Features:**
