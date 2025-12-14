@@ -110,7 +110,7 @@ export default function Footer() {
                 onMouseEnter={() => setShowBubble(true)}
                 onMouseLeave={() => setShowBubble(false)}
             >
-                <Image
+                <img
                     src={mascots.peeking}
                     alt="Pedro peeking"
                     width={120}

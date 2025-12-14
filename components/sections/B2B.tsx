@@ -113,19 +113,15 @@ export default function B2B() {
 
                     {/* Right Column - Dashboard Mockup + Orbiting Icons (40%) */}
                     <div className="lg:col-span-2 relative">
-                        {/* Dashboard Placeholder */}
-                        <div className="bg-white brutal-border rounded-card p-6 shadow-brutal-dark">
-                            <div className="space-y-4">
-                                <div className="h-8 bg-gradient-to-r from-pedro-purple to-pedro-pink rounded w-2/3" />
-                                <div className="h-32 bg-gradient-to-br from-pedro-lime/20 to-pedro-purple/20 rounded flex items-center justify-center">
-                                    <span className="text-4xl">📊</span>
-                                </div>
-                                <div className="space-y-2">
-                                    <div className="h-4 bg-gray-200 rounded w-full" />
-                                    <div className="h-4 bg-gray-200 rounded w-5/6" />
-                                    <div className="h-4 bg-gray-200 rounded w-4/6" />
-                                </div>
-                            </div>
+                        {/* Pedro Hunting Illustration */}
+                        <div className="flex items-center justify-center">
+                            <img
+                                src="/assets/images/mascots/pedro_hunting.png"
+                                alt="Pedro hunting for deals"
+                                width={400}
+                                height={350}
+                                className="w-full max-w-md transition-transform duration-300 hover:scale-105 hover:rotate-1"
+                            />
                         </div>
 
                         {/* Orbiting Icons */}
