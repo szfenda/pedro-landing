@@ -1,0 +1,330 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================
+   CSS CUSTOM PROPERTIES
+   =========================== */
+
+:root {
+  /* Brand Colors */
+  --color-purple: #6C5CE7;
+  --color-lime: #CCFF00;
+  --color-pink: #FF7675;
+  --color-light: #F7F9FC;
+  --color-dark: #2D3436;
+  
+  /* Spacing */
+  --container-max-width: 1200px;
+  --padding-desktop: 24px;
+  --padding-mobile: 16px;
+  
+  /* Borders */
+  --border-width: 3px;
+  --border-color: var(--color-dark);
+  
+  /* Transitions */
+  --transition-speed: 0.25s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===========================
+   BASE STYLES
+   =========================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
+  color: var(--color-dark);
+  background-color: var(--color-light);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===========================
+   TYPOGRAPHY
+   =========================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-dela-gothic), sans-serif;
+  font-weight: 400;
+}
+
+/* ===========================
+   NEO-BRUTALISM UTILITIES
+   =========================== */
+
+/* Hard Shadow Mixin (use as class) */
+.hard-shadow-purple {
+  box-shadow: 10px 10px 0 var(--color-purple);
+}
+
+.hard-shadow-lime {
+  box-shadow: 10px 10px 0 var(--color-lime);
+}
+
+.hard-shadow-dark {
+  box-shadow: 10px 10px 0 var(--color-dark);
+}
+
+.hard-shadow-sm-purple {
+  box-shadow: 6px 6px 0 var(--color-purple);
+}
+
+.hard-shadow-sm-lime {
+  box-shadow: 6px 6px 0 var(--color-lime);
+}
+
+/* Brutal Border */
+.brutal-border {
+  border: var(--border-width) solid var(--border-color);
+}
+
+/* ===========================
+   CUSTOM ANIMATIONS
+   =========================== */
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scan Line Animation (for QR card) */
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-scan {
+  animation: scan 3s ease-in-out infinite;
+}
+
+/* Wave Animation (for Pedro peeking) */
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+}
+
+.animate-wave {
+  animation: wave 5s ease-in-out infinite;
+}
+
+/* Bounce Indicator */
+@keyframes bounce-indicator {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-indicator 1.2s ease-in-out infinite;
+}
+
+/* ===========================
+   SCROLL ANIMATIONS
+   =========================== */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s var(--transition-timing), 
+              transform 0.6s var(--transition-timing);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===========================
+   BUTTON STYLES
+   =========================== */
+
+.btn-brutal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-weight: 700;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform var(--transition-speed) var(--transition-timing),
+              box-shadow var(--transition-speed) var(--transition-timing);
+  will-change: transform, box-shadow;
+}
+
+.btn-brutal:hover {
+  transform: translateY(-6px);
+}
+
+.btn-brutal:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+.btn-brutal-purple {
+  background-color: var(--color-purple);
+  color: white;
+  box-shadow: 10px 10px 0 var(--color-dark);
+}
+
+.btn-brutal-purple:hover {
+  box-shadow: 10px 10px 0 var(--color-lime);
+}
+
+.btn-brutal-lime {
+  background-color: var(--color-lime);
+  color: var(--color-dark);
+  box-shadow: 10px 10px 0 var(--color-purple);
+}
+
+/* ===========================
+   CARD STYLES
+   =========================== */
+
+.card-brutal {
+  background: white;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 10px 10px 0 var(--color-purple);
+  transition: transform var(--transition-speed) var(--transition-timing),
+              box-shadow var(--transition-speed) var(--transition-timing);
+  will-change: transform, box-shadow;
+}
+
+.card-brutal:hover {
+  transform: translateY(-8px);
+  box-shadow: 10px 10px 0 var(--color-lime);
+}
+
+/* ===========================
+   INPUT STYLES
+   =========================== */
+
+.input-brutal {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 16px;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: 8px;
+  background: white;
+  transition: box-shadow 0.2s var(--transition-timing);
+}
+
+.input-brutal:focus {
+  outline: none;
+  box-shadow: 6px 6px 0 var(--color-lime);
+}
+
+/* ===========================
+   GLOW EFFECTS
+   =========================== */
+
+.glow-lime {
+  box-shadow: 0 0 40px rgba(204, 255, 0, 0.4);
+}
+
+.glow-purple {
+  box-shadow: 0 0 40px rgba(108, 92, 231, 0.4);
+}
+
+/* ===========================
+   TEXT EFFECTS
+   =========================== */
+
+.text-poster-shadow {
+  text-shadow: 
+    4px 4px 0 rgba(0, 0, 0, 0.35),
+    2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* ===========================
+   CONTAINER
+   =========================== */
+
+.container-pedro {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding-left: var(--padding-desktop);
+  padding-right: var(--padding-desktop);
+}
+
+@media (max-width: 768px) {
+  .container-pedro {
+    padding-left: var(--padding-mobile);
+    padding-right: var(--padding-mobile);
+  }
+}
+
+/* ===========================
+   SCROLL PROGRESS BAR
+   =========================== */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: var(--color-lime);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* ===========================
+   PERFORMANCE OPTIMIZATIONS
+   =========================== */
+
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
