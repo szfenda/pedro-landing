@@ -43,7 +43,7 @@ Modern, interactive landing page promoting PEDRO mobile app (local deals/coupons
 2. **About** `#o-nas` - 2-column intro with Pedro Thumbs Up
 3. **Features** `#funkcje` - 3 cards with icons (CRITICAL: 1:1 design match)
 4. **B2B** `#dla-biznesu` - Lime background, diagonal purple accent
-5. **Social Proof** `#opinie` - Testimonials and partner logos
+5. **Social Proof** `#opinie` - Future testimonials and dream partners (UPDATED Dec 2024)
 6. **FAQ** `#faq` - Accordion with brutal styling
 7. **Download** `#pobierz` - Store badges repeat
 8. **Contact** `#kontakt` - Form with brutal inputs

@@ -68,7 +68,7 @@ border-radius: 12px;               /* Buttons */
 <About />                  // 2-col with Pedro Thumbs Up
 <Features />               // 3 cards with scan animation
 <B2B />                    // Lime bg with orbiting icons
-<SocialProof />            // Testimonials
+<SocialProof />            // Future testimonials + dream partners (UPDATED)
 <FAQ />                    // Accordion
 <Download />               // Store badges
 <Contact />                // Form with brutal inputs

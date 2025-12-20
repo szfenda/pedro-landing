@@ -32,7 +32,7 @@
 │       ├── About.tsx      # 2-column with Pedro Thumbs Up
 │       ├── Features.tsx   # 3 cards with scan line animation
 │       ├── B2B.tsx        # Lime background with orbiting icons
-│       ├── SocialProof.tsx # Testimonials
+│       ├── SocialProof.tsx # Future testimonials + dream partners (UPDATED)
 │       ├── FAQ.tsx        # Brutal accordion
 │       ├── Download.tsx   # Store badges repeat
 │       └── Contact.tsx    # Form with brutal inputs
