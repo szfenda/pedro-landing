@@ -378,14 +378,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Smooth scrolling for mobile */
 @media (max-width: 768px) {
-  html {
-    scroll-padding-top: 80px; /* Account for fixed nav */
-  }
+  /* Remove scroll-padding since nav is now transparent */
   
-  /* Ensure first section has proper top padding */
-  #top {
-    padding-top: 64px; /* Height of mobile nav */
-  }
+  /* Mobile-specific adjustments handled by components */
 }
 
 /* ===========================
@@ -425,5 +420,142 @@ h1, h2, h3, h4, h5, h6 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+/* ===========================
+   TRANSPARENT NAVIGATION
+   =========================== */
+
+/* Transparent navigation with gradient overlay */
+.nav-transparent {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.1), transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Enhanced mobile menu button */
+.mobile-menu-btn {
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid var(--color-dark);
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-btn:hover {
+  background: rgba(255,255,255,1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Enhanced mobile menu overlay */
+.mobile-menu-overlay {
+  background: rgba(45, 52, 54, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+/* Hero section adjustments for transparent nav */
+.hero-with-transparent-nav {
+  margin-top: -4rem; /* -64px for mobile nav height */
+  padding-top: 4rem; /* 64px to compensate */
+}
+
+@media (min-width: 768px) {
+  .hero-with-transparent-nav {
+    margin-top: -5rem; /* -80px for desktop nav height */
+    padding-top: 5rem; /* 80px to compensate */
+  }
+}
+/* ===========================
+   MOBILE SECTION SPACING
+   =========================== */
+
+/* Better section separation on mobile */
+@media (max-width: 768px) {
+  /* Hero section mobile adjustments - handled by component */
+  
+  /* About section mobile spacing */
+  #o-nas {
+    margin-top: 0;
+    padding-top: clamp(2rem, 4vw, 3rem);
+  }
+  
+  /* Prevent section overlap on mobile */
+  .mobile-section-separator {
+    height: 2rem;
+    background: linear-gradient(to bottom, transparent, var(--color-light));
+  }
+}
+/* ===========================
+   MOBILE STORE BUTTONS
+   =========================== */
+
+/* Mobile-specific store button adjustments */
+@media (max-width: 640px) {
+  .store-buttons-mobile {
+    gap: 1.5rem; /* 24px gap between buttons */
+    margin-top: 2rem; /* Extra space from headline */
+  }
+  
+  .store-button-mobile {
+    padding: 0.75rem 1.5rem; /* Smaller padding */
+    min-height: 48px; /* Touch-friendly but smaller */
+    font-size: 0.875rem; /* Smaller text */
+  }
+  
+  .store-button-mobile svg {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+  }
+  
+  .store-button-mobile .store-text-large {
+    font-size: 1rem; /* 16px instead of 18px */
+  }
+}
+/* ===========================
+   MOBILE HERO OPTIMIZATION
+   =========================== */
+
+/* Mobile Hero text optimization */
+@media (max-width: 640px) {
+  /* Compact hero headline for mobile */
+  .hero-mobile-headline {
+    font-size: clamp(2.5rem, 7vw, 3.5rem);
+    line-height: 0.9;
+    margin-bottom: 1rem;
+  }
+  
+  /* Compact store buttons for mobile */
+  .store-button-compact {
+    padding: 0.625rem 1.25rem; /* 10px 20px */
+    min-height: 44px;
+    font-size: 0.75rem; /* 12px */
+    gap: 0.5rem; /* 8px */
+  }
+  
+  .store-button-compact svg {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+  }
+  
+  .store-button-compact .store-text {
+    font-size: 0.875rem; /* 14px */
+  }
+  
+  /* Mobile hero section height optimization */
+  .hero-mobile-text {
+    min-height: 65vh;
+    padding-top: 4rem; /* 64px - safe area under nav */
+    padding-bottom: 1rem;
+  }
+  
+  .hero-mobile-visual {
+    min-height: 35vh;
+    padding: 1rem 2rem;
   }
 }

@@ -15,10 +15,10 @@ export default function Hero() {
     }
 
     return (
-        <section id="top" className="relative h-screen flex flex-col md:flex-row">
+        <section id="top" className="relative h-screen flex flex-col md:flex-row -mt-16 md:-mt-20 pt-16 md:pt-20">
             {/* Left Half - Text + CTA */}
             <div
-                className="relative w-full md:w-1/2 flex items-center justify-center px-8 md:px-16 py-8 md:py-0"
+                className="relative w-full md:w-1/2 flex items-center justify-center px-8 md:px-16 py-4 md:py-0 min-h-[65vh] md:min-h-screen"
                 style={{
                     backgroundImage: `url(${backgrounds.heroLeft})`,
                     backgroundSize: 'cover',
@@ -26,9 +26,9 @@ export default function Hero() {
                     backgroundRepeat: 'no-repeat',
                 }}
             >
-                <div className="max-w-2xl text-center md:text-left">
+                <div className="max-w-2xl text-center md:text-left pt-16 md:pt-0 pb-4 md:pb-0">
                     {/* Headline - 4 lines as specified */}
-                    <h1 className="font-headline text-hero text-white leading-none tracking-tight text-poster-shadow mb-8 md:mb-12">
+                    <h1 className="font-headline text-3xl sm:text-4xl md:text-hero text-white leading-tight md:leading-none tracking-tight text-poster-shadow mb-4 md:mb-12">
                         PEDRO NIE<br />
                         PRZEPŁACA.<br />
                         PEDRO POLUJE<br />
@@ -36,20 +36,20 @@ export default function Hero() {
                     </h1>
 
                     {/* Store Badges */}
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-start mt-4 md:mt-0">
                         {/* App Store Badge */}
                         <a
                             href="#"
                             aria-label="Download on the App Store"
                             onClick={handleStoreClick}
-                            className="btn-brutal bg-black text-white border-3 border-pedro-dark rounded-button px-8 py-4 flex items-center justify-center gap-3 min-h-[52px] shadow-brutal-lime hover:shadow-brutal-lime hover:-translate-y-2 active:scale-95 transition-all duration-300 relative overflow-hidden"
+                            className="btn-brutal bg-black text-white border-3 border-pedro-dark rounded-button px-5 md:px-8 py-2.5 md:py-4 flex items-center justify-center gap-2 md:gap-3 min-h-[44px] md:min-h-[52px] shadow-brutal-lime hover:shadow-brutal-lime hover:-translate-y-2 active:scale-95 transition-all duration-300 relative overflow-hidden text-xs md:text-base"
                         >
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
                             </svg>
                             <div className="text-left">
                                 <div className="text-xs">Download on the</div>
-                                <div className="text-lg font-bold">App Store</div>
+                                <div className="text-sm md:text-lg font-bold">App Store</div>
                             </div>
                         </a>
 
@@ -58,14 +58,14 @@ export default function Hero() {
                             href="#"
                             aria-label="Get it on Google Play"
                             onClick={handleStoreClick}
-                            className="btn-brutal bg-black text-white border-3 border-pedro-dark rounded-button px-8 py-4 flex items-center justify-center gap-3 min-h-[52px] shadow-brutal-lime hover:shadow-brutal-lime hover:-translate-y-2 active:scale-95 transition-all duration-300 relative overflow-hidden"
+                            className="btn-brutal bg-black text-white border-3 border-pedro-dark rounded-button px-5 md:px-8 py-2.5 md:py-4 flex items-center justify-center gap-2 md:gap-3 min-h-[44px] md:min-h-[52px] shadow-brutal-lime hover:shadow-brutal-lime hover:-translate-y-2 active:scale-95 transition-all duration-300 relative overflow-hidden text-xs md:text-base"
                         >
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
                             </svg>
                             <div className="text-left">
                                 <div className="text-xs">GET IT ON</div>
-                                <div className="text-lg font-bold">Google Play</div>
+                                <div className="text-sm md:text-lg font-bold">Google Play</div>
                             </div>
                         </a>
                     </div>
@@ -77,7 +77,7 @@ export default function Hero() {
 
             {/* Right Half - Visual (Desktop) */}
             <div
-                className="hidden md:flex relative w-1/2 items-center justify-center px-16"
+                className="hidden md:flex relative w-1/2 items-center justify-center px-16 min-h-screen"
                 style={{
                     backgroundImage: `url(${backgrounds.heroRight})`,
                     backgroundSize: 'cover',
@@ -85,8 +85,8 @@ export default function Hero() {
                     backgroundRepeat: 'no-repeat',
                 }}
             >
-                {/* Main Mascot with Floating Animation */}
-                <ParallaxElement speed={0.3} className="relative">
+                {/* Main Mascot with Floating Animation - Positioned lower to avoid nav overlap */}
+                <ParallaxElement speed={0.3} className="relative mt-16">
                     <div
                         className="pedro-mascot-bg animate-float will-animate glow-lime"
                         style={{
@@ -102,15 +102,15 @@ export default function Hero() {
                     />
                 </ParallaxElement>
 
-                {/* Floating Decorative Particles */}
-                <div className="absolute top-20 left-20 w-16 h-16 bg-pedro-lime rounded-full opacity-60 animate-float" style={{ animationDelay: '0.5s' }} />
-                <div className="absolute top-40 right-20 w-12 h-12 bg-pedro-pink rounded-full opacity-60 animate-float" style={{ animationDelay: '1s' }} />
+                {/* Floating Decorative Particles - Adjusted positions */}
+                <div className="absolute top-32 left-20 w-16 h-16 bg-pedro-lime rounded-full opacity-60 animate-float" style={{ animationDelay: '0.5s' }} />
+                <div className="absolute top-52 right-20 w-12 h-12 bg-pedro-pink rounded-full opacity-60 animate-float" style={{ animationDelay: '1s' }} />
                 <div className="absolute bottom-40 left-32 w-10 h-10 bg-pedro-purple rounded-full opacity-60 animate-float" style={{ animationDelay: '1.5s' }} />
             </div>
 
             {/* Mobile Visual - Bottom Half */}
             <div
-                className="md:hidden relative flex-1 flex items-center justify-center px-8 py-8"
+                className="md:hidden relative flex-1 flex items-center justify-center px-8 py-4 min-h-[35vh] bg-gradient-to-b from-transparent to-pedro-light/50"
                 style={{
                     backgroundImage: `url(${backgrounds.heroRight})`,
                     backgroundSize: 'cover',
@@ -140,6 +140,9 @@ export default function Hero() {
                 <div className="absolute top-20 right-10 w-6 h-6 bg-pedro-pink rounded-full opacity-60 animate-float" style={{ animationDelay: '1s' }} />
                 <div className="absolute bottom-20 left-16 w-5 h-5 bg-pedro-purple rounded-full opacity-60 animate-float" style={{ animationDelay: '1.5s' }} />
             </div>
+
+            {/* Mobile Section Separator */}
+            <div className="md:hidden h-8 bg-gradient-to-b from-transparent via-pedro-light/80 to-pedro-light"></div>
 
             {/* Scroll Indicator */}
             <button

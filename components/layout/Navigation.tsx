@@ -16,7 +16,7 @@ export default function Navigation() {
     ]
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 h-16 md:h-20 bg-white/95 backdrop-blur-sm border-b border-pedro-dark/10">
+        <nav className="fixed top-0 left-0 right-0 z-50 h-16 md:h-20 bg-gradient-to-b from-black/20 via-black/10 to-transparent backdrop-blur-md border-b border-white/20">
             <div className="h-full flex items-center justify-between px-6 md:px-12">
                 {/* Logo */}
                 <div className="flex items-center">
@@ -58,7 +58,8 @@ export default function Navigation() {
                 {/* Mobile Menu Button */}
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden text-white text-3xl"
+                    className="md:hidden text-pedro-dark text-3xl font-bold bg-white/90 backdrop-blur-sm rounded-lg p-2 border-2 border-pedro-dark shadow-sm hover:bg-white transition-all duration-300"
+                    aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 >
                     {isMobileMenuOpen ? '✕' : '☰'}
                 </button>
@@ -66,7 +67,7 @@ export default function Navigation() {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-                <div className="md:hidden absolute top-16 left-0 right-0 bg-pedro-dark border-t-3 border-pedro-lime">
+                <div className="md:hidden absolute top-16 left-0 right-0 bg-pedro-dark/95 backdrop-blur-md border-t-3 border-pedro-lime shadow-2xl">
                     <div className="flex flex-col p-6 gap-4">
                         {navLinks.map((link) => (
                             <button

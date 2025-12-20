@@ -44,7 +44,7 @@ export default function About() {
         <section
             ref={sectionRef}
             id="o-nas"
-            className="bg-pedro-light py-section"
+            className="bg-pedro-light py-section relative z-10"
         >
             <div className="container-pedro">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
