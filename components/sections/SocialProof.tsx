@@ -3,21 +3,21 @@
 export default function SocialProof() {
     const testimonials = [
         {
-            name: 'Anna K.',
-            location: 'Gdańsk Wrzeszcz',
-            text: 'Dzięki Pedro oszczędzam minimum 200 zł miesięcznie. Najlepsza aplikacja dla tych, którzy lubią okazje!',
+            name: 'Ty, za 2 tygodnie',
+            location: 'Gdańsk',
+            text: 'Pedro? Brzmi ciekawie. Dam mu szansę.',
             rating: 5,
         },
         {
-            name: 'Tomasz M.',
-            location: 'Gdańsk Oliwa',
-            text: 'Wreszcie aplikacja, która pokazuje tylko to co mnie interesuje. Żadnego spamu, same konkretne promki.',
+            name: 'ktoś z Trójmiasta (już niedługo)',
+            location: 'Gdynia',
+            text: 'W końcu aplikacja, która pokazuje promocje, a nie spam.',
             rating: 5,
         },
         {
-            name: 'Magda S.',
+            name: 'przyszły użytkownik PEDRO',
             location: 'Sopot',
-            text: 'Pedro to must-have dla każdego, kto mieszka w Trójmieście. Polecam w ciemno!',
+            text: 'Czemu nikt wcześniej na to nie wpadł?',
             rating: 5,
         },
     ]
@@ -28,10 +28,10 @@ export default function SocialProof() {
                 {/* Section Heading */}
                 <div className="text-center mb-16">
                     <h2 className="font-headline text-h2 text-pedro-dark mb-4">
-                        Zaufali nam
+                        Tak będą o nas mówić
                     </h2>
                     <p className="text-body text-gray-600">
-                        Zobacz, co mówią nasi użytkownicy
+                        Gdy tylko wystartujemy na serio 🚀
                     </p>
                 </div>
 
