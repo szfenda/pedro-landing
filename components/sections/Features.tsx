@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { featureIcons, categoryIcons } from '@/lib/assets'
 import { useState } from 'react'
+import { useTilt3D } from '@/hooks/useTilt3D'
 
 export default function Features() {
     return (
@@ -119,6 +120,7 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon, title, children, badge, badgeColor = 'lime', showScanLine = false }: FeatureCardProps) {
     const [isHovered, setIsHovered] = useState(false)
+    const tiltRef = useTilt3D({ maxTilt: 8, scale: 1.02 })
 
     const badgeColors = {
         lime: 'bg-pedro-lime text-pedro-dark',
@@ -128,7 +130,8 @@ function FeatureCard({ icon, title, children, badge, badgeColor = 'lime', showSc
 
     return (
         <div
-            className="card-brutal min-h-[420px] flex flex-col items-center justify-start relative group"
+            ref={tiltRef}
+            className="card-brutal min-h-[420px] flex flex-col items-center justify-start relative group will-animate"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >

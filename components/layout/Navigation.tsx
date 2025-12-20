@@ -50,7 +50,7 @@ export default function Navigation() {
 
                 {/* Login Button */}
                 <div className="hidden md:block">
-                    <button className="btn-brutal btn-brutal-purple px-6 py-3 text-sm">
+                    <button className="btn-brutal btn-brutal-purple px-6 py-3 text-sm hover:-translate-y-1 hover:shadow-brutal-lime transition-all duration-300">
                         Log in
                     </button>
                 </div>

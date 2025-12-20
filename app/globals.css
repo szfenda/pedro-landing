@@ -338,6 +338,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ===========================
+   FOCUS STATES & ACCESSIBILITY
+   =========================== */
+
+.focus-brutal {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-lime);
+}
+
+/* Button focus states */
+.btn-brutal:focus-visible {
+  outline: none;
+  box-shadow: 10px 10px 0 var(--color-lime), 0 0 0 3px var(--color-lime);
+}
+
+/* Card focus states */
+.card-brutal:focus-visible {
+  outline: none;
+  box-shadow: 10px 10px 0 var(--color-lime), 0 0 0 3px var(--color-lime);
+}
+
+/* ===========================
    PERFORMANCE OPTIMIZATIONS
    =========================== */
 

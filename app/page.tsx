@@ -8,10 +8,13 @@ import SocialProof from '@/components/sections/SocialProof'
 import FAQ from '@/components/sections/FAQ'
 import Download from '@/components/sections/Download'
 import Contact from '@/components/sections/Contact'
+import ScrollProgress from '@/components/ui/ScrollProgress'
+import MobileStickyCTA from '@/components/ui/MobileStickyCTA'
 
 export default function Home() {
     return (
         <>
+            <ScrollProgress />
             <Navigation />
             <main>
                 <Hero />
@@ -24,6 +27,7 @@ export default function Home() {
                 <Contact />
             </main>
             <Footer />
+            <MobileStickyCTA />
         </>
     )
 }
