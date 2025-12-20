@@ -95,14 +95,24 @@
 
 ## Build Configuration
 **next.config.js:**
-- Image optimization settings
-- Device sizes and image sizes configuration
-- ESLint ignore during builds (temporary)
+- Static export: `output: 'export'`
+- Image optimization: `unoptimized: true` (Firebase compatible)
+- Trailing slash: `true` (SPA routing)
+- ESLint ignore during builds
+
+**Firebase Hosting:**
+- Public directory: `out`
+- Cache headers for static assets
+- SPA rewrites configuration
 
 ## Development Commands
 ```bash
 npm run dev    # Development server
-npm run build  # Production build
+npm run build  # Production build + static export
 npm run start  # Production server
 npm run lint   # ESLint check
+
+# Firebase commands
+firebase serve --only hosting  # Local Firebase server
+firebase deploy --only hosting # Deploy to production
 ```
