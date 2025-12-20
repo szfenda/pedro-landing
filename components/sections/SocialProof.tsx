@@ -22,6 +22,13 @@ export default function SocialProof() {
         },
     ]
 
+    const dreamPartners = [
+        '🍕 Twoja ulubiona pizzeria',
+        '☕ Kawiarnia z najlepszą flat white', 
+        '🧘 Studio, do którego chodzisz po pracy',
+        '🍔 Burgerownia, którą znasz z Instagrama'
+    ]
+
     return (
         <section id="opinie" className="bg-white py-section">
             <div className="container-pedro">
@@ -64,16 +71,19 @@ export default function SocialProof() {
                     ))}
                 </div>
 
-                {/* Partner Logos Placeholder */}
+                {/* Dream Partners Section */}
                 <div className="mt-16 text-center">
-                    <p className="text-sm text-gray-500 mb-8 uppercase tracking-wider">
-                        Partnerzy PEDRO
+                    <h3 className="font-headline text-h3 text-pedro-dark mb-4">
+                        Partnerzy? Jeszcze o nich marzymy 😎
+                    </h3>
+                    <p className="text-body text-gray-600 mb-8">
+                        PEDRO dopiero startuje... ale dokładnie te miejsca chcemy tu widzieć 👇
                     </p>
-                    <div className="flex flex-wrap justify-center items-center gap-12 opacity-40 grayscale hover:opacity-60 hover:grayscale-0 transition-all duration-300">
-                        {['Pizza Hut', 'McDonald\'s', 'Żabka'].map((partner) => (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                        {dreamPartners.map((partner, index) => (
                             <div
-                                key={partner}
-                                className="text-2xl font-bold text-pedro-dark px-8 py-4 bg-gray-100 rounded-card"
+                                key={index}
+                                className="text-xl font-bold text-pedro-dark px-6 py-4 bg-gray-100 rounded-card hover:transform hover:-translate-y-2 hover:shadow-brutal-sm-lime transition-all duration-250 min-h-[120px] flex items-center justify-center text-center"
                             >
                                 {partner}
                             </div>
