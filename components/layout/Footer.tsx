@@ -106,7 +106,7 @@ export default function Footer() {
 
             {/* Pedro Peeking - Bottom Right Corner */}
             <div
-                className="absolute bottom-0 right-8 cursor-pointer"
+                className="absolute bottom-0 right-4 md:right-8 cursor-pointer"
                 onMouseEnter={() => setShowBubble(true)}
                 onMouseLeave={() => setShowBubble(false)}
             >
@@ -115,7 +115,7 @@ export default function Footer() {
                     alt="Pedro peeking"
                     width={120}
                     height={150}
-                    className="animate-wave transition-transform hover:-translate-y-3"
+                    className="animate-wave transition-transform hover:-translate-y-3 w-16 h-20 md:w-[120px] md:h-[150px]"
                 />
 
                 {/* Speech Bubble */}

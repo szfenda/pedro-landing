@@ -126,13 +126,13 @@ export default function B2B() {
 
                         {/* Orbiting Icons */}
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div className="relative w-64 h-64">
+                            <div className="relative w-48 h-48 md:w-64 md:h-64">
                                 <img
                                     src={businessIcons.money}
                                     alt=""
                                     width={48}
                                     height={48}
-                                    className="absolute orbit-icon"
+                                    className="absolute orbit-icon w-8 h-8 md:w-12 md:h-12"
                                     style={{ animationDelay: '0s' }}
                                 />
                                 <img
@@ -140,7 +140,7 @@ export default function B2B() {
                                     alt=""
                                     width={48}
                                     height={48}
-                                    className="absolute orbit-icon"
+                                    className="absolute orbit-icon w-8 h-8 md:w-12 md:h-12"
                                     style={{ animationDelay: '2.67s' }}
                                 />
                                 <img
@@ -148,7 +148,7 @@ export default function B2B() {
                                     alt=""
                                     width={48}
                                     height={48}
-                                    className="absolute orbit-icon"
+                                    className="absolute orbit-icon w-8 h-8 md:w-12 md:h-12"
                                     style={{ animationDelay: '5.33s' }}
                                 />
                             </div>

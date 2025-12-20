@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { useRipple } from '@/hooks/useRipple'
+import { smoothScrollTo } from '@/lib/utils'
 
 export default function MobileStickyCTA() {
     const [isVisible, setIsVisible] = useState(false)
     const createRipple = useRipple()
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault()
         createRipple(e)
-        // TODO: Add actual store URL or scroll to download section
+        smoothScrollTo('pobierz')
     }
 
     useEffect(() => {

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     title: 'PEDRO - Poluj na Promki | Lokalne Promocje w Twojej Dzelnicy',
     description: 'PEDRO to aplikacja mobilna, która pomaga znajdować najlepsze lokalne promocje i kupony w Twojej okolicy. Oszczędzaj pieniądze bez spamu i przeterminowanych kuponów.',
     keywords: ['promocje', 'kupony', 'oszczędności', 'lokalne biznes', 'Pedro', 'Gdańsk'],
+    viewport: 'width=device-width, initial-scale=1',
     openGraph: {
         title: 'PEDRO - Poluj na Promki',
         description: 'Znajdź najlepsze lokalne promocje bez spamu',

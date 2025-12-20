@@ -338,6 +338,57 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ===========================
+   TOUCH INTERACTIONS (MOBILE)
+   =========================== */
+
+/* Increase tap target size for mobile */
+@media (max-width: 768px) {
+  .btn-brutal {
+    min-height: 48px;
+    padding: 16px 24px;
+  }
+
+  /* Larger touch targets for navigation */
+  nav button,
+  nav a {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  /* Remove hover effects on touch devices */
+  @media (hover: none) {
+    .card-brutal:hover {
+      transform: none;
+    }
+    
+    .btn-brutal:hover {
+      transform: none;
+    }
+  }
+
+  /* Active states for touch feedback */
+  .btn-brutal:active {
+    transform: scale(0.95);
+  }
+
+  .card-brutal:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 80px; /* Account for fixed nav */
+  }
+  
+  /* Ensure first section has proper top padding */
+  #top {
+    padding-top: 64px; /* Height of mobile nav */
+  }
+}
+
+/* ===========================
    FOCUS STATES & ACCESSIBILITY
    =========================== */
 

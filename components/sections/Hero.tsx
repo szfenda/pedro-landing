@@ -15,10 +15,10 @@ export default function Hero() {
     }
 
     return (
-        <section id="top" className="relative h-screen flex">
+        <section id="top" className="relative h-screen flex flex-col md:flex-row">
             {/* Left Half - Text + CTA */}
             <div
-                className="relative w-full md:w-1/2 flex items-center justify-center px-8 md:px-16"
+                className="relative w-full md:w-1/2 flex items-center justify-center px-8 md:px-16 py-8 md:py-0"
                 style={{
                     backgroundImage: `url(${backgrounds.heroLeft})`,
                     backgroundSize: 'cover',
@@ -26,9 +26,9 @@ export default function Hero() {
                     backgroundRepeat: 'no-repeat',
                 }}
             >
-                <div className="max-w-2xl">
+                <div className="max-w-2xl text-center md:text-left">
                     {/* Headline - 4 lines as specified */}
-                    <h1 className="font-headline text-hero text-white leading-none tracking-tight text-poster-shadow mb-12">
+                    <h1 className="font-headline text-hero text-white leading-none tracking-tight text-poster-shadow mb-8 md:mb-12">
                         PEDRO NIE<br />
                         PRZEPŁACA.<br />
                         PEDRO POLUJE<br />
@@ -36,7 +36,7 @@ export default function Hero() {
                     </h1>
 
                     {/* Store Badges */}
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                         {/* App Store Badge */}
                         <a
                             href="#"
@@ -75,7 +75,7 @@ export default function Hero() {
             {/* Divider */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-pedro-dark z-10" />
 
-            {/* Right Half - Visual */}
+            {/* Right Half - Visual (Desktop) */}
             <div
                 className="hidden md:flex relative w-1/2 items-center justify-center px-16"
                 style={{
@@ -106,6 +106,39 @@ export default function Hero() {
                 <div className="absolute top-20 left-20 w-16 h-16 bg-pedro-lime rounded-full opacity-60 animate-float" style={{ animationDelay: '0.5s' }} />
                 <div className="absolute top-40 right-20 w-12 h-12 bg-pedro-pink rounded-full opacity-60 animate-float" style={{ animationDelay: '1s' }} />
                 <div className="absolute bottom-40 left-32 w-10 h-10 bg-pedro-purple rounded-full opacity-60 animate-float" style={{ animationDelay: '1.5s' }} />
+            </div>
+
+            {/* Mobile Visual - Bottom Half */}
+            <div
+                className="md:hidden relative flex-1 flex items-center justify-center px-8 py-8"
+                style={{
+                    backgroundImage: `url(${backgrounds.heroRight})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                }}
+            >
+                {/* Mobile Mascot - Smaller and Centered */}
+                <div className="relative">
+                    <div
+                        className="pedro-mascot-bg animate-float will-animate"
+                        style={{
+                            backgroundImage: `url(${mascots.raccoonPhone})`,
+                            width: '280px',
+                            height: '350px',
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center'
+                        }}
+                        role="img"
+                        aria-label="Pedro mascot with phone"
+                    />
+                </div>
+
+                {/* Mobile Floating Particles - Fewer and Smaller */}
+                <div className="absolute top-10 left-10 w-8 h-8 bg-pedro-lime rounded-full opacity-60 animate-float" style={{ animationDelay: '0.5s' }} />
+                <div className="absolute top-20 right-10 w-6 h-6 bg-pedro-pink rounded-full opacity-60 animate-float" style={{ animationDelay: '1s' }} />
+                <div className="absolute bottom-20 left-16 w-5 h-5 bg-pedro-purple rounded-full opacity-60 animate-float" style={{ animationDelay: '1.5s' }} />
             </div>
 
             {/* Scroll Indicator */}

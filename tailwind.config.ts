@@ -79,7 +79,8 @@ const config: Config = {
         'container': '1200px',
       },
       spacing: {
-        'section': 'clamp(4rem, 8vw, 7.5rem)',
+        'section': 'clamp(3rem, 6vw, 7.5rem)',
+        'section-sm': 'clamp(2rem, 4vw, 4rem)',
       },
     },
   },

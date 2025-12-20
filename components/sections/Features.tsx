@@ -9,7 +9,7 @@ export default function Features() {
     return (
         <section id="funkcje" className="relative bg-pedro-light py-section overflow-hidden">
             {/* Background Doodles */}
-            <div className="absolute inset-0 pointer-events-none opacity-20">
+            <div className="absolute inset-0 pointer-events-none opacity-20 hidden md:block">
                 <img
                     src={categoryIcons.pizza}
                     alt=""
