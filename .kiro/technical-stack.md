@@ -1,47 +1,99 @@
 # Technical Stack & Configuration
 
 ## Core Technologies
-- **Next.js:** 15.1.2 (App Router)
+- **Next.js:** 15.1.2 (App Router with SSR/SSG)
 - **React:** 19.0.0
 - **TypeScript:** 5.7.2
 - **Tailwind CSS:** 3.4.17
 - **Framer Motion:** 11.15.0
+
+## Authentication & Database
+- **Firebase:** 10.14.1 (Auth + Firestore)
+- **Firebase Admin:** 12.7.0 (Server-side operations)
+
+## Forms & Validation
+- **React Hook Form:** 7.53.2 (Form state management)
+- **Zod:** 3.24.1 (Schema validation)
+- **@hookform/resolvers:** 3.10.0 (RHF + Zod integration)
+
+## Payments
+- **Stripe:** 17.3.0 (Server-side)
+- **@stripe/stripe-js:** 4.8.0 (Client-side)
 
 ## Key Dependencies
 ```json
 {
   "clsx": "^2.1.1",
   "tailwind-merge": "^2.6.0",
-  "sharp": "^0.34.5"
+  "sharp": "^0.34.5",
+  "lucide-react": "^0.468.0"
 }
 ```
 
 ## Project Structure
 ```
 ├── app/
-│   ├── layout.tsx          # Root layout with fonts
-│   ├── page.tsx           # Main page assembling all sections
-│   ├── globals.css        # Neo-brutalism design system
-│   └── fonts.ts           # Google Fonts configuration
+│   ├── (public)/           # Public routes (landing + auth)
+│   │   ├── page.tsx       # Landing page
+│   │   └── auth/page.tsx  # Authentication page
+│   ├── (protected)/       # Protected routes (requires auth)
+│   │   ├── resolver/page.tsx      # Auth state resolver
+│   │   ├── no-business/page.tsx   # No business registered
+│   │   ├── register-business/page.tsx # Business registration
+│   │   ├── billing/page.tsx       # Stripe billing management
+│   │   └── dashboard/page.tsx     # Business dashboard
+│   ├── api/               # API routes
+│   │   └── stripe/        # Stripe integration endpoints
+│   │       ├── create-checkout-session/route.ts
+│   │       ├── webhook/route.ts
+│   │       └── create-portal-session/route.ts
+│   ├── layout.tsx         # Root layout with fonts & auth provider
+│   ├── page.tsx          # Root redirect to (public)
+│   ├── globals.css       # Neo-brutalism design system
+│   └── fonts.ts          # Google Fonts configuration
 ├── components/
+│   ├── auth/             # Authentication components
+│   │   ├── AuthShell.tsx
+│   │   ├── AuthCard.tsx
+│   │   ├── LoginTab.tsx
+│   │   ├── RegisterTab.tsx
+│   │   └── ResetPasswordTab.tsx
+│   ├── business/         # Business management components
+│   │   ├── BusinessForm.tsx
+│   │   ├── BusinessFormSection.tsx
+│   │   └── BillingCard.tsx
+│   ├── ui/              # Brutal design system
+│   │   ├── BrutalButton.tsx
+│   │   ├── BrutalInput.tsx
+│   │   ├── BrutalTabs.tsx
+│   │   ├── BrutalAlert.tsx
+│   │   ├── BrutalCard.tsx
+│   │   └── ProgressIndicator.tsx
 │   ├── layout/
-│   │   ├── Navigation.tsx  # Fixed nav with smooth scroll
-│   │   └── Footer.tsx     # Dark footer with Pedro Peeking
-│   └── sections/
-│       ├── Hero.tsx       # 100vh split with backgrounds
-│       ├── About.tsx      # 2-column with Pedro Thumbs Up
-│       ├── Features.tsx   # 3 cards with scan line animation
-│       ├── B2B.tsx        # Lime background with orbiting icons
-│       ├── SocialProof.tsx # Future testimonials + dream partners (UPDATED)
-│       ├── FAQ.tsx        # Brutal accordion
-│       ├── Download.tsx   # Store badges repeat
-│       └── Contact.tsx    # Form with brutal inputs
+│   │   ├── Navigation.tsx     # Main nav with auth state
+│   │   ├── AuthNavigation.tsx # Auth-specific nav
+│   │   └── Footer.tsx         # Dark footer with Pedro Peeking
+│   └── sections/         # Landing page sections
+│       ├── Hero.tsx      # 100vh split with backgrounds
+│       ├── About.tsx     # 2-column with Pedro Thumbs Up
+│       ├── Features.tsx  # 3 cards with scan line animation
+│       ├── B2B.tsx       # Lime background with orbiting icons
+│       ├── SocialProof.tsx # Future testimonials + dream partners
+│       ├── FAQ.tsx       # Brutal accordion
+│       ├── Download.tsx  # Store badges repeat
+│       └── Contact.tsx   # Form with brutal inputs
 ├── lib/
-│   ├── assets.ts          # Type-safe asset paths
-│   └── utils.ts           # Utilities (cn, smoothScrollTo)
+│   ├── firebase.ts       # Firebase client configuration
+│   ├── firebase-admin.ts # Firebase admin (server-side)
+│   ├── stripe.ts         # Stripe client configuration
+│   ├── auth-context.tsx  # React auth context provider
+│   ├── validations.ts    # Zod schemas for forms
+│   ├── assets.ts         # Type-safe asset paths
+│   └── utils.ts          # Utilities (cn, smoothScrollTo)
+├── middleware.ts         # Route protection middleware
 ├── styles/
-│   └── animations.css     # Advanced component animations
-└── public/assets/         # Organized asset structure
+│   └── animations.css    # Advanced component animations
+└── public/assets/        # Organized asset structure
 ```
 
 ## Tailwind Configuration
@@ -95,15 +147,40 @@
 
 ## Build Configuration
 **next.config.js:**
-- Static export: `output: 'export'`
-- Image optimization: `unoptimized: true` (Firebase compatible)
+- Static export: `output: 'export'` (Firebase Hosting compatible)
+- Image optimization: `unoptimized: true` (static export requirement)
 - Trailing slash: `true` (SPA routing)
 - ESLint ignore during builds
+
+**Environment Variables:**
+```bash
+# Firebase Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+
+# Firebase Admin (Server-side)
+FIREBASE_PROJECT_ID=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_PRIVATE_KEY=
+
+# Stripe Configuration
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+```
 
 **Firebase Hosting:**
 - Public directory: `out`
 - Cache headers for static assets
 - SPA rewrites configuration
+- Project: pedro-bolt-app
+
+**API Routes Note:**
+API routes are created but require Firebase Functions for production deployment. Currently they serve as placeholders for the static export build.
 
 ## Development Commands
 ```bash

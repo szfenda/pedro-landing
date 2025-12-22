@@ -3,10 +3,28 @@
 ## Component Organization
 ```
 components/
+├── auth/                  # Authentication components
+│   ├── AuthShell.tsx      # Auth page layout wrapper
+│   ├── AuthCard.tsx       # Main auth card with tabs
+│   ├── LoginTab.tsx       # Login form with validation
+│   ├── RegisterTab.tsx    # Registration form
+│   └── ResetPasswordTab.tsx # Password reset form
+├── business/              # Business management components
+│   ├── BusinessForm.tsx   # 4-section business registration
+│   ├── BusinessFormSection.tsx # Individual form sections
+│   └── BillingCard.tsx    # Stripe billing management
+├── ui/                    # Brutal design system
+│   ├── BrutalButton.tsx   # Styled buttons with variants
+│   ├── BrutalInput.tsx    # Form inputs with validation
+│   ├── BrutalTabs.tsx     # Tab navigation component
+│   ├── BrutalAlert.tsx    # Alert/notification component
+│   ├── BrutalCard.tsx     # Card container component
+│   └── ProgressIndicator.tsx # Multi-step progress bar
 ├── layout/
-│   ├── Navigation.tsx     # Fixed top nav with smooth scroll
+│   ├── Navigation.tsx     # Fixed top nav with auth state
+│   ├── AuthNavigation.tsx # Auth-specific navigation
 │   └── Footer.tsx         # Dark footer with Pedro Peeking
-└── sections/
+└── sections/              # Landing page sections
     ├── Hero.tsx           # 100vh split layout (CRITICAL: 1:1 design)
     ├── About.tsx          # 2-column with Pedro Thumbs Up
     ├── Features.tsx       # 3 cards with animations (CRITICAL: 1:1 design)
@@ -17,7 +35,201 @@ components/
     └── Contact.tsx        # Form with brutal inputs
 ```
 
-## Critical Components (Must Match Design 1:1)
+## Auth System Components (NEW)
+
+### AuthShell.tsx
+**Purpose:** Layout wrapper for authentication pages
+- Minimal navigation with logo and back button
+- Centered content area with proper spacing
+- Responsive design for mobile/desktop
+
+### AuthCard.tsx
+**Features:**
+- Tab-based interface (Login, Register, Reset Password)
+- Brutal design system styling
+- Form state management with React Hook Form
+- Real-time validation feedback
+- Loading states and error handling
+
+**Tab Structure:**
+```tsx
+<BrutalTabs defaultValue="login">
+  <LoginTab />
+  <RegisterTab />
+  <ResetPasswordTab />
+</BrutalTabs>
+```
+
+### LoginTab.tsx
+**Form Fields:**
+- Email with validation
+- Password with show/hide toggle
+- Remember me checkbox
+- Submit with loading state
+
+**Validation:**
+```typescript
+const schema = z.object({
+  email: z.string().email('Nieprawidłowy email'),
+  password: z.string().min(6, 'Hasło musi mieć min. 6 znaków'),
+})
+```
+
+### RegisterTab.tsx
+**Form Fields:**
+- Email, password, confirm password
+- Terms acceptance checkbox
+- Real-time password strength indicator
+- Firebase Auth integration
+
+### ResetPasswordTab.tsx
+**Features:**
+- Email input with validation
+- Firebase password reset integration
+- Success/error state handling
+- Return to login flow
+
+## Business Management Components (NEW)
+
+### BusinessForm.tsx
+**Structure:** 4-section progressive form
+1. **Company Data:** Name, NIP, industry
+2. **Address:** Street, city, postal code
+3. **Contact:** Phone, email, website
+4. **Description:** Business description, services
+
+**Features:**
+- Section-by-section validation
+- Progress indicator
+- Save draft functionality
+- Firestore integration
+
+### BusinessFormSection.tsx
+**Props Interface:**
+```typescript
+interface BusinessFormSectionProps {
+  title: string
+  description: string
+  children: React.ReactNode
+  isActive: boolean
+  isCompleted: boolean
+  onNext: () => void
+  onPrevious: () => void
+}
+```
+
+### BillingCard.tsx
+**Features:**
+- Current plan display
+- Usage statistics
+- Stripe Checkout integration
+- Customer Portal access
+- Payment method management
+
+**Stripe Integration:**
+```typescript
+const handleCheckout = async () => {
+  const response = await fetch('/api/stripe/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ priceId: 'price_xxx' })
+  })
+}
+```
+
+## Brutal UI System Components (NEW)
+
+### BrutalButton.tsx
+**Variants:**
+- `default`: White background, black border
+- `purple`: Purple background, white text
+- `lime`: Lime background, black text
+- `outline`: Transparent background, colored border
+
+**Features:**
+- Hard shadow effects
+- Hover animations
+- Loading states
+- Icon support
+
+### BrutalInput.tsx
+**Features:**
+- Consistent brutal styling
+- Validation state indicators
+- Error message display
+- Label and placeholder support
+- Password visibility toggle
+
+### BrutalTabs.tsx
+**Implementation:**
+```tsx
+<div className="brutal-tabs">
+  <div className="tab-list">
+    {tabs.map(tab => (
+      <button className={`tab ${active ? 'active' : ''}`}>
+        {tab.label}
+      </button>
+    ))}
+  </div>
+  <div className="tab-content">
+    {activeContent}
+  </div>
+</div>
+```
+
+### BrutalAlert.tsx
+**Types:**
+- `success`: Green background, checkmark icon
+- `error`: Red background, X icon
+- `warning`: Yellow background, warning icon
+- `info`: Blue background, info icon
+
+### ProgressIndicator.tsx
+**Features:**
+- Multi-step progress visualization
+- Completed/current/upcoming states
+- Responsive design
+- Smooth transitions
+
+**Usage:**
+```tsx
+<ProgressIndicator 
+  steps={['Company', 'Address', 'Contact', 'Description']}
+  currentStep={2}
+  completedSteps={[0, 1]}
+/>
+```
+
+## Updated Navigation Components
+
+### Navigation.tsx (UPDATED)
+**New Features:**
+- Auth state awareness
+- Dynamic login/dashboard button
+- User menu dropdown (when logged in)
+- Logout functionality
+
+**Auth Integration:**
+```tsx
+const { user } = useAuth()
+
+const handleAuthClick = () => {
+  if (user) {
+    router.push('/dashboard')
+  } else {
+    router.push('/auth')
+  }
+}
+```
+
+### AuthNavigation.tsx (NEW)
+**Purpose:** Simplified navigation for auth pages
+- Logo only
+- Back to home button
+- Minimal design to focus on auth flow
+
+## Critical Landing Page Components (Must Match Design 1:1)
+## Critical Landing Page Components (Must Match Design 1:1)
 
 ### Hero.tsx ✅ TRANSPARENCY FIXED
 **Layout:** 100vh height, 50/50 split
