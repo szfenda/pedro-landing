@@ -248,10 +248,10 @@ export const db = getFirestore(app)
 - [x] **CTA**: "Pobierz aplikację" (placeholder) + "Dodaj biznes" → `/register-business`
 - [x] **User info badge** z emailem + wyloguj
 
-### FAZA 6: BUSINESS REGISTRATION (3-4 dni)
+### FAZA 6: BUSINESS REGISTRATION (3-4 dni) ✅ COMPLETED
 **Cel:** Kompleksowy formularz rejestracji biznesu
 
-#### 6.1 BusinessForm Structure
+#### 6.1 BusinessForm Structure ✅
 ```typescript
 // Sekcje:
 // 1. Dane firmy: companyName, nip, businessType
@@ -260,13 +260,13 @@ export const db = getFirestore(app)
 // 4. Opis: description (textarea)
 ```
 
-#### 6.2 Form Implementation
-- [ ] **Brutal fieldsets** dla każdej sekcji
-- [ ] **Progressive validation** (sekcja po sekcji)
-- [ ] **Auto-save draft** (opcjonalnie)
-- [ ] **Rich validation** (NIP format, email, phone)
+#### 6.2 Form Implementation ✅
+- [x] **Brutal fieldsets** dla każdej sekcji
+- [x] **Progressive validation** (sekcja po sekcji)
+- [x] **Auto-save draft** (opcjonalnie)
+- [x] **Rich validation** (NIP format, email, phone)
 
-#### 6.3 Form Logic
+#### 6.3 Form Logic ✅
 ```typescript
 // Po submit:
 // 1. Validate all fields
@@ -275,27 +275,27 @@ export const db = getFirestore(app)
 // 4. Redirect to /billing
 ```
 
-#### 6.4 UX Enhancements
-- [ ] **Progress indicator** (4 sekcje)
-- [ ] **Field helpers** (format examples)
-- [ ] **Error aggregation** (summary na górze)
-- [ ] **Mobile optimization** (responsive fieldsets)
+#### 6.4 UX Enhancements ✅
+- [x] **Progress indicator** (4 sekcje)
+- [x] **Field helpers** (format examples)
+- [x] **Error aggregation** (summary na górze)
+- [x] **Mobile optimization** (responsive fieldsets)
 
-### FAZA 7: STRIPE INTEGRATION & BILLING (4-5 dni)
+### FAZA 7: STRIPE INTEGRATION & BILLING (4-5 dni) ✅ COMPLETED
 **Cel:** Integracja z Stripe dla PPU model
 
-#### 7.1 Stripe Setup
-- [ ] **Zainstalować** Stripe SDK (`stripe`, `@stripe/stripe-js`)
-- [ ] **Skonfigurować** Stripe keys (env variables)
-- [ ] **Utworzyć** API routes dla Stripe webhooks
+#### 7.1 Stripe Setup ✅
+- [x] **Zainstalować** Stripe SDK (`stripe`, `@stripe/stripe-js`)
+- [x] **Skonfigurować** Stripe keys (env variables)
+- [x] **Utworzyć** API routes dla Stripe webhooks
 
-#### 7.2 BillingView Implementation
-- [ ] **Status konta card** (currentPhase, ppuEnabled)
-- [ ] **Wybór modelu card** (Beta free vs PPU)
-- [ ] **CTA**: "Aktywuj PPU" → Stripe Checkout
-- [ ] **Info message**: "Panel webowy służy wyłącznie do rozliczeń"
+#### 7.2 BillingView Implementation ✅
+- [x] **Status konta card** (currentPhase, ppuEnabled)
+- [x] **Wybór modelu card** (Beta free vs PPU)
+- [x] **CTA**: "Aktywuj PPU" → Stripe Checkout
+- [x] **Info message**: "Panel webowy służy wyłącznie do rozliczeń"
 
-#### 7.3 Stripe Checkout Integration
+#### 7.3 Stripe Checkout Integration ✅
 ```typescript
 // api/stripe/create-checkout-session.ts
 // 1. Create Stripe customer (if not exists)
@@ -303,7 +303,7 @@ export const db = getFirestore(app)
 // 3. Return session URL
 ```
 
-#### 7.4 Webhook Handling
+#### 7.4 Webhook Handling ✅
 ```typescript
 // api/stripe/webhook.ts
 // Handle events:
@@ -313,27 +313,27 @@ export const db = getFirestore(app)
 // Update PARTNER document accordingly
 ```
 
-#### 7.5 Customer Portal
-- [ ] **"Zarządzaj płatnością"** button → Stripe Customer Portal
-- [ ] **Billing history** (jeśli dostępne w Stripe)
+#### 7.5 Customer Portal ✅
+- [x] **"Zarządzaj płatnością"** button → Stripe Customer Portal
+- [x] **Billing history** (jeśli dostępne w Stripe)
 
-### FAZA 8: BUSINESS DASHBOARD MVP (2-3 dni)
+### FAZA 8: BUSINESS DASHBOARD MVP (2-3 dni) ✅ COMPLETED
 **Cel:** Podstawowy dashboard dla biznesów
 
-#### 8.1 Dashboard Cards
-- [ ] **Status biznesu**: companyName, verificationStatus, isActive
-- [ ] **Rozliczenia**: currentPhase, ppuEnabled, monthlyUsage
-- [ ] **Zarządzanie ofertami**: info + link do aplikacji
+#### 8.1 Dashboard Cards ✅
+- [x] **Status biznesu**: companyName, verificationStatus, isActive
+- [x] **Rozliczenia**: currentPhase, ppuEnabled, monthlyUsage
+- [x] **Zarządzanie ofertami**: info + link do aplikacji
 
-#### 8.2 Data Integration
-- [ ] **Real-time Firestore** listeners dla PARTNER data
-- [ ] **Usage statistics** z monthlyUsage
-- [ ] **Billing integration** z Stripe data
+#### 8.2 Data Integration ✅
+- [x] **Real-time Firestore** listeners dla PARTNER data
+- [x] **Usage statistics** z monthlyUsage
+- [x] **Billing integration** z Stripe data
 
-#### 8.3 Actions
-- [ ] **"Pobierz fakturę"** (placeholder lub Stripe integration)
-- [ ] **"Zarządzaj płatnością"** → Stripe Portal
-- [ ] **"Przejdź do aplikacji"** (placeholder link)
+#### 8.3 Actions ✅
+- [x] **"Pobierz fakturę"** (placeholder lub Stripe integration)
+- [x] **"Zarządzaj płatnością"** → Stripe Portal
+- [x] **"Przejdź do aplikacji"** (placeholder link)
 
 ### FAZA 9: TESTING & DEPLOYMENT (3-4 dni)
 **Cel:** Testy, optymalizacja i wdrożenie
