@@ -1,10 +1,9 @@
 # PEDRO Web Application - Project Overview
 
-## Current Status: ✅ PRODUCTION READY WEB APPLICATION
+## Current Status: ✅ PRODUCTION READY DYNAMIC WEB APPLICATION
 
-**Live Application:** https://pedro-bolt-app.web.app  
 **Project Type:** Full-stack Next.js web application with authentication and business management  
-**Architecture:** Static export with Firebase backend integration  
+**Architecture:** Dynamic Next.js with Firebase backend integration and Firebase Functions deployment  
 
 ## Application Overview
 
@@ -20,7 +19,7 @@ PEDRO is a complete web application that combines a marketing landing page with 
 ## Technical Architecture
 
 ### Frontend Stack
-- **Next.js 15.1.2** with App Router (static export for Firebase Hosting)
+- **Next.js 15.1.2** with App Router (dynamic with SSR/SSG)
 - **React 19.0.0** with TypeScript for type safety
 - **Tailwind CSS** with custom brutal design system
 - **Framer Motion** for animations and interactions
@@ -29,7 +28,8 @@ PEDRO is a complete web application that combines a marketing landing page with 
 - **Firebase Auth** for user authentication and session management
 - **Firestore** for business data storage with real-time updates
 - **Stripe** for subscription billing and payment processing
-- **Firebase Hosting** for static site deployment
+- **Firebase Functions** for API routes and server-side logic
+- **Firebase Hosting** for dynamic site deployment
 
 ### Route Structure
 ```

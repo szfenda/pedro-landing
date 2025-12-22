@@ -147,10 +147,15 @@
 
 ## Build Configuration
 **next.config.js:**
-- Static export: `output: 'export'` (Firebase Hosting compatible)
-- Image optimization: `unoptimized: true` (static export requirement)
-- Trailing slash: `true` (SPA routing)
+- Dynamic Next.js: Full SSR/SSG capabilities enabled
+- Image optimization: Enabled for better performance
+- Trailing slash: `true` (SPA routing compatibility)
 - ESLint ignore during builds
+
+**Firebase Configuration:**
+- Hosting: Configured for Firebase Functions integration
+- Functions: Node.js 18 runtime with Next.js server
+- Rewrites: API routes and pages served through Functions
 
 **Environment Variables:**
 ```bash
@@ -173,23 +178,25 @@ STRIPE_SECRET_KEY=
 STRIPE_WEBHOOK_SECRET=
 ```
 
-**Firebase Hosting:**
-- Public directory: `out`
-- Cache headers for static assets
-- SPA rewrites configuration
+**Firebase Deployment:**
+- Functions: Next.js server running on Firebase Functions
+- Hosting: Static assets and routing through Functions
 - Project: pedro-bolt-app
 
-**API Routes Note:**
-API routes are created but require Firebase Functions for production deployment. Currently they serve as placeholders for the static export build.
+**API Routes:**
+API routes are fully functional with Firebase Functions deployment, providing server-side authentication and Stripe integration.
 
 ## Development Commands
 ```bash
 npm run dev    # Development server
-npm run build  # Production build + static export
+npm run build  # Production build for Firebase Functions
 npm run start  # Production server
 npm run lint   # ESLint check
 
 # Firebase commands
-firebase serve --only hosting  # Local Firebase server
-firebase deploy --only hosting # Deploy to production
+npm run build:functions        # Build Firebase Functions
+npm run deploy                 # Full deployment (hosting + functions)
+npm run deploy:hosting         # Deploy hosting only
+npm run deploy:functions       # Deploy functions only
+firebase serve --only hosting,functions  # Local Firebase server
 ```

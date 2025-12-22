@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "out",
+    "public": ".next/static",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -8,8 +8,12 @@
     ],
     "rewrites": [
       {
+        "source": "/api/**",
+        "function": "nextjsFunc"
+      },
+      {
         "source": "**",
-        "destination": "/index.html"
+        "function": "nextjsFunc"
       }
     ],
     "headers": [
@@ -32,6 +36,10 @@
         ]
       }
     ]
+  },
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs18"
   },
   "firestore": {
     "rules": "firestore.rules",
