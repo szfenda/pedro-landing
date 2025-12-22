@@ -1,12 +1,15 @@
 'use client'
 
-import Image from 'next/image'
 import { useState } from 'react'
 import { logos } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
+import { useAuth } from '@/lib/auth-context'
+import { useRouter } from 'next/navigation'
 
 export default function Navigation() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const { user } = useAuth()
+    const router = useRouter()
 
     const navLinks = [
         { label: 'O nas', href: 'o-nas' },
@@ -14,6 +17,14 @@ export default function Navigation() {
         { label: 'Pobierz', href: 'pobierz' },
         { label: 'Kontakt', href: 'kontakt' },
     ]
+
+    const handleLoginClick = () => {
+        if (user) {
+            router.push('/resolver')
+        } else {
+            router.push('/auth')
+        }
+    }
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 h-16 md:h-20 bg-gradient-to-b from-black/20 via-black/10 to-transparent backdrop-blur-md border-b border-white/20">
@@ -50,8 +61,11 @@ export default function Navigation() {
 
                 {/* Login Button */}
                 <div className="hidden md:block">
-                    <button className="btn-brutal btn-brutal-purple px-6 py-3 text-sm hover:-translate-y-1 hover:shadow-brutal-lime transition-all duration-300">
-                        Log in
+                    <button 
+                        onClick={handleLoginClick}
+                        className="btn-brutal btn-brutal-purple px-6 py-3 text-sm hover:-translate-y-1 hover:shadow-brutal-lime transition-all duration-300"
+                    >
+                        {user ? 'Panel' : 'Log in'}
                     </button>
                 </div>
 
@@ -81,8 +95,11 @@ export default function Navigation() {
                                 {link.label}
                             </button>
                         ))}
-                        <button className="btn-brutal btn-brutal-purple w-full mt-4">
-                            Log in
+                        <button 
+                            onClick={handleLoginClick}
+                            className="btn-brutal btn-brutal-purple w-full mt-4"
+                        >
+                            {user ? 'Panel' : 'Log in'}
                         </button>
                     </div>
                 </div>

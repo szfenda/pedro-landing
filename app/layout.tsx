@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { delaGothicOne, inter } from './fonts'
+import { AuthProvider } from '@/lib/auth-context'
 import './globals.css'
 import '../styles/animations.css'
 
@@ -26,7 +27,11 @@ export default function RootLayout({
 }) {
     return (
         <html lang="pl" className={`${delaGothicOne.variable} ${inter.variable}`}>
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                <AuthProvider>
+                    {children}
+                </AuthProvider>
+            </body>
         </html>
     )
 }

@@ -41,8 +41,12 @@ const config: Config = {
         'brutal-purple': '10px 10px 0 #6C5CE7',
         'brutal-lime': '10px 10px 0 #CCFF00',
         'brutal-dark': '10px 10px 0 #2D3436',
+        'brutal-pink': '10px 10px 0 #FF7675',
         'brutal-sm-purple': '6px 6px 0 #6C5CE7',
         'brutal-sm-lime': '6px 6px 0 #CCFF00',
+        'brutal-sm-dark': '6px 6px 0 #2D3436',
+        'brutal-sm-pink': '6px 6px 0 #FF7675',
+        'brutal-sm-yellow': '6px 6px 0 #FDD835',
         'brutal-lg-purple': '12px 12px 0 #6C5CE7',
         'brutal-lg-lime': '12px 12px 0 #CCFF00',
       },
@@ -81,6 +85,9 @@ const config: Config = {
       spacing: {
         'section': 'clamp(3rem, 6vw, 7.5rem)',
         'section-sm': 'clamp(2rem, 4vw, 4rem)',
+      },
+      scale: {
+        '98': '0.98',
       },
     },
   },
