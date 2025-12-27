@@ -216,6 +216,28 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 10px 10px 0 var(--color-purple);
 }
 
+.btn-brutal-outline {
+  background-color: transparent;
+  color: var(--color-dark);
+  border: var(--border-width) solid var(--color-dark);
+  box-shadow: 10px 10px 0 var(--color-dark);
+}
+
+.btn-brutal-outline:hover {
+  box-shadow: 10px 10px 0 var(--color-lime);
+}
+
+.btn-brutal-outline-white {
+  background-color: white;
+  color: var(--color-dark);
+  border: var(--border-width) solid var(--color-dark);
+  box-shadow: 10px 10px 0 var(--color-dark);
+}
+
+.btn-brutal-outline-white:hover {
+  box-shadow: 10px 10px 0 var(--color-lime);
+}
+
 /* ===========================
    CARD STYLES
    =========================== */
