@@ -1,13 +1,14 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // USER collection - users can only read/write their own document
-    match /USER/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+    // users collection - users can only read/write their own document
+    match /users/{userId} {
+      allow read, write: if request.auth != null && 
+        request.auth.uid == userId;
     }
     
-    // PARTNER collection - users can only read/write partners they created
-    match /PARTNER/{partnerId} {
+    // partners collection - users can only read/write partners they created
+    match /partners/{partnerId} {
       allow read, write: if request.auth != null && 
         request.auth.uid == resource.data.userId;
       allow create: if request.auth != null && 

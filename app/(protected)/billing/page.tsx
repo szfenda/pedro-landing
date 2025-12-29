@@ -46,7 +46,7 @@ function BillingContent() {
       try {
         // Find partner for this user
         const partnersQuery = query(
-          collection(db, 'PARTNER'),
+          collection(db, 'partners'),
           where('userId', '==', user.uid)
         )
         const partnersSnapshot = await getDocs(partnersQuery)

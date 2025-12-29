@@ -31,7 +31,7 @@ export default function DashboardPage() {
       try {
         // Find partner for this user
         const partnersQuery = query(
-          collection(db, 'PARTNER'),
+          collection(db, 'partners'),
           where('userId', '==', user.uid)
         )
         const partnersSnapshot = await getDocs(partnersQuery)
@@ -51,7 +51,7 @@ export default function DashboardPage() {
         setPartner(partnerData)
 
         // Set up real-time listener for partner updates
-        const unsubscribe = onSnapshot(doc(db, 'PARTNER', partnerDoc.id), (doc) => {
+        const unsubscribe = onSnapshot(doc(db, 'partners', partnerDoc.id), (doc) => {
           if (doc.exists()) {
             setPartner({
               id: doc.id,

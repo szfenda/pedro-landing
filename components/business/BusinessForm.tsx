@@ -95,7 +95,7 @@ export default function BusinessForm({
       // Create PARTNER document
       const partnerId = `partner_${user.uid}_${Date.now()}`
       
-      await setDoc(doc(db, 'PARTNER', partnerId), {
+      await setDoc(doc(db, 'partners', partnerId), {
         id: partnerId,
         createdBy: user.uid,
         userId: user.uid,

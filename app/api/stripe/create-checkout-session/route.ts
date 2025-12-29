@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get partner document
-    const partnerDoc = await adminDb.collection('PARTNER').doc(partnerId).get()
+    const partnerDoc = await adminDb.collection('partners').doc(partnerId).get()
     
     if (!partnerDoc.exists) {
       return NextResponse.json({ error: 'Partner not found' }, { status: 404 })
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
       customerId = customer.id
 
       // Update partner document with customer ID
-      await adminDb.collection('PARTNER').doc(partnerId).update({
+      await adminDb.collection('partners').doc(partnerId).update({
         'billing.stripeCustomerId': customerId,
       })
     }

@@ -3,13 +3,14 @@
 import { useAuth } from '@/lib/auth-context'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { doc, getDoc, query, where, collection, getDocs } from 'firebase/firestore'
+import { doc, getDoc, query, where, collection, getDocs, setDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 
 export default function ResolverPage() {
   const { user, loading } = useAuth()
   const router = useRouter()
   const [checking, setChecking] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (loading) return
@@ -21,19 +22,32 @@ export default function ResolverPage() {
 
     const checkUserBusiness = async () => {
       try {
-        // Check if USER document exists
-        const userDoc = await getDoc(doc(db, 'USER', user.uid))
+        // Check if users document exists
+        let userDoc = await getDoc(doc(db, 'users', user.uid))
         
+        // If user document doesn't exist, create it automatically
         if (!userDoc.exists()) {
-          console.error('USER document not found for uid:', user.uid)
-          // Could create USER document here or redirect to error page
-          router.push('/auth')
-          return
+          console.log('Creating users document for uid:', user.uid)
+          try {
+            await setDoc(doc(db, 'users', user.uid), {
+              id: user.uid,
+              email: user.email || '',
+              displayName: user.displayName || '',
+              userType: 'customer',
+              emailVerified: user.emailVerified || false,
+              createdAt: new Date(),
+            })
+            console.log('Users document created successfully')
+          } catch (createError) {
+            console.error('Error creating users document:', createError)
+            router.push('/auth')
+            return
+          }
         }
 
-        // Check if PARTNER exists for this user
+        // Check if partners exists for this user
         const partnersQuery = query(
-          collection(db, 'PARTNER'),
+          collection(db, 'partners'),
           where('userId', '==', user.uid)
         )
         const partnersSnapshot = await getDocs(partnersQuery)
@@ -47,8 +61,11 @@ export default function ResolverPage() {
         }
       } catch (error) {
         console.error('Error checking user business:', error)
-        // In case of error, redirect to no-business as safe fallback
-        router.push('/no-business')
+        setError('Wystąpił błąd podczas sprawdzania konta. Spróbuj ponownie.')
+        // In case of error, redirect to no-business as safe fallback after delay
+        setTimeout(() => {
+          router.push('/no-business')
+        }, 3000)
       } finally {
         setChecking(false)
       }
@@ -68,6 +85,11 @@ export default function ResolverPage() {
           <p className="text-gray-600">
             Przekierowujemy Cię do odpowiedniego panelu
           </p>
+          {error && (
+            <div className="mt-4 p-4 bg-red-100 border-2 border-red-300 rounded-card max-w-md mx-auto">
+              <p className="text-red-700 text-sm">{error}</p>
+            </div>
+          )}
         </div>
       </div>
     )

@@ -58,7 +58,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
     
     // Find partner by customer ID
     const partnersQuery = await adminDb
-      .collection('PARTNER')
+      .collection('partners')
       .where('billing.stripeCustomerId', '==', customerId)
       .get()
 
@@ -71,7 +71,7 @@ async function handleSubscriptionChange(subscription: Stripe.Subscription) {
     const partnerId = partnerDoc.id
 
     // Update partner document
-    await adminDb.collection('PARTNER').doc(partnerId).update({
+    await adminDb.collection('partners').doc(partnerId).update({
       'businessModel.ppuEnabled': subscription.status === 'active',
       'businessModel.ppuActivatedAt': subscription.status === 'active' ? new Date() : null,
       'billing.subscriptionId': subscription.id,
@@ -93,7 +93,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     
     // Find partner by customer ID
     const partnersQuery = await adminDb
-      .collection('PARTNER')
+      .collection('partners')
       .where('billing.stripeCustomerId', '==', customerId)
       .get()
 
@@ -106,7 +106,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     const partnerId = partnerDoc.id
 
     // Update partner document
-    await adminDb.collection('PARTNER').doc(partnerId).update({
+    await adminDb.collection('partners').doc(partnerId).update({
       'businessModel.ppuEnabled': false,
       'businessModel.currentPhase': 'beta_free',
       'billing.subscriptionId': null,
@@ -126,7 +126,7 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
     
     // Find partner by customer ID
     const partnersQuery = await adminDb
-      .collection('PARTNER')
+      .collection('partners')
       .where('billing.stripeCustomerId', '==', customerId)
       .get()
 
@@ -142,7 +142,7 @@ async function handlePaymentSucceeded(invoice: Stripe.Invoice) {
     console.log(`Payment succeeded for partner ${partnerId}, amount: ${invoice.amount_paid}`)
 
     // You could store payment history here if needed
-    // await adminDb.collection('PARTNER').doc(partnerId).collection('payments').add({
+    // await adminDb.collection('partners').doc(partnerId).collection('payments').add({
     //   invoiceId: invoice.id,
     //   amount: invoice.amount_paid,
     //   currency: invoice.currency,
@@ -160,7 +160,7 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
     
     // Find partner by customer ID
     const partnersQuery = await adminDb
-      .collection('PARTNER')
+      .collection('partners')
       .where('billing.stripeCustomerId', '==', customerId)
       .get()
 

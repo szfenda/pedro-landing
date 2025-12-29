@@ -52,8 +52,8 @@ export default function RegisterTab({
         displayName: `${data.firstName} ${data.lastName}`,
       })
 
-      // Create USER document in Firestore
-      await setDoc(doc(db, 'USER', user.uid), {
+      // Create users document in Firestore
+      await setDoc(doc(db, 'users', user.uid), {
         id: user.uid,
         email: data.email,
         firstName: data.firstName,
