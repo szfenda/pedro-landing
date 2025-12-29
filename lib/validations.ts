@@ -21,7 +21,7 @@ export const resetPasswordSchema = z.object({
 export const businessFormSchema = z.object({
   companyName: z.string().min(2, 'Nazwa firmy musi mieć co najmniej 2 znaki'),
   nip: z.string().regex(/^\d{10}$/, 'NIP musi składać się z 10 cyfr'),
-  businessType: z.enum(['restaurant', 'retail', 'service', 'other']),
+  businessType: z.string().min(1, 'Wybierz typ biznesu'), // Changed to string to support dynamic types
   address: z.object({
     line1: z.string().min(5, 'Adres musi mieć co najmniej 5 znaków'),
     line2: z.string().optional(),

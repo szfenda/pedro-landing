@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useAuth } from '@/lib/auth-context'
+import { useSystemConfig } from '@/hooks/useSystemConfig'
 import { businessFormSchema, type BusinessFormData } from '@/lib/validations'
 import { cn } from '@/lib/utils'
 import BrutalInput from '@/components/ui/BrutalInput'
@@ -28,6 +29,7 @@ export default function BusinessForm({
 }: BusinessFormProps) {
   const { user } = useAuth()
   const router = useRouter()
+  const { config, loading: configLoading, error: configError, getBusinessTypes, getCityNames } = useSystemConfig()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [activeSection, setActiveSection] = useState(1)
@@ -168,6 +170,22 @@ export default function BusinessForm({
 
   return (
     <div className="space-y-8">
+      {/* Loading state for system config */}
+      {configLoading && (
+        <BrutalAlert
+          type="info"
+          message="Ładowanie konfiguracji systemu..."
+        />
+      )}
+
+      {/* Config error */}
+      {configError && (
+        <BrutalAlert
+          type="warning"
+          message={`${configError}`}
+        />
+      )}
+
       {/* Progress Indicator */}
       <ProgressIndicator
         steps={steps}
@@ -228,15 +246,25 @@ export default function BusinessForm({
                 'focus:-translate-y-1 focus:shadow-brutal-lime',
                 errors.businessType && 'border-pedro-pink shadow-brutal-pink'
               )}
+              disabled={configLoading}
             >
-              <option value="restaurant">Restauracja</option>
-              <option value="retail">Sklep</option>
-              <option value="service">Usługa</option>
-              <option value="other">Inne</option>
+              <option value="">
+                {configLoading ? 'Ładowanie...' : 'Wybierz typ biznesu'}
+              </option>
+              {getBusinessTypes().map((type, index) => (
+                <option key={index} value={type}>
+                  {type}
+                </option>
+              ))}
             </select>
             {errors.businessType && (
               <p className="text-sm text-pedro-pink font-medium">
                 {errors.businessType.message}
+              </p>
+            )}
+            {configError && (
+              <p className="text-sm text-pedro-pink font-medium">
+                {configError}
               </p>
             )}
           </div>
@@ -268,14 +296,38 @@ export default function BusinessForm({
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <BrutalInput
-              label="Miasto"
-              type="text"
-              placeholder="np. Gdańsk"
-              error={errors.address?.city?.message}
-              required
-              {...register('address.city')}
-            />
+            <div className="space-y-2">
+              <label className="block text-sm font-bold text-pedro-dark">
+                Miasto
+                <span className="text-pedro-pink ml-1">*</span>
+              </label>
+              <select
+                {...register('address.city')}
+                className={cn(
+                  'w-full brutal-border rounded-button px-4 py-3',
+                  'bg-white text-pedro-dark',
+                  'transition-all duration-300',
+                  'focus:outline-none focus:ring-4 focus:ring-pedro-lime focus:ring-opacity-50',
+                  'focus:-translate-y-1 focus:shadow-brutal-lime',
+                  errors.address?.city && 'border-pedro-pink shadow-brutal-pink'
+                )}
+                disabled={configLoading}
+              >
+                <option value="">
+                  {configLoading ? 'Ładowanie...' : 'Wybierz miasto'}
+                </option>
+                {getCityNames().map((city, index) => (
+                  <option key={index} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+              {errors.address?.city && (
+                <p className="text-sm text-pedro-pink font-medium">
+                  {errors.address.city.message}
+                </p>
+              )}
+            </div>
 
             <BrutalInput
               label="Kod pocztowy"
