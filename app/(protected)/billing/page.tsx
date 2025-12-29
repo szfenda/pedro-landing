@@ -210,8 +210,8 @@ function BillingContent() {
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
               Masz pytania dotyczące rozliczeń? Skontaktuj się z nami:{' '}
-              <a href="mailto:billing@pedro.app" className="text-pedro-purple underline">
-                billing@pedro.app
+              <a href="mailto:kontakt@pedro.app" className="text-pedro-purple underline">
+                kontakt@pedro.app
               </a>
             </p>
           </div>

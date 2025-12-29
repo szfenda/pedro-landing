@@ -414,8 +414,8 @@ export default function DashboardPage() {
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
               Masz pytania? Skontaktuj się z nami:{' '}
-              <a href="mailto:biznes@pedro.app" className="text-pedro-purple underline">
-                biznes@pedro.app
+              <a href="mailto:kontakt@pedro.app" className="text-pedro-purple underline">
+                kontakt@pedro.app
               </a>
             </p>
           </div>
