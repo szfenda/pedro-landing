@@ -40,5 +40,10 @@ next-env.d.ts
 firebase-debug.log
 firebase-debug.*.log
 
+# firebase functions
+functions/node_modules/
+functions/lib/
+functions/package-lock.json
+
 # migration backup
 migration-backup/
