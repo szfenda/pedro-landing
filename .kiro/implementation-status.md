@@ -78,6 +78,20 @@ app/
 
 ## ✅ RECENT UPDATES (Dec 2024)
 
+### Firebase Functions TypeScript Fix (Dec 30, 2024)
+- **Issue Resolved:** TypeScript compilation errors in Firebase Functions
+  - Fixed `Cannot find type definition file for 'cors'` error
+  - Fixed `Cannot find type definition file for 'nodemailer'` error
+- **Root Cause:** Missing dependencies and incorrect TypeScript configuration
+- **Solution Applied:**
+  - Installed missing dependencies in `functions/` folder
+  - Updated `functions/tsconfig.json` with proper configuration:
+    - Added `esModuleInterop: true` for Next.js compatibility
+    - Added `skipLibCheck: true` to skip external type checking
+    - Added `types: ["node"]` to limit automatic type loading
+  - Updated `.gitignore` to exclude `functions/node_modules/` and `functions/lib/`
+- **Result:** Firebase Functions now build successfully without TypeScript errors
+
 ### Content Updates Completed
 - **Social Proof Section:** Updated testimonials to realistic pre-launch messaging
   - Header: "Tak będą o nas mówić" + "Gdy tylko wystartujemy na serio 🚀"

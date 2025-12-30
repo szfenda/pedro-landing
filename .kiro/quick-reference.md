@@ -2,29 +2,51 @@
 
 ## 🚀 Current Status
 **✅ DEPLOYED & LIVE:** https://pedro-bolt-app.web.app  
-**Status:** Production ready, content updates needed  
-**Last Updated:** December 2024
+**Status:** Production ready, Firebase Functions operational  
+**Last Updated:** December 30, 2024
 
 ## 🔧 Essential Commands
 ```bash
 # Development
 npm run dev                    # Local development server
 
-# Production
-npm run build                  # Build + static export to /out
-firebase deploy --only hosting # Deploy to Firebase
-firebase serve --only hosting  # Test Firebase locally
+# Production Build
+npm run build                  # Build Next.js application
+npm run build:functions        # Build Firebase Functions
+
+# Firebase Deployment
+npm run deploy                 # Full deployment (hosting + functions)
+npm run deploy:hosting         # Deploy hosting only
+npm run deploy:functions       # Deploy functions only
+
+# Local Testing
+firebase serve --only hosting,functions  # Test Firebase locally
+npm run dev                              # Local Next.js development
 
 # Git
-git add . && git commit -m "message" && git push origin main
+git add . && git commit -m "message" && git push origin feature/web-auth-migration
 ```
 
 ## 📁 Key Files
-- `next.config.js` - Static export config for Firebase
-- `firebase.json` - Firebase hosting configuration  
-- `.firebaserc` - Firebase project settings
-- `/out/` - Build output (auto-generated, ignored in git)
+- `next.config.js` - Dynamic Next.js config for Firebase Functions
+- `firebase.json` - Firebase hosting + functions configuration  
+- `functions/tsconfig.json` - TypeScript config for Firebase Functions
+- `functions/src/index.ts` - Main Firebase Function (nextjsFunc)
+- `.firebaserc` - Firebase project settings (pedro-bolt-app)
+- `/.next/` - Build output for Next.js (referenced by functions)
 - `/public/assets/` - Static assets (43 files organized)
+
+## 🔥 Firebase Functions
+- **Runtime:** Node.js 18
+- **Main Function:** `nextjsFunc` (handles all requests)
+- **API Routes:** Stripe integration (/api/stripe/*)
+- **Status:** ✅ Operational (TypeScript errors resolved)
+
+## 🎯 Recent Fixes (Dec 30, 2024)
+- ✅ **Firebase Functions TypeScript errors resolved**
+- ✅ **Dependencies installed in functions folder**
+- ✅ **Proper tsconfig.json configuration applied**
+- ✅ **Git configuration updated to exclude build artifacts**
 
 ## 🎯 Immediate Tasks
 1. **Store Links:** Replace `href="#"` with real URLs in Hero.tsx, Download.tsx
@@ -38,10 +60,12 @@ git add . && git commit -m "message" && git push origin main
 - **GitHub:** https://github.com/szfenda/pedro-landing
 
 ## 🛠 Tech Stack
-- Next.js 15.1.2 (App Router, Static Export)
+- Next.js 15.1.2 (App Router, Dynamic with SSR)
 - TypeScript 5.7.2
 - Tailwind CSS 3.4.17 (Neo-brutalism design)
-- Firebase Hosting
+- Firebase Hosting + Functions (Node.js 18)
+- Firebase Auth + Firestore (shared with mobile app)
+- Stripe Integration (Pay-per-Use model)
 - 43 optimized assets in /public/assets/
 
 ## Critical Design Values
@@ -77,13 +101,25 @@ border-radius: 12px;               /* Buttons */
 
 ## Firebase Deployment
 ```bash
-# Quick deploy workflow
-npm run build              # Generates /out folder
-firebase deploy --only hosting
+# Full deployment workflow
+npm run build              # Build Next.js application
+npm run build:functions    # Compile Firebase Functions
+npm run deploy            # Deploy both hosting and functions
+
+# Individual deployments
+npm run deploy:hosting     # Deploy hosting only
+npm run deploy:functions   # Deploy functions only
 
 # Local testing
-firebase serve --only hosting  # http://localhost:5000
+firebase serve --only hosting,functions  # Test complete setup locally
 ```
+
+## Firebase Functions Architecture
+- **Single Function:** `nextjsFunc` handles all requests
+- **API Routes:** Stripe integration served through function
+- **Authentication:** Firebase Auth with server-side verification
+- **Database:** Firestore (shared with mobile app)
+- **Shared Collections:** USER (mobile + web), PARTNER (web only)
 
 ## Asset Organization
 ```

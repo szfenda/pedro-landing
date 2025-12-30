@@ -152,10 +152,43 @@
 - Trailing slash: `true` (SPA routing compatibility)
 - ESLint ignore during builds
 
+**Firebase Functions Configuration:**
+- Runtime: Node.js 18
+- TypeScript: Configured with esModuleInterop for Next.js compatibility
+- Build output: `functions/lib/` (excluded from Git)
+- Dependencies: firebase-admin, firebase-functions, next
+
+**functions/tsconfig.json:**
+```json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  }
+}
+```
+- Image optimization: Enabled for better performance
+- Trailing slash: `true` (SPA routing compatibility)
+- ESLint ignore during builds
+
 **Firebase Configuration:**
 - Hosting: Configured for Firebase Functions integration
 - Functions: Node.js 18 runtime with Next.js server
-- Rewrites: API routes and pages served through Functions
+- Rewrites: All routes (including API) served through `nextjsFunc`
+- Single Function: `nextjsFunc` handles entire Next.js application
+
+**Firebase Functions:**
+```typescript
+// functions/src/index.ts
+export const nextjsFunc = onRequest(async (req, res) => {
+  await nextjsServer.prepare()
+  return nextjsHandle(req, res)
+})
+```
 
 **Environment Variables:**
 ```bash
@@ -184,7 +217,12 @@ STRIPE_WEBHOOK_SECRET=
 - Project: pedro-bolt-app
 
 **API Routes:**
-API routes are fully functional with Firebase Functions deployment, providing server-side authentication and Stripe integration.
+API routes are fully functional with Firebase Functions deployment, providing server-side authentication and Stripe integration:
+- `/api/stripe/create-checkout-session` - Stripe subscription setup
+- `/api/stripe/create-portal-session` - Billing management portal  
+- `/api/stripe/webhook` - Payment event processing
+
+All API routes run server-side through the `nextjsFunc` Firebase Function.
 
 ## Development Commands
 ```bash
