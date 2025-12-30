@@ -44,6 +44,7 @@ firebase-debug.*.log
 functions/node_modules/
 functions/lib/
 functions/package-lock.json
+functions/.next/
 
 # migration backup
 migration-backup/
