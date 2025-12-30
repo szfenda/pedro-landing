@@ -2,8 +2,16 @@
 
 ## 🚀 Current Status
 **✅ DEPLOYED & LIVE:** https://pedro-bolt-app.web.app  
-**Status:** Production ready, Firebase Functions operational  
+**Status:** Production ready, contact form active in production  
 **Last Updated:** December 30, 2024
+
+**🌐 Live Features:**
+- ✅ Landing page with brutal design
+- ✅ Authentication system (Firebase Auth)
+- ✅ Business registration flow
+- ✅ Stripe billing integration
+- ✅ Business dashboard
+- ✅ **Contact form with email sending (NEW)**
 
 ## 🔧 Essential Commands
 ```bash
@@ -51,18 +59,19 @@ git add . && git commit -m "message" && git push origin feature/web-auth-migrati
 - ✅ **Nodemailer integration with GoDaddy SMTP ready**
 
 ## 🔧 Contact Form Configuration
-**SMTP Setup Completed:**
+**SMTP Setup Completed & DEPLOYED:**
 ```bash
 ✅ SMTP_USER=kontakt@pedro.app
-✅ SMTP_PASS=configured
+✅ SMTP_PASS=configured (production)
 ✅ SMTP_TO=kontakt@pedro.app
 ```
 
-**Contact Form Status:** 🟢 ACTIVE
+**Contact Form Status:** 🟢 LIVE IN PRODUCTION
 - Form validation: ✅ Working
-- Email sending: ✅ Configured
+- Email sending: ✅ Configured & Deployed
 - Error handling: ✅ Implemented
 - Success feedback: ✅ Implemented
+- **Test URL:** https://pedro-bolt-app.web.app/#kontakt
 
 ## 🎯 Immediate Tasks
 1. **Store Links:** Replace `href="#"` with real URLs in Hero.tsx, Download.tsx

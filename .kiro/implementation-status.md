@@ -78,6 +78,17 @@ app/
 
 ## ✅ RECENT UPDATES (Dec 2024)
 
+### Firebase Deployment Success (Dec 30, 2024)
+- **Status:** ✅ LIVE IN PRODUCTION
+- **Website URL:** https://pedro-bolt-app.web.app
+- **Deployment Process:**
+  - Updated Firebase Functions runtime: Node.js 18 → Node.js 20
+  - Fixed Next.js build integration with Firebase Functions
+  - Deployed complete application with contact form functionality
+  - Updated SMTP configuration in Firebase Functions environment
+  - Cleaned up legacy mobile app functions (9 functions removed)
+- **Result:** Full-stack application successfully deployed and operational
+
 ### Contact Form Implementation (Dec 30, 2024)
 - **Feature:** Fully functional contact form with email sending capability
 - **Backend Implementation:**
@@ -93,7 +104,7 @@ app/
   - Environment variables configured with real SMTP credentials
   - Professional HTML email templates with PEDRO branding
   - Rate limiting logging and security error masking
-- **Status:** ✅ ACTIVE - Ready for testing and production use
+- **Status:** ✅ ACTIVE IN PRODUCTION - Ready for testing
 
 ### Firebase Functions TypeScript Fix (Dec 30, 2024)
 - **Issue Resolved:** TypeScript compilation errors in Firebase Functions
@@ -167,8 +178,12 @@ firebase serve --only hosting,functions  # Test Firebase locally
 
 ## 📊 Current Status Summary
 
-**✅ TECHNICAL:** 100% Complete & Deployed (Contact Form Active)  
-**🔄 CONTENT:** 95% Complete (contact form ready for testing)  
-**🎯 PRIORITY:** Test contact form functionality and finalize remaining content
+**✅ TECHNICAL:** 100% Complete & Deployed (LIVE Production)  
+**🔄 CONTENT:** 95% Complete (contact form active and ready for testing)  
+**🎯 PRIORITY:** Test contact form in production and finalize remaining content
+
+**🌐 LIVE URLs:**
+- **Website:** https://pedro-bolt-app.web.app
+- **Contact Form:** https://pedro-bolt-app.web.app/#kontakt
 
 The application is fully functional and live. Only content updates are needed for complete production readiness.
