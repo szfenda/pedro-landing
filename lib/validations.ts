@@ -40,3 +40,20 @@ export type LoginFormData = z.infer<typeof loginSchema>
 export type RegisterFormData = z.infer<typeof registerSchema>
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>
 export type BusinessFormData = z.infer<typeof businessFormSchema>
+
+// Contact form validation schema
+export const contactSchema = z.object({
+  name: z.string()
+    .min(2, 'Imię musi mieć co najmniej 2 znaki')
+    .max(50, 'Imię nie może być dłuższe niż 50 znaków')
+    .regex(/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s-]+$/, 'Imię może zawierać tylko litery, spacje i myślniki'),
+  email: z.string()
+    .email('Nieprawidłowy format adresu email')
+    .max(100, 'Email nie może być dłuższy niż 100 znaków'),
+  message: z.string()
+    .min(10, 'Wiadomość musi mieć co najmniej 10 znaków')
+    .max(1000, 'Wiadomość nie może być dłuższa niż 1000 znaków')
+    .refine(val => val.trim().length >= 10, 'Wiadomość nie może składać się tylko z białych znaków'),
+})
+
+export type ContactFormData = z.infer<typeof contactSchema>

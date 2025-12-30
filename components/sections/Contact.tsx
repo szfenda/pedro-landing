@@ -1,9 +1,66 @@
 'use client'
 
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { contactSchema, ContactFormData } from '@/lib/validations'
 import { socialIcons } from '@/lib/assets'
-import Image from 'next/image'
+import BrutalAlert from '@/components/ui/BrutalAlert'
+import BrutalInput from '@/components/ui/BrutalInput'
 
 export default function Contact() {
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  })
+
+  const onSubmit = async (data: ContactFormData) => {
+    setLoading(true)
+    setError(null)
+    setSuccess(false)
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      
+      const result = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Błąd podczas wysyłania')
+      }
+      
+      setSuccess(true)
+      reset()
+      
+      // Scroll to success message
+      setTimeout(() => {
+        const successElement = document.querySelector('[data-success-message]')
+        if (successElement) {
+          successElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }
+      }, 100)
+      
+    } catch (err: any) {
+      console.error('Contact form error:', err)
+      setError(err.message || 'Wystąpił błąd. Spróbuj ponownie.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
     return (
         <section id="kontakt" className="bg-white py-section">
             <div className="container-pedro max-w-2xl">
@@ -54,52 +111,90 @@ export default function Contact() {
                     </div>
                 </div>
 
-                {/* Contact Form */}
-                <form className="space-y-6">
-                    <div>
-                        <label htmlFor="name" className="block text-sm font-bold text-pedro-dark mb-2">
-                            Imię
-                        </label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            className="input-brutal"
-                            placeholder="Twoje imię"
+                {/* Success Message */}
+                {success && (
+                    <div data-success-message className="mb-8">
+                        <BrutalAlert 
+                            type="success"
+                            title="Dziękujemy! 🎉"
+                            message="Twoja wiadomość została wysłana. Odpowiemy najszybciej jak to możliwe."
                         />
                     </div>
+                )}
+                
+                {/* Error Message */}
+                {error && (
+                    <div className="mb-8">
+                        <BrutalAlert 
+                            type="error"
+                            message={error}
+                        />
+                    </div>
+                )}
 
-                    <div>
-                        <label htmlFor="email" className="block text-sm font-bold text-pedro-dark mb-2">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            className="input-brutal"
-                            placeholder="twoj@email.pl"
-                        />
-                    </div>
+                {/* Contact Form */}
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <BrutalInput
+                        label="Imię"
+                        type="text"
+                        placeholder="Twoje imię"
+                        error={errors.name?.message}
+                        disabled={loading}
+                        required
+                        {...register('name')}
+                    />
+
+                    <BrutalInput
+                        label="Email"
+                        type="email"
+                        placeholder="twoj@email.pl"
+                        error={errors.email?.message}
+                        disabled={loading}
+                        required
+                        {...register('email')}
+                    />
 
                     <div>
                         <label htmlFor="message" className="block text-sm font-bold text-pedro-dark mb-2">
                             Wiadomość
+                            <span className="text-pedro-pink ml-1">*</span>
                         </label>
                         <textarea
                             id="message"
-                            name="message"
                             rows={5}
-                            className="input-brutal resize-none"
+                            className={`w-full brutal-border rounded-button px-4 py-3 bg-white text-pedro-dark placeholder-gray-500 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-pedro-lime focus:ring-opacity-50 focus:-translate-y-1 focus:shadow-brutal-lime resize-none ${
+                                loading ? 'opacity-50 cursor-not-allowed' : ''
+                            } ${
+                                errors.message ? 'border-pedro-pink shadow-brutal-pink' : ''
+                            }`}
                             placeholder="Twoja wiadomość..."
+                            disabled={loading}
+                            {...register('message')}
                         />
+                        {errors.message && (
+                            <p className="text-pedro-pink text-sm mt-2 font-medium">
+                                {errors.message.message}
+                            </p>
+                        )}
                     </div>
 
                     <button
                         type="submit"
-                        className="btn-brutal btn-brutal-lime w-full text-lg"
+                        disabled={loading || success}
+                        className={`btn-brutal btn-brutal-lime w-full text-lg transition-all duration-200 ${
+                            loading || success ? 'opacity-50 cursor-not-allowed' : 'hover:transform hover:-translate-y-1'
+                        }`}
                     >
-                        Wyślij wiadomość
+                        {loading ? (
+                            <span className="flex items-center justify-center gap-2">
+                                <div className="w-4 h-4 border-2 border-pedro-dark border-t-transparent rounded-full animate-spin"></div>
+                                Wysyłanie...
+                            </span>
+                        ) : success ? (
+                            'Wysłano ✓'
+                        ) : (
+                            'Wyślij wiadomość'
+                        )}
                     </button>
                 </form>
             </div>
