@@ -4,7 +4,7 @@
 
 ### 1. Wygeneruj nowe klucze Firebase Admin
 1. Idź do Firebase Console: https://console.firebase.google.com/
-2. Wybierz projekt: pedro-bolt-app
+2. Wybierz projekt: [YOUR_FIREBASE_PROJECT_ID]
 3. Project Settings → Service Accounts
 4. Kliknij "Generate new private key"
 5. Pobierz nowy plik JSON

@@ -35,10 +35,10 @@ npm install nodemailer @types/nodemailer
 ```bash
 firebase functions:config:set smtp.host="smtpout.secureserver.net"
 firebase functions:config:set smtp.port="587"
-firebase functions:config:set smtp.user="kontakt@pedro.app"
-firebase functions:config:set smtp.pass="[HASŁO_KTÓRE_PODASZ]"
-firebase functions:config:set smtp.from="kontakt@pedro.app"
-firebase functions:config:set smtp.to="[TWÓJ_EMAIL_DOCELOWY]"
+firebase functions:config:set smtp.user="[YOUR_EMAIL]"
+firebase functions:config:set smtp.pass="[YOUR_PASSWORD]"
+firebase functions:config:set smtp.from="[YOUR_EMAIL]"
+firebase functions:config:set smtp.to="[DESTINATION_EMAIL]"
 ```
 
 #### 1.3 Aktualizacja functions/package.json
@@ -64,14 +64,14 @@ export const sendContactEmail = async (data: ContactFormData) => {
     port: 587,
     secure: false, // STARTTLS
     auth: {
-      user: process.env.SMTP_USER || 'kontakt@pedro.app',
+      user: process.env.SMTP_USER || '[YOUR_EMAIL]',
       pass: process.env.SMTP_PASS,
     },
   })
 
   const mailOptions = {
-    from: 'kontakt@pedro.app',
-    to: process.env.SMTP_TO || 'kontakt@pedro.app',
+    from: '[YOUR_EMAIL]',
+    to: process.env.SMTP_TO || '[DESTINATION_EMAIL]',
     subject: `Nowa wiadomość z PEDRO.app od ${data.name}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -264,7 +264,7 @@ export default function Contact() {
         {/* Contact Info */}
         <div className="text-center mb-12 space-y-4">
           <p className="text-lg text-pedro-dark">
-            📧 <a href="mailto:kontakt@pedro.app" className="font-bold hover:text-pedro-purple transition-colors">kontakt@pedro.app</a>
+            📧 <a href="mailto:[YOUR_EMAIL]" className="font-bold hover:text-pedro-purple transition-colors">[YOUR_EMAIL]</a>
           </p>
 
           {/* Social Links */}
@@ -390,16 +390,16 @@ export default function Contact() {
 #### 4.1 Aktualizacja .env.local (dla development)
 ```env
 # SMTP Configuration (GoDaddy Titan Email)
-SMTP_USER=kontakt@pedro.app
-SMTP_PASS=[HASŁO_KTÓRE_PODASZ]
-SMTP_TO=[TWÓJ_EMAIL_DOCELOWY]
+SMTP_USER=[YOUR_EMAIL]
+SMTP_PASS=[YOUR_PASSWORD]
+SMTP_TO=[DESTINATION_EMAIL]
 ```
 
 #### 4.2 Firebase Functions Config (dla production)
 ```bash
-firebase functions:config:set smtp.user="kontakt@pedro.app"
-firebase functions:config:set smtp.pass="[HASŁO]"
-firebase functions:config:set smtp.to="[TWÓJ_EMAIL]"
+firebase functions:config:set smtp.user="[YOUR_EMAIL]"
+firebase functions:config:set smtp.pass="[YOUR_PASSWORD]"
+firebase functions:config:set smtp.to="[DESTINATION_EMAIL]"
 ```
 
 ### **Krok 5: Testing i Deployment**
@@ -428,20 +428,20 @@ npm run deploy
 - **Host:** smtpout.secureserver.net
 - **Port:** 587
 - **Encryption:** STARTTLS
-- **Username:** kontakt@pedro.app
+- **Username:** [YOUR_EMAIL]
 - **Password:** [DO PODANIA]
 
 ### Environment Variables:
 ```bash
 # Development (.env.local)
-SMTP_USER=kontakt@pedro.app
-SMTP_PASS=[HASŁO]
-SMTP_TO=[DOCELOWY_EMAIL]
+SMTP_USER=[YOUR_EMAIL]
+SMTP_PASS=[YOUR_PASSWORD]
+SMTP_TO=[DESTINATION_EMAIL]
 
 # Production (Firebase Functions Config)
-firebase functions:config:set smtp.user="kontakt@pedro.app"
-firebase functions:config:set smtp.pass="[HASŁO]"
-firebase functions:config:set smtp.to="[DOCELOWY_EMAIL]"
+firebase functions:config:set smtp.user="[YOUR_EMAIL]"
+firebase functions:config:set smtp.pass="[YOUR_PASSWORD]"
+firebase functions:config:set smtp.to="[DESTINATION_EMAIL]"
 ```
 
 ## 📊 Przewidywane Rezultaty

@@ -595,7 +595,7 @@ This guide provides step-by-step implementation instructions for all components 
    ```
 
 2. **Contact info:**
-   - Email: `kontakt@pedro.app` (placeholder)
+   - Email: `[YOUR_EMAIL]` (placeholder)
    - Social: Instagram, TikTok, Facebook icons
    - Links styled with hover effects
 

@@ -4,7 +4,7 @@ Landing page dla aplikacji mobilnej PEDRO - lokalny asystent promocji.
 
 ## 🚀 Live Demo
 
-**Strona jest dostępna pod adresem:** https://pedro-bolt-app.web.app
+**Strona jest dostępna pod adresem:** [YOUR_DEPLOYMENT_URL]
 
 ## 🛠 Technologie
 
@@ -38,7 +38,7 @@ npm run start
 
 ### Wymagania
 - Firebase CLI: `npm install -g firebase-tools`
-- Konto Firebase z projektem `pedro-bolt-app`
+- Konto Firebase z projektem [YOUR_FIREBASE_PROJECT_ID]
 
 ### Deploy
 ```bash

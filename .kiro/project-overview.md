@@ -161,7 +161,7 @@ PARTNER (Firestore Document)
 - **Hosting:** Vercel (https://pedro-landing-sage.vercel.app)
 - **Database:** Firestore with security rules
 - **Authentication:** Firebase Auth with email/password
-- **Email:** GoDaddy SMTP (kontakt@pedro.app) ✅ **WORKING**
+- **Email:** GoDaddy SMTP ([YOUR_EMAIL]) ✅ **WORKING**
 - **Payments:** Stripe integration (test mode ready)
 
 ### Environment Configuration ✅

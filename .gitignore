@@ -27,6 +27,14 @@ yarn-error.log*
 # local env files
 .env*.local
 .env.production
+.env
+
+# Sensitive configuration files
+SECURITY_SETUP_REAL.md
+config/secrets.json
+*.key
+*.pem
+*.p12
 
 # vercel
 .vercel

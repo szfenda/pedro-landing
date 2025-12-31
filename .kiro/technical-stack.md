@@ -106,9 +106,9 @@ FIREBASE_CLIENT_EMAIL=configured
 FIREBASE_PRIVATE_KEY=configured
 
 # SMTP Configuration (GoDaddy Titan Email) ✅ WORKING
-SMTP_USER=kontakt@pedro.app
+SMTP_USER=[YOUR_EMAIL]
 SMTP_PASS=configured
-SMTP_TO=kontakt@pedro.app
+SMTP_TO=[DESTINATION_EMAIL]
 
 # Stripe Configuration
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=configured
@@ -170,7 +170,7 @@ All API routes run on Vercel serverless functions:
 
 ### Contact Form
 - **`/api/contact`** - Email sending endpoint ✅ WORKING
-- SMTP: GoDaddy Titan Email (kontakt@pedro.app)
+- SMTP: GoDaddy Titan Email ([YOUR_EMAIL])
 - Validation: Zod schema with Polish regex support
 - Error handling: Comprehensive with structured logging
 - Timeouts: 10s connection, 5s greeting, 10s socket

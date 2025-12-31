@@ -52,7 +52,7 @@
 - **Mobile App Integration:** Clear separation of web vs mobile features
 
 ### Contact Form Implementation ✅ WORKING
-- **Email Service:** GoDaddy SMTP (kontakt@pedro.app) fully configured
+- **Email Service:** GoDaddy SMTP ([YOUR_EMAIL]) fully configured
 - **Backend Implementation:** `lib/contact.ts` with nodemailer + timeouts
 - **API Endpoint:** `/api/contact` with Zod validation and error handling
 - **Frontend Integration:** React Hook Form with success/error states
@@ -115,7 +115,7 @@ app/
 - **Status:** ✅ ACTIVE AND MONITORING
 
 ### SMTP Configuration Completed ✅
-- **Email Service:** GoDaddy Titan Email (kontakt@pedro.app)
+- **Email Service:** GoDaddy Titan Email ([YOUR_EMAIL])
 - **Configuration:** 
   - Host: smtpout.secureserver.net
   - Port: 587 (STARTTLS)

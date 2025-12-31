@@ -61,9 +61,9 @@ git add . && git commit -m "message" && git push origin main
 ## 🔧 SMTP Configuration (Working)
 **GoDaddy Titan Email Setup:**
 ```bash
-✅ SMTP_USER=kontakt@pedro.app
-✅ SMTP_PASS=P3dro@2025 (configured in Vercel)
-✅ SMTP_TO=kontakt@pedro.app
+✅ SMTP_USER=[YOUR_EMAIL]
+✅ SMTP_PASS=[CONFIGURED_IN_VERCEL]
+✅ SMTP_TO=[DESTINATION_EMAIL]
 ```
 
 **Contact Form Status:** 🟢 FULLY OPERATIONAL
@@ -82,7 +82,7 @@ git add . && git commit -m "message" && git push origin main
 ## 🔗 Important Links
 - **Live Site:** https://pedro-landing-sage.vercel.app
 - **Vercel Dashboard:** https://vercel.com/dashboard
-- **Firebase Console:** https://console.firebase.google.com/project/pedro-bolt-app
+- **Firebase Console:** https://console.firebase.google.com/project/[YOUR_PROJECT_ID]
 - **GitHub:** https://github.com/szfenda/pedro-landing
 
 ## 🛠 Tech Stack

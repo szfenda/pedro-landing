@@ -294,28 +294,28 @@ Skopiuj wszystkie zmienne z `.env.local`:
 
 ```bash
 # Firebase Configuration
-NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyBQwpbtbcbXXbcZKtaQ_dNiaxng2wVrksc
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=pedro-bolt-app.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=pedro-bolt-app
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=pedro-bolt-app.firebasestorage.app
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=467575898751
-NEXT_PUBLIC_FIREBASE_APP_ID=1:467575898751:web:14ae1e19b0a8cff12e754a
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-6PDQ84SYH1
+NEXT_PUBLIC_FIREBASE_API_KEY=[YOUR_FIREBASE_API_KEY]
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=[YOUR_PROJECT].firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=[YOUR_PROJECT_ID]
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=[YOUR_PROJECT].firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=[YOUR_SENDER_ID]
+NEXT_PUBLIC_FIREBASE_APP_ID=[YOUR_APP_ID]
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=[YOUR_MEASUREMENT_ID]
 
 # Firebase Admin (Server-side)
-FIREBASE_PROJECT_ID=pedro-bolt-app
-FIREBASE_CLIENT_EMAIL=firebase-adminsdk-fbsvc@pedro-bolt-app.iam.gserviceaccount.com
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n[TWÓJ_KLUCZ]\n-----END PRIVATE KEY-----\n"
+FIREBASE_PROJECT_ID=[YOUR_PROJECT_ID]
+FIREBASE_CLIENT_EMAIL=[YOUR_SERVICE_ACCOUNT_EMAIL]
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n[YOUR_PRIVATE_KEY]\n-----END PRIVATE KEY-----\n"
 
 # SMTP Configuration (GoDaddy Titan Email)
-SMTP_USER=kontakt@pedro.app
-SMTP_PASS=P3dro@2025
-SMTP_TO=kontakt@pedro.app
+SMTP_USER=[YOUR_EMAIL]
+SMTP_PASS=[YOUR_PASSWORD]
+SMTP_TO=[DESTINATION_EMAIL]
 
 # Stripe Configuration
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
-STRIPE_SECRET_KEY=sk_test_your_secret_key_here
-STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret_here
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=[YOUR_PUBLISHABLE_KEY]
+STRIPE_SECRET_KEY=[YOUR_SECRET_KEY]
+STRIPE_WEBHOOK_SECRET=[YOUR_WEBHOOK_SECRET]
 ```
 
 #### 5.2 Dodanie zmiennych w Vercel (przez CLI)
@@ -372,9 +372,9 @@ vercel --prod
 - Przejdź do Webhooks
 - Znajdź webhook dla aplikacji
 - Zmień URL z:
-  - `https://pedro-bolt-app.web.app/api/stripe/webhook`
+  - `https://[OLD_DOMAIN]/api/stripe/webhook`
 - Na:
-  - `https://pedro-app.vercel.app/api/stripe/webhook` (lub Twoja custom domena)
+  - `https://[YOUR_VERCEL_DOMAIN]/api/stripe/webhook`
 
 ### KROK 8: IMPLEMENTACJA HEALTH CHECKS I STRUCTURED LOGGING (20 minut)
 
@@ -635,7 +635,7 @@ export const sendContactEmail = async (data: ContactFormData) => {
       greetingTimeout: 5000,    // 5 seconds
       socketTimeout: 10000,     // 10 seconds
       auth: {
-        user: process.env.SMTP_USER || 'kontakt@pedro.app',
+        user: process.env.SMTP_USER || '[YOUR_EMAIL]',
         pass: process.env.SMTP_PASS,
       },
     })
@@ -645,8 +645,8 @@ export const sendContactEmail = async (data: ContactFormData) => {
     logger.info('SMTP connection verified successfully')
 
     const mailOptions = {
-      from: 'kontakt@pedro.app',
-      to: process.env.SMTP_TO || 'kontakt@pedro.app',
+      from: '[YOUR_EMAIL]',
+      to: process.env.SMTP_TO || '[DESTINATION_EMAIL]',
       subject: `Nowa wiadomość z PEDRO.app od ${data.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -720,7 +720,7 @@ curl -X POST https://your-vercel-app.vercel.app/api/test-smtp \
 
 # 3. Test prawdziwego formularza kontaktowego
 # Wypełnij formularz na stronie i sprawdź:
-# - Czy email dotarł na kontakt@pedro.app
+# - Czy email dotarł na [YOUR_EMAIL]
 # - Czy logi w Vercel pokazują structured logging
 # - Czy nie ma błędów timeout
 ```

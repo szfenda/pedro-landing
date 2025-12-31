@@ -76,7 +76,7 @@ export default function Contact() {
                 {/* Contact Info */}
                 <div className="text-center mb-12 space-y-4">
                     <p className="text-lg text-pedro-dark">
-                        📧 <a href="mailto:kontakt@pedro.app" className="font-bold hover:text-pedro-purple transition-colors">kontakt@pedro.app</a>
+                        📧 <a href="mailto:[YOUR_EMAIL]" className="font-bold hover:text-pedro-purple transition-colors">[YOUR_EMAIL]</a>
                     </p>
 
                     {/* Social Links */}
