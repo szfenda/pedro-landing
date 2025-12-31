@@ -17,14 +17,20 @@ export function middleware(request: NextRequest) {
   const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path))
   
   if (isProtectedPath) {
-    // Check for auth token in cookies
-    const authToken = request.cookies.get('__session')?.value || 
-                     request.cookies.get('firebase-auth-token')?.value
+    // Check for auth token in cookies - uproszczona wersja dla Vercel
+    const authToken = request.cookies.get('firebase-auth-token')?.value
+    
+    console.log('Middleware check:', {
+      pathname,
+      hasAuthToken: !!authToken,
+      cookieCount: request.cookies.size
+    })
     
     // If no auth token found, redirect to auth page
     if (!authToken) {
       const authUrl = new URL('/auth', request.url)
       authUrl.searchParams.set('redirect', pathname)
+      console.log('Redirecting to auth:', authUrl.toString())
       return NextResponse.redirect(authUrl)
     }
   }

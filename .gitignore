@@ -48,3 +48,5 @@ functions/.next/
 
 # migration backup
 migration-backup/
+# Vercel deployment
+.vercel

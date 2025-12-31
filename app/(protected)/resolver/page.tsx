@@ -13,6 +13,15 @@ export default function ResolverPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    console.log('Resolver - Environment check:', {
+      isDev: process.env.NODE_ENV === 'development',
+      hasFirebaseConfig: !!process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+      userUid: user?.uid,
+      userEmail: user?.email,
+      loading,
+      hostname: typeof window !== 'undefined' ? window.location.hostname : 'server'
+    })
+    
     if (loading) return
 
     if (!user) {

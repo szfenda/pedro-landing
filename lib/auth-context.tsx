@@ -23,18 +23,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(user)
       setLoading(false)
       
-      // Set auth cookie for middleware
+      // Set auth cookie for middleware - poprawiona wersja dla Vercel
       if (user) {
         try {
           const token = await user.getIdToken()
-          // Set cookie for middleware to read
-          document.cookie = `firebase-auth-token=${token}; path=/; max-age=3600; secure; samesite=strict`
+          // Określ domenę na podstawie środowiska
+          const isProduction = window.location.hostname !== 'localhost'
+          const domain = isProduction ? `; domain=${window.location.hostname}` : ''
+          
+          document.cookie = `firebase-auth-token=${token}; path=/; max-age=3600; secure; samesite=strict${domain}`
+          
+          console.log('Auth cookie set successfully', { 
+            hostname: window.location.hostname, 
+            isProduction,
+            userEmail: user.email 
+          })
         } catch (error) {
           console.error('Error setting auth cookie:', error)
         }
       } else {
         // Clear auth cookie when user logs out
         document.cookie = 'firebase-auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+        console.log('Auth cookie cleared')
       }
     })
 
