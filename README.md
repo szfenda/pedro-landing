@@ -6,6 +6,15 @@ Landing page dla aplikacji mobilnej PEDRO - lokalny asystent promocji.
 
 **Strona jest dostępna pod adresem:** [YOUR_DEPLOYMENT_URL]
 
+## 🔒 Security Setup
+
+**IMPORTANT:** This repository contains placeholder values for sensitive data. Before deploying:
+
+1. Copy `.env.example` to `.env.local`
+2. Replace all placeholder values with your actual credentials
+3. Configure environment variables in your deployment platform (Vercel)
+4. See `SECURITY_SETUP.md` for detailed instructions
+
 ## 🛠 Technologie
 
 - **Next.js 15.1.2** - React framework z App Router
