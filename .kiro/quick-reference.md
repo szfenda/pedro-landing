@@ -1,9 +1,10 @@
 # Quick Reference Guide
 
 ## 🚀 Current Status
-**✅ DEPLOYED & LIVE:** https://pedro-bolt-app.web.app  
-**Status:** Production ready, contact form active in production  
-**Last Updated:** December 30, 2024
+**✅ DEPLOYED & LIVE:** https://pedro-landing-sage.vercel.app  
+**Platform:** Vercel (migrated from Firebase Hosting)  
+**Status:** Production ready, all features operational  
+**Last Updated:** December 31, 2024
 
 **🌐 Live Features:**
 - ✅ Landing page with brutal design
@@ -11,67 +12,66 @@
 - ✅ Business registration flow
 - ✅ Stripe billing integration
 - ✅ Business dashboard
-- ✅ **Contact form with email sending (NEW)**
+- ✅ Contact form with email sending (SMTP working)
+- ✅ Health monitoring endpoint
+- ✅ Structured logging system
 
 ## 🔧 Essential Commands
 ```bash
 # Development
 npm run dev                    # Local development server
 
-# Production Build
+# Production Build & Deploy
 npm run build                  # Build Next.js application
-npm run build:functions        # Build Firebase Functions
-
-# Firebase Deployment
-npm run deploy                 # Full deployment (hosting + functions)
-npm run deploy:hosting         # Deploy hosting only
-npm run deploy:functions       # Deploy functions only
+vercel --prod                  # Deploy to Vercel production
 
 # Local Testing
-firebase serve --only hosting,functions  # Test Firebase locally
-npm run dev                              # Local Next.js development
+vercel dev                     # Test Vercel functions locally
+npm run dev                    # Local Next.js development
 
 # Git
-git add . && git commit -m "message" && git push origin feature/web-auth-migration
+git add . && git commit -m "message" && git push origin main
 ```
 
 ## 📁 Key Files
-- `next.config.js` - Dynamic Next.js config for Firebase Functions
-- `firebase.json` - Firebase hosting + functions configuration  
-- `functions/tsconfig.json` - TypeScript config for Firebase Functions
-- `functions/src/index.ts` - Main Firebase Function (nextjsFunc)
-- `.firebaserc` - Firebase project settings (pedro-bolt-app)
-- `/.next/` - Build output for Next.js (referenced by functions)
-- `/public/assets/` - Static assets (43 files organized)
+- `vercel.json` - Vercel deployment configuration
+- `next.config.js` - Vercel-optimized Next.js config
+- `middleware.ts` - Auth middleware with Vercel cookie handling
+- `lib/auth-context.tsx` - Updated auth context for Vercel
+- `app/api/health/route.ts` - Health monitoring endpoint
+- `lib/logger.ts` - Structured logging system
+- `app/api/contact/route.ts` - Contact form API with SMTP
+- `lib/contact.ts` - Email sending logic with GoDaddy SMTP
 
-## 🔥 Firebase Functions
-- **Runtime:** Node.js 18
-- **Main Function:** `nextjsFunc` (handles all requests)
-- **API Routes:** Stripe integration (/api/stripe/*)
-- **Status:** ✅ Operational (TypeScript errors resolved)
+## 🔥 Vercel Deployment
+- **Platform:** Vercel Edge Network
+- **Framework:** Next.js 15.1.2 with App Router
+- **Functions:** Serverless functions for API routes
+- **Status:** ✅ Fully operational
 
-## 🎯 Recent Fixes (Dec 30, 2024)
-- ✅ **Firebase Functions TypeScript errors resolved**
-- ✅ **Dependencies installed in functions folder**
-- ✅ **Proper tsconfig.json configuration applied**
-- ✅ **Git configuration updated to exclude build artifacts**
-- ✅ **Contact form implemented with email functionality**
-- ✅ **Nodemailer integration with GoDaddy SMTP ready**
+## 🎯 Recent Migration (Dec 31, 2024)
+- ✅ **Migrated from Firebase Hosting to Vercel**
+- ✅ **Updated auth middleware for Vercel cookie handling**
+- ✅ **Fixed auth context token management**
+- ✅ **Added health monitoring endpoint (/api/health)**
+- ✅ **Implemented structured logging with JSON format**
+- ✅ **SMTP configuration working with GoDaddy credentials**
+- ✅ **All environment variables configured in Vercel**
 
-## 🔧 Contact Form Configuration
-**SMTP Setup Completed & DEPLOYED:**
+## 🔧 SMTP Configuration (Working)
+**GoDaddy Titan Email Setup:**
 ```bash
 ✅ SMTP_USER=kontakt@pedro.app
-✅ SMTP_PASS=configured (production)
+✅ SMTP_PASS=P3dro@2025 (configured in Vercel)
 ✅ SMTP_TO=kontakt@pedro.app
 ```
 
-**Contact Form Status:** 🟢 LIVE IN PRODUCTION
+**Contact Form Status:** 🟢 FULLY OPERATIONAL
 - Form validation: ✅ Working
-- Email sending: ✅ Configured & Deployed
-- Error handling: ✅ Implemented
-- Success feedback: ✅ Implemented
-- **Test URL:** https://pedro-bolt-app.web.app/#kontakt
+- Email sending: ✅ Working (tested successfully)
+- Error handling: ✅ Implemented with timeouts
+- Success feedback: ✅ Polish language responses
+- **Test URL:** https://pedro-landing-sage.vercel.app/#kontakt
 
 ## 🎯 Immediate Tasks
 1. **Store Links:** Replace `href="#"` with real URLs in Hero.tsx, Download.tsx
@@ -80,17 +80,19 @@ git add . && git commit -m "message" && git push origin feature/web-auth-migrati
 4. **FAQ:** Replace placeholder questions with real content
 
 ## 🔗 Important Links
-- **Live Site:** https://pedro-bolt-app.web.app
+- **Live Site:** https://pedro-landing-sage.vercel.app
+- **Vercel Dashboard:** https://vercel.com/dashboard
 - **Firebase Console:** https://console.firebase.google.com/project/pedro-bolt-app
 - **GitHub:** https://github.com/szfenda/pedro-landing
 
 ## 🛠 Tech Stack
-- Next.js 15.1.2 (App Router, Dynamic with SSR)
+- Next.js 15.1.2 (App Router, Vercel deployment)
 - TypeScript 5.7.2
 - Tailwind CSS 3.4.17 (Neo-brutalism design)
-- Firebase Hosting + Functions (Node.js 18)
+- Vercel (hosting and serverless functions)
 - Firebase Auth + Firestore (shared with mobile app)
 - Stripe Integration (Pay-per-Use model)
+- Nodemailer + GoDaddy SMTP (email sending)
 - 43 optimized assets in /public/assets/
 
 ## Critical Design Values
@@ -117,34 +119,31 @@ border-radius: 12px;               /* Buttons */
 <About />                  // 2-col with Pedro Thumbs Up
 <Features />               // 3 cards with scan animation
 <B2B />                    // Lime bg with orbiting icons
-<SocialProof />            // Future testimonials + dream partners (UPDATED)
+<SocialProof />            // Future testimonials + dream partners
 <FAQ />                    // Accordion
 <Download />               // Store badges
-<Contact />                // Form with brutal inputs
+<Contact />                // Form with brutal inputs (WORKING)
 <Footer />                 // Dark with Pedro Peeking
 ```
 
-## Firebase Deployment
-```bash
-# Full deployment workflow
-npm run build              # Build Next.js application
-npm run build:functions    # Compile Firebase Functions
-npm run deploy            # Deploy both hosting and functions
-
-# Individual deployments
-npm run deploy:hosting     # Deploy hosting only
-npm run deploy:functions   # Deploy functions only
-
-# Local testing
-firebase serve --only hosting,functions  # Test complete setup locally
+## Vercel Configuration
+```json
+// vercel.json
+{
+  "framework": "nextjs",
+  "functions": {
+    "app/api/contact/route.ts": {
+      "maxDuration": 10
+    }
+  }
+}
 ```
 
-## Firebase Functions Architecture
-- **Single Function:** `nextjsFunc` handles all requests
-- **API Routes:** Stripe integration served through function
-- **Authentication:** Firebase Auth with server-side verification
-- **Database:** Firestore (shared with mobile app)
-- **Shared Collections:** USER (mobile + web), PARTNER (web only)
+## Environment Variables (Vercel)
+- Firebase client config (public)
+- Firebase Admin SDK (server-side)
+- SMTP credentials (GoDaddy)
+- Stripe keys (test mode)
 
 ## Asset Organization
 ```

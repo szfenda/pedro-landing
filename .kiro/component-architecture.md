@@ -388,6 +388,7 @@ import { mascots, featureIcons, backgrounds } from '@/lib/assets'
 - Next.js Image component for mascots and large images
 - Regular img tags for icons (smaller, numerous)
 - Lazy loading for off-screen content
+- Vercel Image Optimization for automatic format conversion
 
 **Animation Performance:**
 - `will-change` on animated elements
@@ -406,3 +407,8 @@ import { mascots, featureIcons, backgrounds } from '@/lib/assets'
 - Hero: Stack on mobile, split on desktop
 - Features: 1 column mobile, 3 columns desktop
 - Navigation: Burger menu mobile, full nav desktop
+
+**Vercel Deployment Optimizations:**
+- Automatic static optimization
+- Edge network caching
+- Serverless function optimization

@@ -147,3 +147,9 @@ box-shadow: 6px 6px 0 #6C5CE7;   /* Small variant */
 - Simplified navigation (burger menu)
 - Adjusted font sizes via clamp()
 - Sticky bottom CTA
+
+## Vercel Deployment Optimizations
+- **Edge Network:** Global CDN for fast asset delivery
+- **Image Optimization:** Automatic WebP/AVIF conversion
+- **Bundle Optimization:** Automatic code splitting and tree shaking
+- **Performance Monitoring:** Real-time Core Web Vitals tracking

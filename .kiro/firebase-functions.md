@@ -1,118 +1,118 @@
-# Firebase Functions Configuration
+# Vercel Deployment Architecture
 
 ## Overview
-PEDRO web application uses Firebase Functions to host the entire Next.js application, providing server-side rendering and API route functionality.
+PEDRO web application is now deployed on Vercel, providing serverless functions and edge network distribution for optimal performance.
 
-## Current Functions
+## Current Deployment
 
-### `nextjsFunc` - Main Application Function
-- **Purpose:** Hosts the complete Next.js application on Firebase Functions
+### Main Application
+- **Platform:** Vercel
+- **URL:** https://pedro-landing-sage.vercel.app
+- **Framework:** Next.js 15.1.2 with App Router
 - **Runtime:** Node.js 18
-- **Location:** `functions/src/index.ts`
-- **Functionality:** 
-  - Handles all HTTP requests to the application
-  - Provides server-side rendering (SSR)
-  - Serves API routes for Stripe integration
-  - Manages authentication and protected routes
 
-```typescript
-export const nextjsFunc = onRequest(async (req, res) => {
-  await nextjsServer.prepare()
-  return nextjsHandle(req, res)
-})
-```
+## Serverless Functions
 
-## Configuration
+### API Routes on Vercel
+All API routes are deployed as Vercel serverless functions:
 
-### Firebase Hosting Rewrites
-All requests are routed through the single `nextjsFunc`:
-```json
-{
-  "rewrites": [
-    { "source": "/api/**", "function": "nextjsFunc" },
-    { "source": "**", "function": "nextjsFunc" }
-  ]
-}
-```
+1. **`/api/health`** - Health monitoring endpoint
+   - Returns system status and timestamp
+   - Used for uptime monitoring
+   - Response time tracking
 
-### TypeScript Configuration
-**Fixed Configuration (`functions/tsconfig.json`):**
-```json
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2017",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
-    "types": ["node"]
-  }
-}
-```
+2. **`/api/contact`** - Contact form submission
+   - Handles form validation
+   - Sends emails via SMTP (GoDaddy)
+   - Returns JSON responses in Polish
+   - Timeout: 10 seconds (configured in vercel.json)
 
-**Key Settings:**
-- `esModuleInterop: true` - Required for Next.js compatibility
-- `skipLibCheck: true` - Prevents external type checking errors
-- `types: ["node"]` - Limits automatic type loading to prevent cors/nodemailer errors
-
-## API Routes Served by Functions
-
-### Stripe Integration
-1. **`/api/stripe/create-checkout-session`**
+3. **`/api/stripe/create-checkout-session`**
    - Creates Stripe subscription checkout sessions
    - Handles Pay-per-Use (PPU) model setup
    - Requires Firebase Auth token
 
-2. **`/api/stripe/create-portal-session`**
+4. **`/api/stripe/create-portal-session`**
    - Creates Stripe Customer Portal sessions
    - Allows users to manage billing and subscriptions
    - Requires Firebase Auth token
 
-3. **`/api/stripe/webhook`**
+5. **`/api/stripe/webhook`**
    - Processes Stripe webhook events
    - Updates user subscription status in Firestore
    - Handles payment success/failure events
 
-## Dependencies
+## Configuration
 
-### Production Dependencies
+### Vercel Configuration (`vercel.json`)
 ```json
 {
-  "firebase-admin": "^11.11.0",
-  "firebase-functions": "^4.5.0",
-  "next": "^15.1.2"
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "functions": {
+    "app/api/contact/route.ts": {
+      "maxDuration": 10
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
 ```
 
-### Development Dependencies
-```json
-{
-  "typescript": "^5.7.2",
-  "@types/node": "^18.0.0"
+### Next.js Configuration for Vercel
+```javascript
+const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ['nodemailer']
+  },
+  webpack: (config) => {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+    }
+    return config
+  }
 }
 ```
 
-## Build Process
+## Environment Variables
 
-### Commands
+### Firebase Configuration (Client-side)
 ```bash
-# Build functions only
-npm run build:functions
-
-# Build entire application
-npm run build && npm run build:functions
-
-# Deploy functions only
-npm run deploy:functions
-
-# Full deployment
-npm run deploy
+NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSyBQwpbtbcbXXbcZKtaQ_dNiaxng2wVrksc
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=pedro-bolt-app.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=pedro-bolt-app
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=pedro-bolt-app.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=467575898751
+NEXT_PUBLIC_FIREBASE_APP_ID=1:467575898751:web:14ae1e19b0a8cff12e754a
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-6PDQ84SYH1
 ```
 
-### Build Output
-- **Source:** `functions/src/`
-- **Compiled:** `functions/lib/` (excluded from Git)
-- **Next.js Build:** `functions/lib/` references `../.next/` folder
+### Firebase Admin SDK (Server-side)
+```bash
+FIREBASE_PROJECT_ID=pedro-bolt-app
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxx@pedro-bolt-app.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+```
+
+### SMTP Configuration (GoDaddy)
+```bash
+SMTP_USER=kontakt@pedro.app
+SMTP_PASS=P3dro@2025
+SMTP_TO=kontakt@pedro.app
+```
+
+### Stripe Integration
+```bash
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxx
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+```
 
 ## Shared Firebase Project
 
@@ -127,20 +127,73 @@ npm run deploy
   - Stripe integration
   - Web-specific security rules
 
-### Security
-- **Firestore Rules:** User-scoped access control
-- **Auth Verification:** Server-side token validation in API routes
-- **CORS:** Handled automatically by Firebase Functions
-- **Environment Variables:** Secure configuration through Firebase
+## Migration from Firebase Functions
+
+### Changes Made
+1. **Removed Firebase Functions dependency**
+2. **Updated middleware.ts for Vercel cookie handling**
+3. **Fixed auth-context.tsx for proper token management**
+4. **Added health monitoring endpoint**
+5. **Implemented structured logging system**
+6. **Configured SMTP with proper error handling**
+
+### Benefits of Vercel
+- **Faster cold starts** compared to Firebase Functions
+- **Better Next.js integration** with automatic optimization
+- **Global edge network** for improved performance
+- **Simplified deployment** with Git integration
+- **Better monitoring** and analytics
+
+## Monitoring & Logging
+
+### Health Monitoring
+- **Endpoint:** `/api/health`
+- **Response:** JSON with status, timestamp, and system info
+- **Usage:** Uptime monitoring and performance tracking
+
+### Structured Logging
+- **Format:** JSON with timestamp, level, message, and context
+- **Implementation:** `lib/logger.ts`
+- **Usage:** All API routes and error handling
+
+### Error Tracking
+- **Platform:** Vercel dashboard
+- **Automatic:** Function errors and performance metrics
+- **Custom:** Structured error logging in application code
+
+## Security
+
+### Authentication
+- **Firebase Auth:** Client-side authentication
+- **Server-side verification:** Firebase Admin SDK in API routes
+- **Middleware:** Auth state management and redirects
+
+### Environment Security
+- **Vercel Environment Variables:** Secure storage of secrets
+- **No client-side secrets:** Only public Firebase config exposed
+- **HTTPS only:** All traffic encrypted
+
+## Performance
+
+### Edge Network
+- **Global CDN:** Automatic edge caching
+- **Static assets:** Optimized delivery
+- **Function regions:** Automatic optimal placement
+
+### Optimization
+- **Bundle splitting:** Next.js automatic optimization
+- **Image optimization:** Vercel Image Optimization
+- **Caching:** Automatic static and dynamic caching
 
 ## Troubleshooting
 
-### Common Issues Fixed
-1. **TypeScript Errors:** Resolved by proper tsconfig.json configuration
-2. **Missing Dependencies:** Fixed by running `npm install` in functions folder
-3. **Build Failures:** Resolved by adding esModuleInterop for Next.js compatibility
+### Common Issues
+1. **Function timeouts:** Configured 10s timeout for contact form
+2. **SMTP errors:** Proper error handling and timeouts implemented
+3. **Auth issues:** Middleware handles cookie-based auth properly
+4. **Build errors:** Webpack configuration handles Node.js modules
 
 ### Monitoring
-- **Firebase Console:** Function logs and performance metrics
-- **Error Tracking:** Automatic error reporting in Firebase Console
-- **Usage Monitoring:** Request count and execution time tracking
+- **Vercel Dashboard:** Real-time function logs and metrics
+- **Health endpoint:** System status monitoring
+- **Error tracking:** Automatic error reporting and alerting
