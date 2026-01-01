@@ -1,13 +1,33 @@
 'use client'
 
-import Image from 'next/image'
 import { businessIcons, functionalIcons } from '@/lib/assets'
 import { useEffect, useRef, useState } from 'react'
+import { useAuth } from '@/lib/auth-context'
+import { useRouter } from 'next/navigation'
 
 export default function B2B() {
     const [count, setCount] = useState(0)
     const [hasAnimated, setHasAnimated] = useState(false)
+    const [isNavigating, setIsNavigating] = useState(false)
     const sectionRef = useRef<HTMLElement>(null)
+    const { user } = useAuth()
+    const router = useRouter()
+
+    // Handler for "Dodaj swoją firmę" button
+    const handleAddBusiness = () => {
+        setIsNavigating(true)
+        
+        if (user) {
+            // User is logged in - redirect to resolver to determine next step
+            router.push('/resolver')
+        } else {
+            // User is not logged in - redirect to auth with redirect parameter
+            router.push('/auth?redirect=/register-business')
+        }
+        
+        // Reset loading state after a short delay (in case navigation fails)
+        setTimeout(() => setIsNavigating(false), 2000)
+    }
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -95,10 +115,27 @@ export default function B2B() {
                         </div>
 
                         {/* CTA Button */}
-                        <button className="btn-brutal bg-pedro-purple text-white border-3 border-pedro-dark px-8 py-4 text-lg group">
+                        <button 
+                            onClick={handleAddBusiness}
+                            disabled={isNavigating}
+                            className={`btn-brutal bg-pedro-purple text-white border-3 border-pedro-dark px-8 py-4 text-lg group transition-all duration-300 ${
+                                isNavigating 
+                                    ? 'opacity-75 cursor-not-allowed' 
+                                    : 'hover:-translate-y-1 hover:shadow-brutal-lime'
+                            }`}
+                        >
                             <span className="flex items-center gap-3">
-                                Dodaj swoją firmę
-                                <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
+                                {isNavigating ? (
+                                    <>
+                                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                        Przekierowywanie...
+                                    </>
+                                ) : (
+                                    <>
+                                        Dodaj swoją firmę
+                                        <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
+                                    </>
+                                )}
                             </span>
                         </button>
 
