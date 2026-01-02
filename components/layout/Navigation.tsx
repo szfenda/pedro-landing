@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { logos, functionalIcons, businessIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
 import { useAuth } from '@/lib/auth-context'
-import { useRouter } from 'next/navigation'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 
@@ -13,7 +13,11 @@ export default function Navigation() {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
     const { user } = useAuth()
     const router = useRouter()
+    const pathname = usePathname()
     const userMenuRef = useRef<HTMLDivElement>(null)
+
+    // Check if we're on a legal page
+    const isLegalPage = pathname?.startsWith('/legal')
 
     const navLinks = [
         { label: 'O nas', href: 'o-nas' },
@@ -21,6 +25,26 @@ export default function Navigation() {
         { label: 'Pobierz', href: 'pobierz' },
         { label: 'Kontakt', href: 'kontakt' },
     ]
+
+    const handleNavClick = (href: string) => {
+        if (isLegalPage) {
+            // If on legal page, navigate to home with fragment
+            router.push(`/#${href}`)
+        } else {
+            // If on home page, smooth scroll to section
+            smoothScrollTo(href)
+        }
+    }
+
+    const handleLogoClick = () => {
+        if (isLegalPage) {
+            // If on legal page, navigate to home
+            router.push('/')
+        } else {
+            // If on home page, scroll to top
+            smoothScrollTo('top')
+        }
+    }
 
     const handleLoginClick = () => {
         if (user) {
@@ -85,7 +109,7 @@ export default function Navigation() {
                 {/* Logo */}
                 <div className="flex items-center">
                     <button
-                        onClick={() => smoothScrollTo('top')}
+                        onClick={handleLogoClick}
                         className="transition-all duration-300 hover:rotate-2 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pedro-lime focus:ring-offset-2 focus:ring-offset-transparent rounded-lg p-1"
                     >
                         <img
@@ -103,7 +127,7 @@ export default function Navigation() {
                     {navLinks.map((link) => (
                         <button
                             key={link.href}
-                            onClick={() => smoothScrollTo(link.href)}
+                            onClick={() => handleNavClick(link.href)}
                             className="text-white text-sm font-medium transition-all duration-300 hover:text-pedro-lime relative group"
                         >
                             {link.label}
@@ -188,7 +212,7 @@ export default function Navigation() {
                             <button
                                 key={link.href}
                                 onClick={() => {
-                                    smoothScrollTo(link.href)
+                                    handleNavClick(link.href)
                                     setIsMobileMenuOpen(false)
                                 }}
                                 className="text-white text-lg font-medium py-2 text-left transition-colors hover:text-pedro-lime"
