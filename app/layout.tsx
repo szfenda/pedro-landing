@@ -5,6 +5,7 @@ import './globals.css'
 import '../styles/animations.css'
 
 export const metadata: Metadata = {
+    metadataBase: new URL(process.env.NODE_ENV === 'production' ? 'https://pedro.app' : 'http://localhost:3000'),
     title: 'PEDRO - Poluj na Promki | Lokalne Promocje w Twojej Dzelnicy',
     description: 'PEDRO to aplikacja mobilna, która pomaga znajdować najlepsze lokalne promocje i kupony w Twojej okolicy. Oszczędzaj pieniądze bez spamu i przeterminowanych kuponów.',
     keywords: ['promocje', 'kupony', 'oszczędności', 'lokalne biznes', 'Pedro', 'Gdańsk'],
