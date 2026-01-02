@@ -18,7 +18,7 @@ export const sendContactEmail = async (data: ContactFormData) => {
       greetingTimeout: 5000,    // 5 seconds
       socketTimeout: 10000,     // 10 seconds
       auth: {
-        user: process.env.SMTP_USER || '[YOUR_EMAIL]',
+        user: process.env.SMTP_USER || 'kontakt@pedro.app',
         pass: process.env.SMTP_PASS,
       },
     })
@@ -28,8 +28,8 @@ export const sendContactEmail = async (data: ContactFormData) => {
     logger.info('SMTP connection verified successfully')
 
     const mailOptions = {
-      from: '[YOUR_EMAIL]',
-      to: process.env.SMTP_TO || '[DESTINATION_EMAIL]',
+      from: process.env.SMTP_USER || 'kontakt@pedro.app',
+      to: process.env.SMTP_TO || 'kontakt@pedro.app',
       subject: `Nowa wiadomość z PEDRO.app od ${data.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
