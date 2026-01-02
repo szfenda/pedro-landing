@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import { logos, mascots, socialIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
@@ -9,8 +9,8 @@ export default function Footer() {
     const [showBubble, setShowBubble] = useState(false)
 
     const footerLinks = [
-        { label: 'Regulamin', href: '#' },
-        { label: 'Polityka Prywatności', href: '#' },
+        { label: 'Regulamin', href: '/legal/regulamin' },
+        { label: 'Polityka Prywatności', href: '/legal/polityka-prywatnosci' },
         { label: 'Kontakt', onClick: () => smoothScrollTo('kontakt') },
         { label: 'Dla Biznesu', onClick: () => smoothScrollTo('dla-biznesu') },
     ]
@@ -38,13 +38,23 @@ export default function Footer() {
                         <h3 className="text-white font-bold mb-4">Linki</h3>
                         <div className="flex flex-col gap-3">
                             {footerLinks.map((link, index) => (
-                                <button
-                                    key={index}
-                                    onClick={link.onClick}
-                                    className="text-gray-400 hover:text-pedro-lime transition-colors text-left text-sm"
-                                >
-                                    {link.label}
-                                </button>
+                                link.href ? (
+                                    <Link
+                                        key={index}
+                                        href={link.href}
+                                        className="text-gray-400 hover:text-pedro-lime transition-colors text-left text-sm"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                ) : (
+                                    <button
+                                        key={index}
+                                        onClick={link.onClick}
+                                        className="text-gray-400 hover:text-pedro-lime transition-colors text-left text-sm"
+                                    >
+                                        {link.label}
+                                    </button>
+                                )
                             ))}
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -199,13 +200,13 @@ export default function RegisterTab({
 
       <div className="text-xs text-gray-500 text-center">
         Rejestrując się, akceptujesz{' '}
-        <a href="#" className="underline hover:text-pedro-purple">
+        <Link href="/legal/regulamin" className="underline hover:text-pedro-purple">
           Regulamin
-        </a>{' '}
+        </Link>{' '}
         i{' '}
-        <a href="#" className="underline hover:text-pedro-purple">
+        <Link href="/legal/polityka-prywatnosci" className="underline hover:text-pedro-purple">
           Politykę Prywatności
-        </a>
+        </Link>
         .
       </div>
     </div>
