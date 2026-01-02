@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import { useAuth } from '@/lib/auth-context'
 
 interface Category {
   id: string
@@ -32,6 +33,7 @@ interface SystemConfig {
 }
 
 export function useSystemConfig() {
+  const { loading: authLoading } = useAuth()
   const [config, setConfig] = useState<SystemConfig | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -45,21 +47,33 @@ export function useSystemConfig() {
       { name: 'Gdańsk', slug: 'gdansk', isActive: true, sortOrder: 3, coordinates: { latitude: 54.3520, longitude: 18.6466 } },
       { name: 'Wrocław', slug: 'wroclaw', isActive: true, sortOrder: 4, coordinates: { latitude: 51.1079, longitude: 17.0385 } },
       { name: 'Poznań', slug: 'poznan', isActive: true, sortOrder: 5, coordinates: { latitude: 52.4064, longitude: 16.9252 } },
+      { name: 'Łódź', slug: 'lodz', isActive: true, sortOrder: 6, coordinates: { latitude: 51.7592, longitude: 19.4560 } },
+      { name: 'Katowice', slug: 'katowice', isActive: true, sortOrder: 7, coordinates: { latitude: 50.2649, longitude: 19.0238 } },
+      { name: 'Białystok', slug: 'bialystok', isActive: true, sortOrder: 8, coordinates: { latitude: 53.1325, longitude: 23.1688 } },
+      { name: 'Lublin', slug: 'lublin', isActive: true, sortOrder: 9, coordinates: { latitude: 51.2465, longitude: 22.5684 } },
+      { name: 'Szczecin', slug: 'szczecin', isActive: true, sortOrder: 10, coordinates: { latitude: 53.4285, longitude: 14.5528 } },
     ],
     businessTypes: [
-      'Restauracja',
-      'Salon urody',
-      'Klinika',
-      'Fitness',
-      'Hotel',
-      'Sklep',
-      'Warsztat',
-      'Biuro usług',
+      'Restauracja/Gastronomia',
+      'Salon urody/Fryzjer',
+      'Zdrowie/Medycyna',
+      'Fitness/Sport',
+      'Rozrywka/Kultura',
+      'Turystyka/Podróże',
+      'Handel detaliczny',
+      'Usługi profesjonalne',
+      'Motoryzacja',
       'Inne'
     ]
   }
 
   useEffect(() => {
+    // Wait for auth to initialize before fetching config
+    if (authLoading) {
+      console.log('Waiting for auth to initialize...')
+      return
+    }
+
     const fetchSystemConfig = async (retryCount = 0) => {
       try {
         setLoading(true)
@@ -68,6 +82,11 @@ export function useSystemConfig() {
         }
 
         console.log(`Attempting to fetch system config from Firebase... (attempt ${retryCount + 1})`)
+        console.log('Firebase config:', {
+          projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+          authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+        })
+        
         const configDoc = await getDoc(doc(db, 'system_config', 'main'))
         
         if (!configDoc.exists()) {
@@ -112,6 +131,11 @@ export function useSystemConfig() {
         setError(null)
       } catch (err: any) {
         console.error('Error fetching system config:', err)
+        console.error('Error details:', {
+          code: err.code,
+          message: err.message,
+          stack: err.stack
+        })
         
         // If it's a permission error and we haven't retried too many times, try again
         if (err.code === 'permission-denied' && retryCount < 2) {
@@ -123,7 +147,7 @@ export function useSystemConfig() {
         }
         
         console.log('Using fallback configuration')
-        setError('Korzystam z lokalnej konfiguracji')
+        setError(`Błąd Firebase: ${err.code || err.message}. Korzystam z lokalnej konfiguracji.`)
         // Use fallback config when Firebase is not available
         setConfig(fallbackConfig)
       } finally {
@@ -134,7 +158,7 @@ export function useSystemConfig() {
     }
 
     fetchSystemConfig()
-  }, [])
+  }, [authLoading]) // Add authLoading as dependency
 
   return {
     config,
