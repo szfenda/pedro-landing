@@ -4,7 +4,7 @@
 
 **🎉 PRODUCTION-READY APPLICATION DEPLOYED!**
 - **Architecture:** Dynamic Next.js on Vercel with Firebase backend
-- **Live URL:** https://pedro-landing-sage.vercel.app
+- **Live URL:** https://pedro.app
 - **Status:** All core features working perfectly
 
 ## ✅ COMPLETED & PRODUCTION READY
@@ -59,6 +59,15 @@
 - **Error Handling:** Comprehensive logging and user feedback
 - **Status:** ✅ TESTED AND WORKING IN PRODUCTION
 
+### Legal Documents System ✅ NEW (Jan 2025)
+- **Web Pages:** Responsive pages for Regulamin and Polityka Prywatności
+- **API Endpoints:** JSON endpoints for mobile app integration (`/api/legal/*`)
+- **PDF Downloads:** Direct access to PDF versions of documents
+- **Version Management:** Git-based versioning with easy updates
+- **Integration:** Links in footer and registration form
+- **TypeScript Structure:** Type-safe document management system
+- **Status:** ✅ FULLY IMPLEMENTED AND TESTED
+
 ### Technical Infrastructure ✅
 - **Route Structure:** 7 complete pages with proper organization
 - **API Endpoints:** 4 endpoints (health, contact, 3x stripe)
@@ -80,23 +89,24 @@
 components/
 ├── auth/           # 5 auth components
 ├── business/       # 4 business components  
+├── legal/          # 2 legal components ✅ NEW
 ├── ui/             # 6 brutal UI components
-└── layout/         # 2 navigation components
+└── layout/         # 2 navigation components (updated with legal links)
 ```
 
 ### Route Structure
 ```
 app/
-├── (public)/       # Landing + Auth
+├── (public)/       # Landing + Auth + Legal ✅ NEW
 ├── (protected)/    # Business routes
-└── api/           # 4 endpoints (health, contact, stripe)
+└── api/           # 6 endpoints (health, contact, legal x2, stripe x3)
 ```
 
 ## ✅ VERCEL MIGRATION COMPLETED (Dec 31, 2024)
 
 ### Migration Success ✅
 - **Status:** ✅ LIVE IN PRODUCTION
-- **Website URL:** https://pedro-landing-sage.vercel.app
+- **Website URL:** https://pedro.app
 - **Migration Process:**
   - Removed Firebase Functions dependency
   - Updated Next.js configuration for Vercel
@@ -134,9 +144,10 @@ All environment variables properly configured in Vercel:
 ## 🔧 CURRENT SYSTEM STATUS
 
 ### Live Services ✅
-- **Website:** https://pedro-landing-sage.vercel.app ✅ LIVE
+- **Website:** https://pedro.app ✅ LIVE
 - **Health Check:** `/api/health` ✅ ACTIVE
 - **Contact Form:** `/api/contact` ✅ WORKING
+- **Legal Documents:** `/legal/*` and `/api/legal/*` ✅ NEW
 - **Auth System:** Login/Register/Reset ✅ FUNCTIONAL
 - **Protected Routes:** Middleware protection ✅ ACTIVE
 
@@ -202,7 +213,7 @@ vercel logs    # View logs
 **🎯 STATUS:** PRODUCTION-READY AND FULLY OPERATIONAL
 
 **🌐 LIVE APPLICATION:**
-- **Website:** https://pedro-landing-sage.vercel.app
+- **Website:** https://pedro.app
 - **Contact Form:** Working with GoDaddy SMTP
 - **Auth System:** Fully functional with proper redirects
 - **Health Monitoring:** Active with real-time status

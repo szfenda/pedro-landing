@@ -4,7 +4,7 @@
 
 **Project Type:** Full-stack Next.js web application with authentication and business management  
 **Architecture:** Dynamic Next.js deployed on Vercel with Firebase backend integration  
-**Live URL:** https://pedro-landing-sage.vercel.app
+**Live URL:** https://pedro.app
 
 ## Application Overview
 
@@ -17,6 +17,7 @@ PEDRO is a complete web application that combines a marketing landing page with 
 4. **Billing Integration** - Stripe-powered subscription management
 5. **Business Dashboard** - Real-time business management interface
 6. **Contact Form** - Fully functional with GoDaddy SMTP ✅ **WORKING**
+7. **Legal Documents System** - Regulamin & Polityka Prywatności ✅ **NEW (Jan 2025)**
 
 ## Technical Architecture
 
@@ -43,8 +44,11 @@ PEDRO is a complete web application that combines a marketing landing page with 
 /register-business  # 4-step business form (protected)
 /billing           # Stripe subscription setup (protected)
 /dashboard         # Business management interface (protected)
+/legal/regulamin    # Terms of Service page (public) ✅ NEW
+/legal/polityka-prywatnosci # Privacy Policy page (public) ✅ NEW
 /api/health        # Health monitoring endpoint ✅
 /api/contact       # Contact form endpoint ✅
+/api/legal/*       # Legal documents API endpoints ✅ NEW
 /api/stripe/*      # Stripe integration endpoints
 ```
 
@@ -104,6 +108,14 @@ components/
 - **Billing Management:** Current plan, usage stats, and payment actions
 - **Status Tracking:** Business approval workflow visualization
 
+### 6. Legal Documents System ✅ **NEW (Jan 2025)**
+- **Web Pages:** Responsive pages for Regulamin and Polityka Prywatności
+- **API Endpoints:** JSON endpoints for mobile app integration
+- **PDF Downloads:** Direct access to PDF versions of documents
+- **Version Management:** Git-based versioning with easy updates
+- **Integration:** Links in footer and registration form
+- **TypeScript Structure:** Type-safe document management system
+
 ## Design System: "Brutal UI" ✅
 
 ### Visual Identity
@@ -158,7 +170,7 @@ PARTNER (Firestore Document)
 ## Deployment & Infrastructure ✅
 
 ### Current Deployment
-- **Hosting:** Vercel (https://pedro-landing-sage.vercel.app)
+- **Hosting:** Vercel (https://pedro.app)
 - **Database:** Firestore with security rules
 - **Authentication:** Firebase Auth with email/password
 - **Email:** GoDaddy SMTP ([YOUR_EMAIL]) ✅ **WORKING**
@@ -180,7 +192,7 @@ PARTNER (Firestore Document)
 - ✅ **Health Monitoring:** Added /api/health endpoint
 - ✅ **Structured Logging:** JSON logging with context
 - ✅ **SMTP Configuration:** GoDaddy email working perfectly
-- ✅ **Deployment:** Live on https://pedro-landing-sage.vercel.app
+- ✅ **Deployment:** Live on https://pedro.app
 
 ### Benefits Achieved:
 - **Resolved main issue:** Auth redirects now work properly

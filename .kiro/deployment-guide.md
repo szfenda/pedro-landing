@@ -1,7 +1,7 @@
 # Vercel Deployment Guide
 
 ## Current Deployment Status
-**✅ LIVE:** https://pedro-landing-sage.vercel.app  
+**✅ LIVE:** https://pedro.app  
 **Platform:** Vercel  
 **GitHub Repo:** https://github.com/szfenda/pedro-landing
 

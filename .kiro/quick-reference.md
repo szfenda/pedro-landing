@@ -1,7 +1,7 @@
 # Quick Reference Guide
 
 ## 🚀 Current Status
-**✅ DEPLOYED & LIVE:** https://pedro-landing-sage.vercel.app  
+**✅ DEPLOYED & LIVE:** https://pedro.app  
 **Platform:** Vercel (migrated from Firebase Hosting)  
 **Status:** Production ready, all features operational  
 **Last Updated:** December 31, 2024
@@ -71,7 +71,7 @@ git add . && git commit -m "message" && git push origin main
 - Email sending: ✅ Working (tested successfully)
 - Error handling: ✅ Implemented with timeouts
 - Success feedback: ✅ Polish language responses
-- **Test URL:** https://pedro-landing-sage.vercel.app/#kontakt
+- **Test URL:** https://pedro.app/#kontakt
 
 ## 🎯 Immediate Tasks
 1. **Store Links:** Replace `href="#"` with real URLs in Hero.tsx, Download.tsx
@@ -80,7 +80,7 @@ git add . && git commit -m "message" && git push origin main
 4. **FAQ:** Replace placeholder questions with real content
 
 ## 🔗 Important Links
-- **Live Site:** https://pedro-landing-sage.vercel.app
+- **Live Site:** https://pedro.app
 - **Vercel Dashboard:** https://vercel.com/dashboard
 - **Firebase Console:** https://console.firebase.google.com/project/[YOUR_PROJECT_ID]
 - **GitHub:** https://github.com/szfenda/pedro-landing

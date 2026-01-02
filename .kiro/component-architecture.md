@@ -13,6 +13,9 @@ components/
 │   ├── BusinessForm.tsx   # 4-section business registration
 │   ├── BusinessFormSection.tsx # Individual form sections
 │   └── BillingCard.tsx    # Stripe billing management
+├── legal/                 # Legal documents components ✅ NEW (Jan 2025)
+│   ├── LegalDocument.tsx  # Document display component
+│   └── LegalNavigation.tsx # Navigation between documents
 ├── ui/                    # Brutal design system
 │   ├── BrutalButton.tsx   # Styled buttons with variants
 │   ├── BrutalInput.tsx    # Form inputs with validation
@@ -23,7 +26,7 @@ components/
 ├── layout/
 │   ├── Navigation.tsx     # Fixed top nav with auth state
 │   ├── AuthNavigation.tsx # Auth-specific navigation
-│   └── Footer.tsx         # Dark footer with Pedro Peeking
+│   └── Footer.tsx         # Dark footer with Pedro Peeking + legal links
 └── sections/              # Landing page sections
     ├── Hero.tsx           # 100vh split layout (CRITICAL: 1:1 design)
     ├── About.tsx          # 2-column with Pedro Thumbs Up
@@ -412,3 +415,85 @@ import { mascots, featureIcons, backgrounds } from '@/lib/assets'
 - Automatic static optimization
 - Edge network caching
 - Serverless function optimization
+
+## Legal Documents Components ✅ **NEW (Jan 2025)**
+
+### LegalDocument.tsx
+**Purpose:** Display legal documents with proper formatting
+- Responsive document viewer with brutal design
+- PDF download functionality
+- Metadata display (version, last updated)
+- Structured content rendering with sections and subsections
+- Breadcrumb navigation
+
+**Features:**
+```tsx
+interface LegalDocumentProps {
+  document: LegalDocument
+}
+
+// Renders document with:
+// - Title and description
+// - Version and date metadata
+// - Download PDF button
+// - Formatted content with HTML rendering
+// - Footer actions
+```
+
+### LegalNavigation.tsx
+**Purpose:** Navigation between legal documents
+- Card-based navigation with icons
+- Active state indication
+- Breadcrumb navigation
+- Responsive grid layout
+
+**Features:**
+```tsx
+// Navigation cards for:
+// - Regulamin (📄)
+// - Polityka Prywatności (🛡️)
+// 
+// With hover effects and active states
+```
+
+## Legal System Architecture ✅ **NEW (Jan 2025)**
+
+### Data Structure
+```
+lib/legal/
+├── types.ts              # TypeScript interfaces and constants
+├── legal-utils.ts        # Utility functions and exports
+├── regulamin.ts          # Terms of Service content
+└── politykaPrywatnosci.ts # Privacy Policy content
+```
+
+### API Endpoints
+```
+app/api/legal/
+├── regulamin/route.ts           # GET /api/legal/regulamin
+└── polityka-prywatnosci/route.ts # GET /api/legal/polityka-prywatnosci
+```
+
+### Pages Structure
+```
+app/(public)/legal/
+├── layout.tsx                    # Legal pages layout
+├── regulamin/page.tsx           # /legal/regulamin
+└── polityka-prywatnosci/page.tsx # /legal/polityka-prywatnosci
+```
+
+### Static Assets
+```
+public/legal/
+├── regulamin-pedro-beta.pdf
+└── polityka-prywatnosci-pedro.pdf
+```
+
+### Key Features
+- **Type Safety:** Full TypeScript support with interfaces
+- **Version Management:** Git-based versioning system
+- **Multi-format Support:** Web pages, API endpoints, and PDF downloads
+- **Mobile Integration:** JSON API for React Native app
+- **SEO Optimized:** Static generation with proper metadata
+- **Responsive Design:** Works on all device sizes
+- **Easy Updates:** Simple file editing + deployment process

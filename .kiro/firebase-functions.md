@@ -7,7 +7,7 @@ PEDRO web application is now deployed on Vercel, providing serverless functions 
 
 ### Main Application
 - **Platform:** Vercel
-- **URL:** https://pedro-landing-sage.vercel.app
+- **URL:** https://pedro.app
 - **Framework:** Next.js 15.1.2 with App Router
 - **Runtime:** Node.js 18
 

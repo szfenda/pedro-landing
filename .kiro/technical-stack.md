@@ -50,6 +50,9 @@
 │   │       ├── create-checkout-session/route.ts
 │   │       ├── webhook/route.ts
 │   │       └── create-portal-session/route.ts
+│   │   └── legal/        # Legal documents API ✅ NEW (Jan 2025)
+│   │       ├── regulamin/route.ts
+│   │       └── polityka-prywatnosci/route.ts
 │   ├── layout.tsx         # Root layout with fonts & auth provider
 │   ├── page.tsx          # Root redirect to (public)
 │   ├── globals.css       # Neo-brutalism design system
@@ -57,6 +60,7 @@
 ├── components/
 │   ├── auth/             # Authentication components
 │   ├── business/         # Business management components
+│   ├── legal/            # Legal documents components ✅ NEW
 │   ├── ui/              # Brutal design system
 │   ├── layout/          # Navigation components
 │   └── sections/        # Landing page sections
@@ -69,9 +73,15 @@
 │   ├── contact.ts        # Email sending service ✅
 │   ├── logger.ts         # Structured logging ✅
 │   ├── assets.ts         # Type-safe asset paths
-│   └── utils.ts          # Utilities (cn, smoothScrollTo)
+│   ├── utils.ts          # Utilities (cn, smoothScrollTo)
+│   └── legal/            # Legal documents system ✅ NEW
+│       ├── types.ts      # TypeScript interfaces
+│       ├── legal-utils.ts # Utility functions
+│       ├── regulamin.ts  # Terms content
+│       └── politykaPrywatnosci.ts # Privacy policy content
 ├── middleware.ts         # Route protection middleware ✅ VERCEL
-└── public/assets/        # Organized asset structure
+├── public/assets/        # Organized asset structure
+└── public/legal/         # Legal documents PDFs ✅ NEW
 ```
 
 ## Deployment Configuration ✅ VERCEL
@@ -215,7 +225,7 @@ vercel logs    # View deployment logs
 - ✅ Configured all environment variables
 - ✅ Added health monitoring and structured logging
 - ✅ Verified SMTP functionality
-- ✅ Live deployment: https://pedro-landing-sage.vercel.app
+- ✅ Live deployment: https://pedro.app
 
 **Benefits achieved:**
 - Native Next.js support

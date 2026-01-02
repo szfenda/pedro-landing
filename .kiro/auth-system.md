@@ -308,6 +308,6 @@ const getAuthErrorMessage = (error: FirebaseError) => {
 **✅ BUSINESS FLOW:** Complete onboarding process functional  
 **✅ SECURITY:** Route protection and data access controls active  
 **✅ MONITORING:** Health checks and structured logging operational  
-**✅ DEPLOYMENT:** Live on https://pedro-landing-sage.vercel.app
+**✅ DEPLOYMENT:** Live on https://pedro.app
 
 All authentication and business flow features are working perfectly on Vercel.
