@@ -57,3 +57,36 @@ export const contactSchema = z.object({
 })
 
 export type ContactFormData = z.infer<typeof contactSchema>
+
+// User settings validation schemas
+export const updateEmailSchema = z.object({
+  newEmail: z.string().email('Nieprawidłowy format email'),
+  password: z.string().min(1, 'Podaj obecne hasło'),
+})
+
+export const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Podaj obecne hasło'),
+  newPassword: z.string().min(8, 'Nowe hasło musi mieć co najmniej 8 znaków'),
+  confirmPassword: z.string().min(1, 'Potwierdź nowe hasło'),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: "Hasła muszą być identyczne",
+  path: ["confirmPassword"],
+})
+
+export const deleteAccountSchema = z.object({
+  password: z.string().min(1, 'Podaj hasło'),
+  confirmation: z.literal('USUŃ', {
+    errorMap: () => ({ message: 'Wpisz "USUŃ" aby potwierdzić' })
+  }),
+})
+
+export const deleteBusinessSchema = z.object({
+  confirmation: z.literal('USUŃ BIZNES', {
+    errorMap: () => ({ message: 'Wpisz "USUŃ BIZNES" aby potwierdzić' })
+  }),
+})
+
+export type UpdateEmailFormData = z.infer<typeof updateEmailSchema>
+export type ChangePasswordFormData = z.infer<typeof changePasswordSchema>
+export type DeleteAccountFormData = z.infer<typeof deleteAccountSchema>
+export type DeleteBusinessFormData = z.infer<typeof deleteBusinessSchema>

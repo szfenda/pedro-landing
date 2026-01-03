@@ -10,7 +10,9 @@ export function middleware(request: NextRequest) {
     '/no-business', 
     '/register-business',
     '/billing',
-    '/dashboard'
+    '/dashboard',
+    '/settings',
+    '/edit-business'
   ]
   
   // Check if current path is protected
@@ -47,6 +49,8 @@ export const config = {
     '/register-business/:path*',
     '/billing/:path*',
     '/dashboard/:path*',
+    '/settings/:path*',
+    '/edit-business/:path*',
     // API routes (optional protection)
     '/api/stripe/:path*'
   ]

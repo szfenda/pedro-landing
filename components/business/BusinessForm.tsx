@@ -17,12 +17,16 @@ import ProgressIndicator from '@/components/ui/ProgressIndicator'
 import BusinessFormSection from './BusinessFormSection'
 
 interface BusinessFormProps {
+  mode?: 'create' | 'edit'
+  partnerId?: string
   onSubmit?: (data: BusinessFormData) => void
   onCancel?: () => void
   initialData?: Partial<BusinessFormData>
 }
 
 export default function BusinessForm({ 
+  mode = 'create',
+  partnerId,
   onSubmit: onSubmitProp, 
   onCancel, 
   initialData 
@@ -85,7 +89,7 @@ export default function BusinessForm({
   const completedSteps = [1, 2, 3, 4].filter(isSectionValid)
 
   const onSubmit = async (data: BusinessFormData) => {
-    if (!user) {
+    if (!user && mode === 'create') {
       setError('Musisz być zalogowany aby dodać biznes.')
       return
     }
@@ -94,13 +98,21 @@ export default function BusinessForm({
     setError(null)
 
     try {
-      // Create PARTNER document
-      const partnerId = `partner_${user.uid}_${Date.now()}`
+      if (mode === 'edit') {
+        // Call custom onSubmit for edit mode
+        if (onSubmitProp) {
+          await onSubmitProp(data)
+        }
+        return
+      }
+
+      // Create mode logic (existing)
+      const partnerId = `partner_${user!.uid}_${Date.now()}`
       
       await setDoc(doc(db, 'partners', partnerId), {
         id: partnerId,
-        createdBy: user.uid,
-        userId: user.uid,
+        createdBy: user!.uid,
+        userId: user!.uid,
         companyName: data.companyName,
         nip: data.nip,
         businessType: data.businessType,
@@ -129,8 +141,8 @@ export default function BusinessForm({
       // Redirect to billing
       router.push('/billing')
     } catch (error: any) {
-      console.error('Error creating business:', error)
-      setError('Wystąpił błąd podczas tworzenia biznesu. Spróbuj ponownie.')
+      console.error('Error saving business:', error)
+      setError('Wystąpił błąd podczas zapisywania danych biznesu. Spróbuj ponownie.')
     } finally {
       setLoading(false)
     }
@@ -454,7 +466,7 @@ export default function BusinessForm({
             loading={loading}
             className="flex-1"
           >
-            Zapisz i przejdź do płatności →
+            {mode === 'edit' ? 'Zapisz zmiany' : 'Zapisz i przejdź do płatności'} →
           </BrutalButton>
         </div>
       </form>

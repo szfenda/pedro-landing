@@ -172,6 +172,17 @@ export default function Navigation() {
                                         Dashboard
                                     </button>
                                     
+                                    <button
+                                        onClick={() => {
+                                            router.push('/settings')
+                                            setIsUserMenuOpen(false)
+                                        }}
+                                        className="w-full text-left px-4 py-3 hover:bg-pedro-light rounded-button transition-colors flex items-center gap-3 font-medium text-pedro-dark"
+                                    >
+                                        <span className="text-lg">⚙️</span>
+                                        Ustawienia
+                                    </button>
+                                    
                                     <hr className="my-2 border-pedro-dark/20" />
                                     
                                     <button

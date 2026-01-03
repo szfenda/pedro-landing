@@ -382,6 +382,57 @@ export default function DashboardPage() {
                 </div>
               </div>
             </DashboardCard>
+
+            {/* Edit Business Card */}
+            <DashboardCard 
+              title="Ustawienia biznesu"
+              actions={
+                <BrutalButton
+                  variant="outline"
+                  size="sm"
+                  onClick={() => router.push('/settings')}
+                >
+                  Wszystkie ustawienia
+                </BrutalButton>
+              }
+            >
+              <div className="space-y-4">
+                <div className="text-center">
+                  <div className="text-4xl mb-4">⚙️</div>
+                  <h4 className="font-bold text-pedro-dark mb-2">
+                    Zarządzaj danymi biznesu
+                  </h4>
+                  <p className="text-gray-600 text-sm mb-6">
+                    Edytuj informacje o firmie, dane kontaktowe i opis biznesu.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <BrutalButton
+                    variant="primary"
+                    size="md"
+                    onClick={() => router.push('/edit-business')}
+                    className="w-full"
+                  >
+                    ✏️ Edytuj dane biznesu
+                  </BrutalButton>
+                  
+                  <BrutalButton
+                    variant="outline"
+                    size="md"
+                    onClick={() => router.push('/settings')}
+                    className="w-full"
+                  >
+                    ⚙️ Ustawienia konta
+                  </BrutalButton>
+                </div>
+
+                <div className="text-xs text-gray-600 bg-gray-50 p-3 rounded border">
+                  <strong>Wskazówka:</strong> Regularne aktualizowanie danych biznesu 
+                  pomaga klientom znaleźć Cię łatwiej.
+                </div>
+              </div>
+            </DashboardCard>
           </div>
 
           {/* Info Banner */}
