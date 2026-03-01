@@ -7,6 +7,7 @@ import { deleteAccountSchema, deleteBusinessSchema, type DeleteAccountFormData, 
 import BrutalInput from '@/components/ui/BrutalInput'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface DangerZoneProps {
   hasPartner: boolean
@@ -15,6 +16,7 @@ interface DangerZoneProps {
 }
 
 export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccount }: DangerZoneProps) {
+  const { t } = useTranslation()
   const [showDeleteBusiness, setShowDeleteBusiness] = useState(false)
   const [showDeleteAccount, setShowDeleteAccount] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -96,9 +98,9 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
         <div className="space-y-4">
           <div className="flex justify-between items-start">
             <div>
-              <h3 className="font-bold text-red-700 mb-2">Usuń biznes</h3>
+              <h3 className="font-bold text-red-700 mb-2">{t('dangerZone.deleteBusiness')}</h3>
               <p className="text-sm text-gray-600 mb-4">
-                Usuwa dane biznesu, anuluje subskrypcję, ale zachowuje konto użytkownika.
+                {t('dangerZone.deleteBusinessDescription')}
               </p>
             </div>
             
@@ -109,7 +111,7 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
                 onClick={() => setShowDeleteBusiness(true)}
                 className="border-red-500 text-red-600 hover:bg-red-50"
               >
-                Usuń biznes
+                {t('dangerZone.deleteBusiness')}
               </BrutalButton>
             )}
           </div>
@@ -117,23 +119,23 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
           {showDeleteBusiness && (
             <form onSubmit={handleSubmitBusiness(handleDeleteBusiness)} className="space-y-4 p-4 bg-red-50 border-2 border-red-200 rounded-button">
               <div className="space-y-3">
-                <h4 className="font-bold text-red-700">⚠️ Potwierdzenie usunięcia biznesu</h4>
+                <h4 className="font-bold text-red-700">{t('dangerZone.deleteBusinessConfirmTitle')}</h4>
                 
                 <div className="bg-white p-3 rounded border text-sm">
-                  <p className="font-medium text-red-700 mb-2">Ta operacja spowoduje:</p>
+                  <p className="font-medium text-red-700 mb-2">{t('dangerZone.deleteBusinessWarning')}</p>
                   <ul className="text-gray-700 space-y-1">
-                    <li>• Usunięcie wszystkich danych biznesu</li>
-                    <li>• Anulowanie aktywnej subskrypcji Stripe</li>
-                    <li>• Utratę dostępu do dashboardu biznesu</li>
-                    <li>• Usunięcie wszystkich ofert i kuponów</li>
+                    <li>• {t('dangerZone.deleteBusinessItem1')}</li>
+                    <li>• {t('dangerZone.deleteBusinessItem2')}</li>
+                    <li>• {t('dangerZone.deleteBusinessItem3')}</li>
+                    <li>• {t('dangerZone.deleteBusinessItem4')}</li>
                   </ul>
                   <p className="font-medium text-green-700 mt-2">
-                    ✅ Twoje konto użytkownika zostanie zachowane
+                    {t('dangerZone.deleteBusinessSafe')}
                   </p>
                 </div>
 
                 <BrutalInput
-                  label="Wpisz 'USUŃ BIZNES' aby potwierdzić"
+                  label={t('dangerZone.deleteBusinessInput')}
                   type="text"
                   placeholder="USUŃ BIZNES"
                   error={businessErrors.confirmation?.message}
@@ -149,7 +151,7 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
                   loading={loading}
                   className="flex-1 bg-red-600 text-white border-red-600 hover:bg-red-700 hover:shadow-brutal-red"
                 >
-                  🗑️ Usuń biznes
+                  {t('dangerZone.deleteBusinessSubmit')}
                 </BrutalButton>
                 
                 <BrutalButton
@@ -159,7 +161,7 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
                   onClick={handleCancelBusiness}
                   disabled={loading}
                 >
-                  Anuluj
+                  {t('dangerZone.cancel')}
                 </BrutalButton>
               </div>
             </form>
@@ -171,9 +173,9 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
       <div className="space-y-4 border-t pt-6">
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="font-bold text-red-700 mb-2">Usuń konto</h3>
+            <h3 className="font-bold text-red-700 mb-2">{t('dangerZone.deleteAccount')}</h3>
             <p className="text-sm text-gray-600 mb-4">
-              Trwale usuwa konto i wszystkie powiązane dane. Ta operacja jest nieodwracalna.
+              {t('dangerZone.deleteAccountDescription')}
             </p>
           </div>
           
@@ -184,7 +186,7 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
               onClick={() => setShowDeleteAccount(true)}
               className="border-red-500 text-red-600 hover:bg-red-50"
             >
-              Usuń konto
+              {t('dangerZone.deleteAccount')}
             </BrutalButton>
           )}
         </div>
@@ -192,32 +194,32 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
         {showDeleteAccount && (
           <form onSubmit={handleSubmitAccount(handleDeleteAccount)} className="space-y-4 p-4 bg-red-50 border-2 border-red-200 rounded-button">
             <div className="space-y-3">
-              <h4 className="font-bold text-red-700">⚠️ UWAGA: Ta operacja jest nieodwracalna!</h4>
+              <h4 className="font-bold text-red-700">{t('dangerZone.deleteAccountConfirmTitle')}</h4>
               
               <div className="bg-white p-3 rounded border text-sm">
-                <p className="font-medium text-red-700 mb-2">Usunięcie konta spowoduje:</p>
+                <p className="font-medium text-red-700 mb-2">{t('dangerZone.deleteAccountWarning')}</p>
                 <ul className="text-gray-700 space-y-1">
-                  <li>• Trwałe usunięcie konta użytkownika</li>
-                  <li>• Usunięcie wszystkich danych osobowych</li>
-                  {hasPartner && <li>• Usunięcie danych biznesu</li>}
-                  {hasPartner && <li>• Anulowanie aktywnej subskrypcji</li>}
-                  <li>• Utratę dostępu do aplikacji</li>
-                  <li>• Niemożność odzyskania danych</li>
+                  <li>• {t('dangerZone.deleteAccountItem1')}</li>
+                  <li>• {t('dangerZone.deleteAccountItem2')}</li>
+                  {hasPartner && <li>• {t('dangerZone.deleteAccountItem3')}</li>}
+                  {hasPartner && <li>• {t('dangerZone.deleteAccountItem4')}</li>}
+                  <li>• {t('dangerZone.deleteAccountItem5')}</li>
+                  <li>• {t('dangerZone.deleteAccountItem6')}</li>
                 </ul>
               </div>
 
               <BrutalInput
-                label="Obecne hasło"
+                label={t('dangerZone.deleteAccountPasswordLabel')}
                 type="password"
-                placeholder="Wpisz swoje hasło"
-                helper="Wymagane do potwierdzenia tożsamości"
+                placeholder={t('dangerZone.deleteAccountPasswordPlaceholder')}
+                helper={t('dangerZone.deleteAccountPasswordHelper')}
                 error={accountErrors.password?.message}
                 required
                 {...registerAccount('password')}
               />
 
               <BrutalInput
-                label="Wpisz 'USUŃ' aby potwierdzić"
+                label={t('dangerZone.deleteAccountInput')}
                 type="text"
                 placeholder="USUŃ"
                 error={accountErrors.confirmation?.message}
@@ -233,7 +235,7 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
                 loading={loading}
                 className="flex-1 bg-red-600 text-white border-red-600 hover:bg-red-700 hover:shadow-brutal-red"
               >
-                🗑️ Usuń konto na zawsze
+                {t('dangerZone.deleteAccountSubmit')}
               </BrutalButton>
               
               <BrutalButton
@@ -243,7 +245,7 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
                 onClick={handleCancelAccount}
                 disabled={loading}
               >
-                Anuluj
+                {t('dangerZone.cancel')}
               </BrutalButton>
             </div>
           </form>
@@ -252,10 +254,9 @@ export default function DangerZone({ hasPartner, onDeleteBusiness, onDeleteAccou
 
       {/* Safety Notice */}
       <div className="bg-yellow-50 border-2 border-yellow-200 rounded-button p-4">
-        <h4 className="font-bold text-yellow-800 mb-2">🛡️ Bezpieczeństwo danych</h4>
+        <h4 className="font-bold text-yellow-800 mb-2">{t('dangerZone.safetyTitle')}</h4>
         <p className="text-sm text-yellow-700">
-          Wszystkie operacje usuwania są nieodwracalne i wykonywane natychmiast. 
-          Upewnij się, że masz kopie zapasowe ważnych danych przed kontynuowaniem.
+          {t('dangerZone.safetyDescription')}
         </p>
       </div>
     </div>

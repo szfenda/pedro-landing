@@ -15,6 +15,7 @@ import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import ProgressIndicator from '@/components/ui/ProgressIndicator'
 import BusinessFormSection from './BusinessFormSection'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface BusinessFormProps {
   mode?: 'create' | 'edit'
@@ -31,6 +32,7 @@ export default function BusinessForm({
   onCancel, 
   initialData 
 }: BusinessFormProps) {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const router = useRouter()
   const { config, loading: configLoading, error: configError, getBusinessTypes, getCityNames } = useSystemConfig()
@@ -90,7 +92,7 @@ export default function BusinessForm({
 
   const onSubmit = async (data: BusinessFormData) => {
     if (!user && mode === 'create') {
-      setError('Musisz być zalogowany aby dodać biznes.')
+      setError(t('business.form.loginRequired'))
       return
     }
 
@@ -142,7 +144,7 @@ export default function BusinessForm({
       router.push('/billing')
     } catch (error: any) {
       console.error('Error saving business:', error)
-      setError('Wystąpił błąd podczas zapisywania danych biznesu. Spróbuj ponownie.')
+      setError(t('business.form.saveError'))
     } finally {
       setLoading(false)
     }
@@ -174,10 +176,10 @@ export default function BusinessForm({
   }
 
   const steps = [
-    'Dane firmy',
-    'Adres',
-    'Kontakt',
-    'Opis',
+    t('business.form.steps.s1'),
+    t('business.form.steps.s2'),
+    t('business.form.steps.s3'),
+    t('business.form.steps.s4'),
   ]
 
   return (
@@ -186,7 +188,7 @@ export default function BusinessForm({
       {configLoading && (
         <BrutalAlert
           type="info"
-          message="Ładowanie konfiguracji systemu..."
+          message={t('business.form.configLoading')}
         />
       )}
 
@@ -218,26 +220,26 @@ export default function BusinessForm({
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Section 1: Dane firmy */}
         <BusinessFormSection
-          title="1. Dane firmy"
-          description="Podstawowe informacje o Twojej firmie"
+          title={t('business.form.section1.title')}
+          description={t('business.form.section1.description')}
           isValid={isSectionValid(1)}
           isActive={activeSection === 1}
           onActivate={() => setActiveSection(1)}
         >
           <BrutalInput
-            label="Nazwa firmy"
+            label={t('business.form.section1.companyName')}
             type="text"
-            placeholder="np. Pizzeria Da Vinci"
+            placeholder={t('business.form.section1.companyNamePlaceholder')}
             error={errors.companyName?.message}
             required
             {...register('companyName')}
           />
 
           <BrutalInput
-            label="NIP"
+            label={t('business.form.section1.nip')}
             type="text"
-            placeholder="1234567890"
-            helper="10 cyfr bez kresek"
+            placeholder={t('business.form.section1.nipPlaceholder')}
+            helper={t('business.form.section1.nipHelper')}
             error={errors.nip?.message}
             required
             {...register('nip')}
@@ -245,7 +247,7 @@ export default function BusinessForm({
 
           <div className="space-y-2">
             <label className="block text-sm font-bold text-pedro-dark">
-              Typ biznesu
+              {t('business.form.section1.businessType')}
               <span className="text-pedro-pink ml-1">*</span>
             </label>
             <select
@@ -261,7 +263,7 @@ export default function BusinessForm({
               disabled={configLoading}
             >
               <option value="">
-                {configLoading ? 'Ładowanie...' : 'Wybierz typ biznesu'}
+                {configLoading ? t('business.form.section1.businessTypeLoading') : t('business.form.section1.businessTypePlaceholder')}
               </option>
               {getBusinessTypes().map((type, index) => (
                 <option key={index} value={type}>
@@ -284,25 +286,25 @@ export default function BusinessForm({
 
         {/* Section 2: Adres */}
         <BusinessFormSection
-          title="2. Adres"
-          description="Lokalizacja Twojego biznesu"
+          title={t('business.form.section2.title')}
+          description={t('business.form.section2.description')}
           isValid={isSectionValid(2)}
           isActive={activeSection === 2}
           onActivate={() => setActiveSection(2)}
         >
           <BrutalInput
-            label="Ulica i numer"
+            label={t('business.form.section2.street')}
             type="text"
-            placeholder="np. ul. Długa 123"
+            placeholder={t('business.form.section2.streetPlaceholder')}
             error={errors.address?.line1?.message}
             required
             {...register('address.line1')}
           />
 
           <BrutalInput
-            label="Dodatkowe informacje (opcjonalnie)"
+            label={t('business.form.section2.line2')}
             type="text"
-            placeholder="np. lokal 4, piętro 2"
+            placeholder={t('business.form.section2.line2Placeholder')}
             error={errors.address?.line2?.message}
             {...register('address.line2')}
           />
@@ -310,7 +312,7 @@ export default function BusinessForm({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="block text-sm font-bold text-pedro-dark">
-                Miasto
+                {t('business.form.section2.city')}
                 <span className="text-pedro-pink ml-1">*</span>
               </label>
               <select
@@ -326,7 +328,7 @@ export default function BusinessForm({
                 disabled={configLoading}
               >
                 <option value="">
-                  {configLoading ? 'Ładowanie...' : 'Wybierz miasto'}
+                  {configLoading ? t('business.form.section2.cityLoading') : t('business.form.section2.cityPlaceholder')}
                 </option>
                 {getCityNames().map((city, index) => (
                   <option key={index} value={city}>
@@ -342,10 +344,10 @@ export default function BusinessForm({
             </div>
 
             <BrutalInput
-              label="Kod pocztowy"
+              label={t('business.form.section2.postalCode')}
               type="text"
-              placeholder="80-123"
-              helper="Format: XX-XXX"
+              placeholder={t('business.form.section2.postalCodePlaceholder')}
+              helper={t('business.form.section2.postalCodeHelper')}
               error={errors.address?.postalCode?.message}
               required
               {...register('address.postalCode')}
@@ -353,9 +355,9 @@ export default function BusinessForm({
           </div>
 
           <BrutalInput
-            label="Kraj"
+            label={t('business.form.section2.country')}
             type="text"
-            placeholder="Polska"
+            placeholder={t('business.form.section2.countryPlaceholder')}
             error={errors.address?.country?.message}
             required
             {...register('address.country')}
@@ -364,44 +366,44 @@ export default function BusinessForm({
 
         {/* Section 3: Kontakt */}
         <BusinessFormSection
-          title="3. Kontakt"
-          description="Dane kontaktowe do Twojego biznesu"
+          title={t('business.form.section3.title')}
+          description={t('business.form.section3.description')}
           isValid={isSectionValid(3)}
           isActive={activeSection === 3}
           onActivate={() => setActiveSection(3)}
         >
           <BrutalInput
-            label="Email"
+            label={t('business.form.section3.email')}
             type="email"
-            placeholder="kontakt@twojafirma.pl"
+            placeholder={t('business.form.section3.emailPlaceholder')}
             error={errors.email?.message}
             required
             {...register('email')}
           />
 
           <BrutalInput
-            label="Telefon"
+            label={t('business.form.section3.phone')}
             type="tel"
-            placeholder="+48 123 456 789"
-            helper="Format: +48 XXX XXX XXX"
+            placeholder={t('business.form.section3.phonePlaceholder')}
+            helper={t('business.form.section3.phoneHelper')}
             error={errors.phone?.message}
             required
             {...register('phone')}
           />
 
           <BrutalInput
-            label="Osoba kontaktowa"
+            label={t('business.form.section3.contactPerson')}
             type="text"
-            placeholder="Jan Kowalski"
+            placeholder={t('business.form.section3.contactPersonPlaceholder')}
             error={errors.contactPersonName?.message}
             required
             {...register('contactPersonName')}
           />
 
           <BrutalInput
-            label="Strona internetowa (opcjonalnie)"
+            label={t('business.form.section3.website')}
             type="url"
-            placeholder="https://twojafirma.pl"
+            placeholder={t('business.form.section3.websitePlaceholder')}
             error={errors.website?.message}
             {...register('website')}
           />
@@ -409,21 +411,21 @@ export default function BusinessForm({
 
         {/* Section 4: Opis */}
         <BusinessFormSection
-          title="4. Opis"
-          description="Opowiedz o swoim biznesie"
+          title={t('business.form.section4.title')}
+          description={t('business.form.section4.description')}
           isValid={isSectionValid(4)}
           isActive={activeSection === 4}
           onActivate={() => setActiveSection(4)}
         >
           <div className="space-y-2">
             <label className="block text-sm font-bold text-pedro-dark">
-              Opis biznesu
+              {t('business.form.section4.descriptionLabel')}
               <span className="text-pedro-pink ml-1">*</span>
             </label>
             <textarea
               {...register('description')}
               rows={6}
-              placeholder="Opisz swoją firmę, co oferujesz, co Cię wyróżnia..."
+              placeholder={t('business.form.section4.descriptionPlaceholder')}
               className={cn(
                 'w-full brutal-border rounded-button px-4 py-3',
                 'bg-white text-pedro-dark placeholder-gray-500',
@@ -440,7 +442,7 @@ export default function BusinessForm({
               </p>
             )}
             <p className="text-sm text-gray-600">
-              Minimum 10 znaków
+              {t('business.form.section4.descriptionHelper')}
             </p>
           </div>
         </BusinessFormSection>
@@ -455,7 +457,7 @@ export default function BusinessForm({
               onClick={onCancel}
               className="md:w-auto"
             >
-              Anuluj
+              {t('business.form.cancel')}
             </BrutalButton>
           )}
 
@@ -466,7 +468,7 @@ export default function BusinessForm({
             loading={loading}
             className="flex-1"
           >
-            {mode === 'edit' ? 'Zapisz zmiany' : 'Zapisz i przejdź do płatności'} →
+            {mode === 'edit' ? t('business.form.submitEdit') : t('business.form.submitCreate')} →
           </BrutalButton>
         </div>
       </form>

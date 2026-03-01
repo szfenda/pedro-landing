@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import BrutalButton from '@/components/ui/BrutalButton'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface BusinessSettingsCardProps {
   partner: any
@@ -9,6 +10,7 @@ interface BusinessSettingsCardProps {
 }
 
 export default function BusinessSettingsCard({ partner, loading }: BusinessSettingsCardProps) {
+  const { t } = useTranslation()
   const router = useRouter()
 
   if (loading) {
@@ -26,17 +28,17 @@ export default function BusinessSettingsCard({ partner, loading }: BusinessSetti
       <div className="text-center py-8">
         <div className="text-4xl mb-4">🏢</div>
         <h3 className="font-bold text-pedro-dark mb-2">
-          Nie masz zarejestrowanego biznesu
+          {t('businessSettings.noBusinessTitle')}
         </h3>
         <p className="text-gray-600 mb-6">
-          Zarejestruj swój biznes, aby uzyskać dostęp do dashboardu i funkcji płatności.
+          {t('businessSettings.noBusinessDescription')}
         </p>
         <BrutalButton
           variant="primary"
           size="md"
           onClick={() => router.push('/register-business')}
         >
-          Dodaj biznes
+          {t('businessSettings.addBusiness')}
         </BrutalButton>
       </div>
     )
@@ -52,21 +54,21 @@ export default function BusinessSettingsCard({ partner, loading }: BusinessSetti
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-bold text-pedro-dark mb-1">
-              Nazwa firmy
+              {t('businessSettings.companyName')}
             </label>
             <p className="text-pedro-dark">{partner.companyName}</p>
           </div>
           
           <div>
             <label className="block text-sm font-bold text-pedro-dark mb-1">
-              NIP
+              {t('businessSettings.nip')}
             </label>
             <p className="text-pedro-dark">{partner.nip}</p>
           </div>
           
           <div>
             <label className="block text-sm font-bold text-pedro-dark mb-1">
-              Typ biznesu
+              {t('businessSettings.businessType')}
             </label>
             <p className="text-pedro-dark capitalize">{partner.businessType}</p>
           </div>
@@ -75,21 +77,21 @@ export default function BusinessSettingsCard({ partner, loading }: BusinessSetti
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-bold text-pedro-dark mb-1">
-              Email biznesu
+              {t('businessSettings.businessEmail')}
             </label>
             <p className="text-pedro-dark">{partner.email}</p>
           </div>
           
           <div>
             <label className="block text-sm font-bold text-pedro-dark mb-1">
-              Telefon
+              {t('businessSettings.phone')}
             </label>
             <p className="text-pedro-dark">{partner.phone}</p>
           </div>
           
           <div>
             <label className="block text-sm font-bold text-pedro-dark mb-1">
-              Miasto
+              {t('businessSettings.city')}
             </label>
             <p className="text-pedro-dark">{partner.address?.city}</p>
           </div>
@@ -105,7 +107,7 @@ export default function BusinessSettingsCard({ partner, loading }: BusinessSetti
               : 'bg-gray-200 text-gray-700'
           }`}
         >
-          {partner.isActive ? 'Aktywne' : 'Nieaktywne'}
+          {partner.isActive ? t('businessSettings.active') : t('businessSettings.inactive')}
         </span>
         
         <span
@@ -115,11 +117,11 @@ export default function BusinessSettingsCard({ partner, loading }: BusinessSetti
               : 'bg-gray-200 text-gray-700'
           }`}
         >
-          {isPPUActive ? 'PPU Aktywne' : 'Beta Free'}
+          {isPPUActive ? t('businessSettings.ppuActive') : t('businessSettings.betaFree')}
         </span>
         
         <span className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-button font-bold text-sm">
-          Weryfikacja w toku
+          {t('businessSettings.verificationPending')}
         </span>
       </div>
 
@@ -127,7 +129,7 @@ export default function BusinessSettingsCard({ partner, loading }: BusinessSetti
       {partner.description && (
         <div>
           <label className="block text-sm font-bold text-pedro-dark mb-2">
-            Opis biznesu
+            {t('businessSettings.businessDescription')}
           </label>
           <p className="text-gray-700 bg-gray-50 p-3 rounded-button border">
             {partner.description}
@@ -143,7 +145,7 @@ export default function BusinessSettingsCard({ partner, loading }: BusinessSetti
           onClick={() => router.push('/edit-business')}
           className="flex-1"
         >
-          ✏️ Edytuj dane biznesu
+          {t('businessSettings.editBusiness')}
         </BrutalButton>
         
         <BrutalButton
@@ -151,18 +153,18 @@ export default function BusinessSettingsCard({ partner, loading }: BusinessSetti
           size="md"
           onClick={() => router.push('/dashboard')}
         >
-          📊 Przejdź do dashboardu
+          {t('businessSettings.goToDashboard')}
         </BrutalButton>
       </div>
 
       {/* Business Info */}
       <div className="bg-blue-50 border-2 border-blue-200 rounded-button p-4">
-        <h4 className="font-bold text-pedro-dark mb-2">ℹ️ Informacje</h4>
+        <h4 className="font-bold text-pedro-dark mb-2">{t('businessSettings.infoTitle')}</h4>
         <ul className="text-sm text-gray-700 space-y-1">
-          <li>• Dane biznesu można edytować w dowolnym momencie</li>
-          <li>• Zmiany w danych mogą wymagać ponownej weryfikacji</li>
-          <li>• Zarządzanie ofertami odbywa się w aplikacji mobilnej</li>
-          <li>• Rozliczenia i faktury dostępne w sekcji "Billing"</li>
+          <li>• {t('businessSettings.info1')}</li>
+          <li>• {t('businessSettings.info2')}</li>
+          <li>• {t('businessSettings.info3')}</li>
+          <li>• {t('businessSettings.info4')}</li>
         </ul>
       </div>
     </div>

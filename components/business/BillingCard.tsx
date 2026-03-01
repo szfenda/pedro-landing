@@ -5,6 +5,7 @@ import { useAuth } from '@/lib/auth-context'
 import BrutalCard from '@/components/ui/BrutalCard'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface PartnerData {
   id: string
@@ -36,6 +37,7 @@ export default function BillingCard({
   onUpgrade, 
   onManageBilling 
 }: BillingCardProps) {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -72,7 +74,7 @@ export default function BillingCard({
       }
     } catch (error: any) {
       console.error('Error creating checkout session:', error)
-      setError('Wystąpił błąd podczas tworzenia sesji płatności. Spróbuj ponownie.')
+      setError(t('billingPage.checkoutError'))
     } finally {
       setLoading(false)
     }
@@ -110,7 +112,7 @@ export default function BillingCard({
       }
     } catch (error: any) {
       console.error('Error creating portal session:', error)
-      setError('Wystąpił błąd podczas otwierania panelu płatności. Spróbuj ponownie.')
+      setError(t('billingPage.portalError'))
     } finally {
       setLoading(false)
     }
@@ -134,7 +136,7 @@ export default function BillingCard({
       <BrutalCard size="lg">
         <div className="text-center mb-6">
           <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-2">
-            Status konta
+            {t('billingPage.accountStatus')}
           </h2>
           <div className="flex items-center justify-center gap-2">
             <span
@@ -144,7 +146,7 @@ export default function BillingCard({
                   : 'bg-gray-200 text-gray-700'
               }`}
             >
-              {isPPUActive ? 'PPU Aktywne' : 'Beta Free'}
+              {isPPUActive ? t('billingPage.ppuActive') : t('billingPage.betaFree')}
             </span>
           </div>
         </div>
@@ -152,12 +154,12 @@ export default function BillingCard({
         <div className="space-y-4">
           <div className="text-center">
             <h3 className="font-bold text-pedro-dark mb-2">
-              {isPPUActive ? 'Pay-per-Use' : 'Beta Free'}
+              {isPPUActive ? t('billingPage.payPerUse') : t('billingPage.betaFree')}
             </h3>
             <p className="text-gray-600 text-sm">
               {isPPUActive
-                ? 'Płacisz tylko za wykorzystane kupony'
-                : 'Bezpłatny dostęp w fazie beta'
+                ? t('billingPage.ppuDescription')
+                : t('billingPage.betaDescription')
               }
             </p>
           </div>
@@ -166,18 +168,18 @@ export default function BillingCard({
           <div className="space-y-2">
             <div className="flex items-center gap-3 text-sm">
               <span className="text-pedro-lime text-lg">✓</span>
-              <span>Dodawanie promocji</span>
+              <span>{t('billingPage.addPromo')}</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <span className="text-pedro-lime text-lg">✓</span>
-              <span>Zarządzanie kuponami</span>
+              <span>{t('billingPage.manageCoupons')}</span>
             </div>
             <div className="flex items-center gap-3 text-sm">
               <span className={isPPUActive ? 'text-pedro-lime' : 'text-gray-400'}>
                 {isPPUActive ? '✓' : '○'}
               </span>
               <span className={isPPUActive ? '' : 'text-gray-400'}>
-                Płatność za efekt
+                {t('billingPage.payForEffect')}
               </span>
             </div>
             <div className="flex items-center gap-3 text-sm">
@@ -185,7 +187,7 @@ export default function BillingCard({
                 {isPPUActive ? '✓' : '○'}
               </span>
               <span className={isPPUActive ? '' : 'text-gray-400'}>
-                Szczegółowe statystyki
+                {t('billingPage.detailedStats')}
               </span>
             </div>
           </div>
@@ -196,7 +198,7 @@ export default function BillingCard({
       {isPPUActive && partner.monthlyUsage && (
         <BrutalCard size="lg">
           <h3 className="font-headline text-xl font-bold text-pedro-dark mb-4">
-            Statystyki tego miesiąca
+            {t('billingPage.monthlyStats')}
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -204,14 +206,14 @@ export default function BillingCard({
               <div className="text-3xl font-bold text-pedro-purple mb-2">
                 {partner.monthlyUsage.redeemedCoupons}
               </div>
-              <p className="text-gray-600 text-sm">Wykorzystane kupony</p>
+              <p className="text-gray-600 text-sm">{t('billingPage.redeemedCoupons')}</p>
             </div>
             
             <div className="text-center">
               <div className="text-3xl font-bold text-pedro-purple mb-2">
                 {(partner.monthlyUsage.totalAmount / 100).toFixed(2)} zł
               </div>
-              <p className="text-gray-600 text-sm">Łączna kwota</p>
+              <p className="text-gray-600 text-sm">{t('billingPage.totalAmount')}</p>
             </div>
           </div>
         </BrutalCard>
@@ -220,14 +222,14 @@ export default function BillingCard({
       {/* Actions */}
       <BrutalCard size="lg">
         <h3 className="font-headline text-xl font-bold text-pedro-dark mb-4">
-          Zarządzanie planem
+          {t('billingPage.managePlan')}
         </h3>
 
         <div className="space-y-4">
           {!isPPUActive ? (
             <>
               <p className="text-gray-600 text-sm mb-4">
-                Aktywuj Pay-per-Use, aby płacić tylko za wykorzystane kupony.
+                {t('billingPage.activatePPUDescription')}
               </p>
               <BrutalButton
                 variant="primary"
@@ -236,13 +238,13 @@ export default function BillingCard({
                 onClick={handleUpgrade}
                 className="w-full"
               >
-                Aktywuj PPU →
+                {t('billingPage.activatePPU')}
               </BrutalButton>
             </>
           ) : (
             <>
               <p className="text-gray-600 text-sm mb-4">
-                Zarządzaj swoim planem, metodami płatności i fakturami.
+                {t('billingPage.managePaymentDescription')}
               </p>
               <BrutalButton
                 variant="secondary"
@@ -251,7 +253,7 @@ export default function BillingCard({
                 onClick={handleManageBilling}
                 className="w-full"
               >
-                Zarządzaj płatnością
+                {t('billingPage.managePayment')}
               </BrutalButton>
             </>
           )}
@@ -263,7 +265,7 @@ export default function BillingCard({
             className="w-full"
             title="Funkcja będzie dostępna wkrótce"
           >
-            Pobierz fakturę
+            {t('billingPage.downloadInvoice')}
           </BrutalButton>
         </div>
       </BrutalCard>
@@ -272,20 +274,19 @@ export default function BillingCard({
       <BrutalCard size="md" className="bg-pedro-light/50">
         <div className="text-center">
           <h4 className="font-bold text-pedro-dark mb-2">
-            Panel webowy = onboarding + billing
+            {t('billingPage.webPanelInfo')}
           </h4>
           <p className="text-sm text-gray-600 mb-4">
-            Oferty i kupony dodasz w aplikacji mobilnej PEDRO.
+            {t('billingPage.mobileAppInfo')}
           </p>
           <BrutalButton
             variant="lime"
             size="sm"
             onClick={() => {
-              // Placeholder - will be real app store links
-              alert('Link do aplikacji mobilnej będzie dostępny wkrótce!')
+              alert(t('common.appComingSoon'))
             }}
           >
-            Przejdź do aplikacji
+            {t('billingPage.goToApp')}
           </BrutalButton>
         </div>
       </BrutalCard>

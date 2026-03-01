@@ -1,32 +1,21 @@
 'use client'
 
+import { useTranslation } from '@/lib/i18n-context'
+
 export default function SocialProof() {
+    const { t } = useTranslation()
+
     const testimonials = [
-        {
-            name: 'Ty, za 2 tygodnie',
-            location: 'Gdańsk',
-            text: 'Pedro? Brzmi ciekawie. Dam mu szansę.',
-            rating: 5,
-        },
-        {
-            name: 'ktoś z Trójmiasta (już niedługo)',
-            location: 'Gdynia',
-            text: 'W końcu aplikacja, która pokazuje promocje, a nie spam.',
-            rating: 5,
-        },
-        {
-            name: 'przyszły użytkownik PEDRO',
-            location: 'Sopot',
-            text: 'Czemu nikt wcześniej na to nie wpadł?',
-            rating: 5,
-        },
+        { name: t('socialProof.testimonials.t1.name'), location: t('socialProof.testimonials.t1.location'), text: t('socialProof.testimonials.t1.text'), rating: 5 },
+        { name: t('socialProof.testimonials.t2.name'), location: t('socialProof.testimonials.t2.location'), text: t('socialProof.testimonials.t2.text'), rating: 5 },
+        { name: t('socialProof.testimonials.t3.name'), location: t('socialProof.testimonials.t3.location'), text: t('socialProof.testimonials.t3.text'), rating: 5 },
     ]
 
     const dreamPartners = [
-        '🍕 Twoja ulubiona pizzeria',
-        '☕ Kawiarnia z najlepszą flat white', 
-        '🧘 Studio, do którego chodzisz po pracy',
-        '🍔 Burgerownia, którą znasz z Instagrama'
+        t('socialProof.partners.p1'),
+        t('socialProof.partners.p2'),
+        t('socialProof.partners.p3'),
+        t('socialProof.partners.p4'),
     ]
 
     return (
@@ -35,10 +24,10 @@ export default function SocialProof() {
                 {/* Section Heading */}
                 <div className="text-center mb-16">
                     <h2 className="font-headline text-h2 text-pedro-dark mb-4">
-                        Tak będą o nas mówić
+                        {t('socialProof.title')}
                     </h2>
                     <p className="text-body text-gray-600">
-                        Gdy tylko wystartujemy na serio 🚀
+                        {t('socialProof.subtitle')}
                     </p>
                 </div>
 
@@ -74,10 +63,10 @@ export default function SocialProof() {
                 {/* Dream Partners Section */}
                 <div className="mt-16 text-center">
                     <h3 className="font-headline text-h3 text-pedro-dark mb-4">
-                        Partnerzy? Jeszcze o nich marzymy 😎
+                        {t('socialProof.partnersTitle')}
                     </h3>
                     <p className="text-body text-gray-600 mb-8">
-                        PEDRO dopiero startuje... ale dokładnie te miejsca chcemy tu widzieć 👇
+                        {t('socialProof.partnersSubtitle')}
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
                         {dreamPartners.map((partner, index) => (

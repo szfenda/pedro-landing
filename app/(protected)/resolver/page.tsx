@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { doc, getDoc, query, where, collection, getDocs, setDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function ResolverPage() {
+  const { t } = useTranslation()
   const { user, loading } = useAuth()
   const router = useRouter()
   const [checking, setChecking] = useState(true)
@@ -70,7 +72,7 @@ export default function ResolverPage() {
         }
       } catch (error) {
         console.error('Error checking user business:', error)
-        setError('Wystąpił błąd podczas sprawdzania konta. Spróbuj ponownie.')
+        setError(t('resolver.error'))
         // In case of error, redirect to no-business as safe fallback after delay
         setTimeout(() => {
           router.push('/no-business')
@@ -89,10 +91,10 @@ export default function ResolverPage() {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-pedro-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-            Sprawdzamy Twoje konto...
+            {t('resolver.checking')}
           </h2>
           <p className="text-gray-600">
-            Przekierowujemy Cię do odpowiedniego panelu
+            {t('resolver.checkingSubtitle')}
           </p>
           {error && (
             <div className="mt-4 p-4 bg-red-100 border-2 border-red-300 rounded-card max-w-md mx-auto">
@@ -108,10 +110,10 @@ export default function ResolverPage() {
     <div className="min-h-screen bg-pedro-light flex items-center justify-center">
       <div className="text-center">
         <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-          Przekierowywanie...
+          {t('resolver.redirecting')}
         </h2>
         <p className="text-gray-600">
-          Jeśli nie zostałeś przekierowany, <a href="/auth" className="text-pedro-purple underline">kliknij tutaj</a>
+          {t('resolver.redirectNotice')} <a href="/auth" className="text-pedro-purple underline">{t('resolver.redirectLink')}</a>
         </p>
       </div>
     </div>

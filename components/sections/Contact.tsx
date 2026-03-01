@@ -7,11 +7,13 @@ import { contactSchema, ContactFormData } from '@/lib/validations'
 import { socialIcons } from '@/lib/assets'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import BrutalInput from '@/components/ui/BrutalInput'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function Contact() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { t } = useTranslation()
 
   const {
     register,
@@ -55,7 +57,7 @@ export default function Contact() {
       
     } catch (err: any) {
       console.error('Contact form error:', err)
-      setError(err.message || 'Wystąpił błąd. Spróbuj ponownie.')
+      setError(err.message || t('contact.error'))
     } finally {
       setLoading(false)
     }
@@ -66,10 +68,10 @@ export default function Contact() {
             <div className="container-pedro max-w-2xl">
                 <div className="text-center mb-12">
                     <h2 className="font-headline text-h2 text-pedro-dark mb-4">
-                        Skontaktuj się
+                        {t('contact.title')}
                     </h2>
                     <p className="text-body text-gray-600">
-                        Masz pytania? Chętnie pomożemy!
+                        {t('contact.subtitle')}
                     </p>
                 </div>
 
@@ -116,8 +118,8 @@ export default function Contact() {
                     <div data-success-message className="mb-8">
                         <BrutalAlert 
                             type="success"
-                            title="Dziękujemy! 🎉"
-                            message="Twoja wiadomość została wysłana. Odpowiemy najszybciej jak to możliwe."
+                            title={t('contact.success.title')}
+                            message={t('contact.success.message')}
                         />
                     </div>
                 )}
@@ -135,9 +137,9 @@ export default function Contact() {
                 {/* Contact Form */}
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <BrutalInput
-                        label="Imię"
+                        label={t('contact.form.name')}
                         type="text"
-                        placeholder="Twoje imię"
+                        placeholder={t('contact.form.namePlaceholder')}
                         error={errors.name?.message}
                         disabled={loading}
                         required
@@ -145,9 +147,9 @@ export default function Contact() {
                     />
 
                     <BrutalInput
-                        label="Email"
+                        label={t('contact.form.email')}
                         type="email"
-                        placeholder="twoj@email.pl"
+                        placeholder={t('contact.form.emailPlaceholder')}
                         error={errors.email?.message}
                         disabled={loading}
                         required
@@ -156,7 +158,7 @@ export default function Contact() {
 
                     <div>
                         <label htmlFor="message" className="block text-sm font-bold text-pedro-dark mb-2">
-                            Wiadomość
+                            {t('contact.form.message')}
                             <span className="text-pedro-pink ml-1">*</span>
                         </label>
                         <textarea
@@ -167,7 +169,7 @@ export default function Contact() {
                             } ${
                                 errors.message ? 'border-pedro-pink shadow-brutal-pink' : ''
                             }`}
-                            placeholder="Twoja wiadomość..."
+                            placeholder={t('contact.form.messagePlaceholder')}
                             disabled={loading}
                             {...register('message')}
                         />
@@ -188,12 +190,12 @@ export default function Contact() {
                         {loading ? (
                             <span className="flex items-center justify-center gap-2">
                                 <div className="w-4 h-4 border-2 border-pedro-dark border-t-transparent rounded-full animate-spin"></div>
-                                Wysyłanie...
+                                {t('contact.form.sending')}
                             </span>
                         ) : success ? (
-                            'Wysłano ✓'
+                            t('contact.form.sent')
                         ) : (
-                            'Wyślij wiadomość'
+                            t('contact.form.submit')
                         )}
                     </button>
                 </form>

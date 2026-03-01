@@ -13,8 +13,10 @@ import BusinessSettingsCard from '@/components/settings/BusinessSettingsCard'
 import DangerZone from '@/components/settings/DangerZone'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import { mascots } from '@/lib/assets'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function SettingsPage() {
+  const { t } = useTranslation()
   const { user, loading: authLoading } = useAuth()
   const router = useRouter()
   const [partner, setPartner] = useState<any>(null)
@@ -47,7 +49,7 @@ export default function SettingsPage() {
         }
       } catch (error) {
         console.error('Error fetching partner:', error)
-        setError('Wystąpił błąd podczas ładowania danych.')
+        setError(t('settingsPage.loadError'))
       } finally {
         setLoading(false)
       }
@@ -172,15 +174,17 @@ export default function SettingsPage() {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-pedro-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-            Ładowanie ustawień...
+            {t('settingsPage.loading')}
           </h2>
           <p className="text-gray-600">
-            Pobieramy dane Twojego konta
+            {t('settingsPage.loadingSubtitle')}
           </p>
         </div>
       </div>
     )
   }
+
+  if (!user) return null
 
   return (
     <div className="min-h-screen bg-pedro-light">
@@ -205,10 +209,10 @@ export default function SettingsPage() {
             </div>
             
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-pedro-dark mb-4">
-              Ustawienia konta
+              {t('settingsPage.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Zarządzaj swoimi danymi osobowymi, bezpieczeństwem i ustawieniami biznesu
+              {t('settingsPage.subtitle')}
             </p>
           </div>
 
@@ -228,7 +232,7 @@ export default function SettingsPage() {
             {/* User Settings */}
             <div className="bg-white rounded-card brutal-border shadow-brutal-purple p-8">
               <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-6">
-                Dane osobowe
+                {t('settingsPage.personalData')}
               </h2>
               <UserSettingsForm 
                 user={user!}
@@ -239,7 +243,7 @@ export default function SettingsPage() {
             {/* Security Settings */}
             <div className="bg-white rounded-card brutal-border shadow-brutal-purple p-8">
               <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-6">
-                Bezpieczeństwo
+                {t('settingsPage.security')}
               </h2>
               <SecuritySettings 
                 onPasswordChange={handlePasswordChange}
@@ -250,7 +254,7 @@ export default function SettingsPage() {
             {partner && (
               <div className="bg-white rounded-card brutal-border shadow-brutal-purple p-8">
                 <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-6">
-                  Dane biznesu
+                  {t('settingsPage.businessData')}
                 </h2>
                 <BusinessSettingsCard 
                   partner={partner}
@@ -262,7 +266,7 @@ export default function SettingsPage() {
             {/* Danger Zone */}
             <div className="bg-red-50 border-3 border-red-200 rounded-card p-8">
               <h2 className="font-headline text-2xl font-bold text-red-700 mb-6">
-                Strefa niebezpieczna
+                {t('settingsPage.dangerZone')}
               </h2>
               <DangerZone 
                 hasPartner={!!partner}
@@ -275,7 +279,7 @@ export default function SettingsPage() {
           {/* Footer Info */}
           <div className="mt-12 text-center">
             <p className="text-sm text-gray-600">
-              Masz pytania? Skontaktuj się z nami:{' '}
+              {t('settingsPage.support')}{' '}
               <a href="mailto:kontakt@pedro.app" className="text-pedro-purple underline">
                 kontakt@pedro.app
               </a>

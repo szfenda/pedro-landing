@@ -11,8 +11,10 @@ import DashboardCard from '@/components/business/DashboardCard'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import { mascots } from '@/lib/assets'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function DashboardPage() {
+  const { t } = useTranslation()
   const { user, loading: authLoading } = useAuth()
   const router = useRouter()
   const [partner, setPartner] = useState<any>(null)
@@ -64,7 +66,7 @@ export default function DashboardPage() {
         return () => unsubscribe()
       } catch (error) {
         console.error('Error fetching partner:', error)
-        setError('Wystąpił błąd podczas ładowania danych. Spróbuj odświeżyć stronę.')
+        setError(t('dashboard.loadError'))
       } finally {
         setLoading(false)
       }
@@ -87,8 +89,7 @@ export default function DashboardPage() {
   }
 
   const handleGoToApp = () => {
-    // Placeholder - will be real app store links
-    alert('Link do aplikacji mobilnej będzie dostępny wkrótce!')
+    alert(t('common.appComingSoon'))
   }
 
   if (authLoading || loading) {
@@ -97,10 +98,10 @@ export default function DashboardPage() {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-pedro-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-            Ładowanie dashboardu...
+            {t('dashboard.loading')}
           </h2>
           <p className="text-gray-600">
-            Pobieramy dane Twojego biznesu
+            {t('dashboard.loadingSubtitle')}
           </p>
         </div>
       </div>
@@ -112,16 +113,16 @@ export default function DashboardPage() {
       <div className="min-h-screen bg-pedro-light flex items-center justify-center">
         <div className="text-center">
           <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-            Nie znaleziono biznesu
+            {t('dashboard.noBusinessTitle')}
           </h2>
           <p className="text-gray-600 mb-4">
-            Nie masz jeszcze zarejestrowanego biznesu.
+            {t('dashboard.noBusinessSubtitle')}
           </p>
           <button
             onClick={() => router.push('/no-business')}
             className="text-pedro-purple underline"
           >
-            Wróć do panelu głównego
+            {t('dashboard.backToPanel')}
           </button>
         </div>
       </div>
@@ -155,10 +156,10 @@ export default function DashboardPage() {
             </div>
             
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-pedro-dark mb-4">
-              Dashboard biznesu
+              {t('dashboard.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Przegląd Twojego biznesu w PEDRO
+              {t('dashboard.subtitle')}
             </p>
           </div>
 
@@ -195,7 +196,7 @@ export default function DashboardPage() {
                           : 'bg-gray-200 text-gray-700'
                       }`}
                     >
-                      {partner.isActive ? 'Aktywne' : 'Nieaktywne'}
+                      {partner.isActive ? t('dashboard.status.active') : t('dashboard.status.inactive')}
                     </span>
                     <span
                       className={`px-3 py-1 rounded-button font-bold text-xs ${
@@ -204,7 +205,7 @@ export default function DashboardPage() {
                           : 'bg-gray-200 text-gray-700'
                       }`}
                     >
-                      {isPPUActive ? 'PPU' : 'Beta Free'}
+                      {isPPUActive ? 'PPU' : t('billingPage.betaFree')}
                     </span>
                   </div>
                 </div>
@@ -215,7 +216,7 @@ export default function DashboardPage() {
                 size="md"
                 onClick={handleManageBilling}
               >
-                Rozliczenia
+                {t('dashboard.billing.title')}
               </BrutalButton>
             </div>
           </div>
@@ -223,32 +224,32 @@ export default function DashboardPage() {
           {/* Dashboard Cards Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {/* Status Biznesu Card */}
-            <DashboardCard title="Status biznesu">
+            <DashboardCard title={t('dashboard.status.title')}>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Nazwa firmy:</span>
+                  <span className="text-gray-600">{t('dashboard.status.companyName')}</span>
                   <span className="font-bold text-pedro-dark">{partner.companyName}</span>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">NIP:</span>
+                  <span className="text-gray-600">{t('dashboard.status.nip')}</span>
                   <span className="font-bold text-pedro-dark">{partner.nip}</span>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Typ biznesu:</span>
+                  <span className="text-gray-600">{t('dashboard.status.businessType')}</span>
                   <span className="font-bold text-pedro-dark capitalize">{partner.businessType}</span>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Status weryfikacji:</span>
+                  <span className="text-gray-600">{t('dashboard.status.verificationStatus')}</span>
                   <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-sm font-medium">
-                    W toku
+                    {t('dashboard.status.verificationPending')}
                   </span>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Status konta:</span>
+                  <span className="text-gray-600">{t('dashboard.status.accountStatus')}</span>
                   <span
                     className={`px-2 py-1 rounded text-sm font-medium ${
                       partner.isActive
@@ -256,7 +257,7 @@ export default function DashboardPage() {
                         : 'bg-red-100 text-red-800'
                     }`}
                   >
-                    {partner.isActive ? 'Aktywne' : 'Nieaktywne'}
+                    {partner.isActive ? t('dashboard.status.active') : t('dashboard.status.inactive')}
                   </span>
                 </div>
               </div>
@@ -264,27 +265,27 @@ export default function DashboardPage() {
 
             {/* Rozliczenia Card */}
             <DashboardCard 
-              title="Rozliczenia"
+              title={t('dashboard.billing.title')}
               actions={
                 <BrutalButton
                   variant="outline"
                   size="sm"
                   onClick={handleManageBilling}
                 >
-                  Zarządzaj
+                  {t('dashboard.billing.manage')}
                 </BrutalButton>
               }
             >
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Aktualny plan:</span>
+                  <span className="text-gray-600">{t('dashboard.billing.currentPlan')}</span>
                   <span className="font-bold text-pedro-dark">
-                    {isPPUActive ? 'Pay-per-Use' : 'Beta Free'}
+                    {isPPUActive ? t('billingPage.payPerUse') : t('billingPage.betaFree')}
                   </span>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Status PPU:</span>
+                  <span className="text-gray-600">{t('dashboard.billing.ppuStatus')}</span>
                   <span
                     className={`px-2 py-1 rounded text-sm font-medium ${
                       isPPUActive
@@ -292,23 +293,23 @@ export default function DashboardPage() {
                         : 'bg-gray-100 text-gray-800'
                     }`}
                   >
-                    {isPPUActive ? 'Aktywne' : 'Nieaktywne'}
+                    {isPPUActive ? t('dashboard.status.active') : t('dashboard.status.inactive')}
                   </span>
                 </div>
 
                 {isPPUActive && (
                   <>
                     <div className="border-t pt-4">
-                      <h4 className="font-bold text-pedro-dark mb-3">Ten miesiąc:</h4>
+                      <h4 className="font-bold text-pedro-dark mb-3">{t('dashboard.billing.thisMonth')}</h4>
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-600">Wykorzystane kupony:</span>
+                          <span className="text-gray-600">{t('dashboard.billing.redeemedCoupons')}</span>
                           <span className="font-bold text-pedro-purple">
                             {monthlyUsage.redeemedCoupons}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-600">Łączna kwota:</span>
+                          <span className="text-gray-600">{t('dashboard.billing.totalAmount')}</span>
                           <span className="font-bold text-pedro-purple">
                             {(monthlyUsage.totalAmount / 100).toFixed(2)} zł
                           </span>
@@ -326,7 +327,7 @@ export default function DashboardPage() {
                     className="w-full"
                     title="Funkcja będzie dostępna wkrótce"
                   >
-                    Pobierz fakturę
+                    {t('dashboard.billing.downloadInvoice')}
                   </BrutalButton>
                 </div>
               </div>
@@ -334,39 +335,38 @@ export default function DashboardPage() {
 
             {/* Zarządzanie Ofertami Card */}
             <DashboardCard 
-              title="Zarządzanie ofertami"
+              title={t('dashboard.offers.title')}
               actions={
                 <BrutalButton
                   variant="lime"
                   size="sm"
                   onClick={handleGoToApp}
                 >
-                  Otwórz app
+                  {t('dashboard.offers.openApp')}
                 </BrutalButton>
               }
             >
               <div className="text-center py-4">
                 <div className="text-4xl mb-4">📱</div>
                 <h4 className="font-bold text-pedro-dark mb-2">
-                  Oferty i kupony dodasz w aplikacji mobilnej PEDRO
+                  {t('dashboard.offers.mobileNotice')}
                 </h4>
                 <p className="text-gray-600 text-sm mb-6">
-                  Panel webowy służy tylko do onboardingu i rozliczeń. 
-                  Wszystkie funkcje produktowe są w aplikacji.
+                  {t('dashboard.offers.webNotice')}
                 </p>
                 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 text-sm">
                     <span className="text-pedro-lime text-lg">📝</span>
-                    <span>Tworzenie promocji</span>
+                    <span>{t('dashboard.offers.createPromo')}</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm">
                     <span className="text-pedro-lime text-lg">🎫</span>
-                    <span>Zarządzanie kuponami</span>
+                    <span>{t('dashboard.offers.manageCoupons')}</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm">
                     <span className="text-pedro-lime text-lg">📊</span>
-                    <span>Statystyki sprzedaży</span>
+                    <span>{t('dashboard.offers.salesStats')}</span>
                   </div>
                 </div>
 
@@ -377,7 +377,7 @@ export default function DashboardPage() {
                     onClick={handleGoToApp}
                     className="w-full"
                   >
-                    Przejdź do aplikacji →
+                    {t('dashboard.offers.goToApp')}
                   </BrutalButton>
                 </div>
               </div>
@@ -385,14 +385,14 @@ export default function DashboardPage() {
 
             {/* Edit Business Card */}
             <DashboardCard 
-              title="Ustawienia biznesu"
+              title={t('dashboard.settings.title')}
               actions={
                 <BrutalButton
                   variant="outline"
                   size="sm"
                   onClick={() => router.push('/settings')}
                 >
-                  Wszystkie ustawienia
+                  {t('dashboard.settings.allSettings')}
                 </BrutalButton>
               }
             >
@@ -400,10 +400,10 @@ export default function DashboardPage() {
                 <div className="text-center">
                   <div className="text-4xl mb-4">⚙️</div>
                   <h4 className="font-bold text-pedro-dark mb-2">
-                    Zarządzaj danymi biznesu
+                    {t('dashboard.settings.manageData')}
                   </h4>
                   <p className="text-gray-600 text-sm mb-6">
-                    Edytuj informacje o firmie, dane kontaktowe i opis biznesu.
+                    {t('dashboard.settings.manageDescription')}
                   </p>
                 </div>
 
@@ -414,7 +414,7 @@ export default function DashboardPage() {
                     onClick={() => router.push('/edit-business')}
                     className="w-full"
                   >
-                    ✏️ Edytuj dane biznesu
+                    {t('dashboard.settings.editBusiness')}
                   </BrutalButton>
                   
                   <BrutalButton
@@ -423,13 +423,12 @@ export default function DashboardPage() {
                     onClick={() => router.push('/settings')}
                     className="w-full"
                   >
-                    ⚙️ Ustawienia konta
+                    {t('dashboard.settings.accountSettings')}
                   </BrutalButton>
                 </div>
 
                 <div className="text-xs text-gray-600 bg-gray-50 p-3 rounded border">
-                  <strong>Wskazówka:</strong> Regularne aktualizowanie danych biznesu 
-                  pomaga klientom znaleźć Cię łatwiej.
+                  <strong>Wskazówka:</strong> {t('dashboard.settings.tip')}
                 </div>
               </div>
             </DashboardCard>
@@ -441,20 +440,20 @@ export default function DashboardPage() {
               <div className="text-2xl">💡</div>
               <div>
                 <h3 className="font-bold text-pedro-dark mb-2">
-                  Jak korzystać z PEDRO?
+                  {t('dashboard.info.title')}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-700">
                   <div>
-                    <strong>1. Web (tutaj):</strong><br />
-                    Rejestracja biznesu, płatności, faktury
+                    <strong>{t('dashboard.info.webLabel')}</strong><br />
+                    {t('dashboard.info.web')}
                   </div>
                   <div>
-                    <strong>2. Aplikacja mobilna:</strong><br />
-                    Tworzenie ofert, zarządzanie kuponami
+                    <strong>{t('dashboard.info.mobileLabel')}</strong><br />
+                    {t('dashboard.info.mobile')}
                   </div>
                   <div>
-                    <strong>3. Klienci:</strong><br />
-                    Znajdują Twoje promocje w aplikacji
+                    <strong>{t('dashboard.info.clientsLabel')}</strong><br />
+                    {t('dashboard.info.clients')}
                   </div>
                 </div>
               </div>
@@ -464,7 +463,7 @@ export default function DashboardPage() {
           {/* Footer Info */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
-              Masz pytania? Skontaktuj się z nami:{' '}
+              {t('dashboard.support')}{' '}
               <a href="mailto:kontakt@pedro.app" className="text-pedro-purple underline">
                 kontakt@pedro.app
               </a>

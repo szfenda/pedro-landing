@@ -3,9 +3,11 @@
 import Image from 'next/image'
 import { mascots } from '@/lib/assets'
 import { useRipple } from '@/hooks/useRipple'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function Download() {
     const createRipple = useRipple()
+    const { t } = useTranslation()
 
     const handleStoreClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         createRipple(e)
@@ -13,9 +15,9 @@ export default function Download() {
     }
 
     const benefits = [
-        '100% za darmo',
-        'Bez reklam',
-        'Zawsze aktualne'
+        t('download.benefit1'),
+        t('download.benefit2'),
+        t('download.benefit3'),
     ]
 
     return (
@@ -30,11 +32,11 @@ export default function Download() {
                 <div className="max-w-4xl mx-auto text-center">
                     {/* Heading */}
                     <h2 className="font-headline text-h2 text-white mb-6">
-                        Pobierz PEDRO<br />i poluj na promki
+                        {t('download.title1')}<br />{t('download.title2')}
                     </h2>
 
                     <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-                        Dołącz do tysięcy użytkowników, którzy już oszczędzają z Pedrem
+                        {t('download.subtitle')}
                     </p>
 
                     {/* Store Badges */}

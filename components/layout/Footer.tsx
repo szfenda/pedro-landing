@@ -4,15 +4,17 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { logos, mascots, socialIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function Footer() {
     const [showBubble, setShowBubble] = useState(false)
+    const { t } = useTranslation()
 
     const footerLinks = [
-        { label: 'Regulamin', href: '/legal/regulamin' },
-        { label: 'Polityka Prywatności', href: '/legal/polityka-prywatnosci' },
-        { label: 'Kontakt', onClick: () => smoothScrollTo('kontakt') },
-        { label: 'Dla Biznesu', onClick: () => smoothScrollTo('dla-biznesu') },
+        { label: t('footer.terms'), href: '/legal/regulamin' },
+        { label: t('footer.privacy'), href: '/legal/polityka-prywatnosci' },
+        { label: t('footer.contact'), onClick: () => smoothScrollTo('kontakt') },
+        { label: t('footer.forBusiness'), onClick: () => smoothScrollTo('dla-biznesu') },
     ]
 
     return (
@@ -28,14 +30,14 @@ export default function Footer() {
                             PEDRO
                         </button>
                         <p className="text-gray-400 text-sm leading-relaxed">
-                            Twój osobisty asystent promocji.<br />
-                            Poluj na promki, oszczędzaj pieniądze.
+                            {t('footer.description1')}<br />
+                            {t('footer.description2')}
                         </p>
                     </div>
 
                     {/* Column 2 - Links */}
                     <div>
-                        <h3 className="text-white font-bold mb-4">Linki</h3>
+                        <h3 className="text-white font-bold mb-4">{t('footer.links')}</h3>
                         <div className="flex flex-col gap-3">
                             {footerLinks.map((link, index) => (
                                 link.href ? (
@@ -61,7 +63,7 @@ export default function Footer() {
 
                     {/* Column 3 - Social */}
                     <div>
-                        <h3 className="text-white font-bold mb-4">Śledź nas</h3>
+                        <h3 className="text-white font-bold mb-4">{t('footer.followUs')}</h3>
                         <div className="flex gap-4">
                             <a
                                 href="#"
@@ -109,7 +111,7 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className="border-t border-gray-700 pt-8 text-center">
                     <p className="text-gray-400 text-sm">
-                        Made with 🍕 in Gdańsk © {new Date().getFullYear()} PEDRO
+                        {t('footer.madeWith')} © {new Date().getFullYear()} PEDRO
                     </p>
                 </div>
             </div>
@@ -133,7 +135,7 @@ export default function Footer() {
                     <div className="absolute bottom-full right-0 mb-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
                         <div className="bg-white brutal-border rounded-button px-4 py-2 shadow-brutal-sm-lime">
                             <p className="text-sm font-bold text-pedro-dark whitespace-nowrap">
-                                Do zobaczenia! 👋
+                                {t('footer.pedroBubble')}
                             </p>
                         </div>
                     </div>

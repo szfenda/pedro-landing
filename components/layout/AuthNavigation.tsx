@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuth } from '@/lib/auth-context'
+import { useTranslation } from '@/lib/i18n-context'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import { useRouter } from 'next/navigation'
@@ -17,6 +18,7 @@ export default function AuthNavigation({
   onLogout 
 }: AuthNavigationProps) {
   const { user } = useAuth()
+  const { t } = useTranslation()
   const router = useRouter()
 
   const handleLogout = async () => {
@@ -58,7 +60,7 @@ export default function AuthNavigation({
                 onClick={handleLogout}
                 className="btn-brutal btn-brutal-purple px-4 py-2 text-sm hover:-translate-y-1 hover:shadow-brutal-lime transition-all duration-300"
               >
-                Wyloguj
+                {t('nav.logout')}
               </button>
             </>
           ) : (
@@ -67,7 +69,7 @@ export default function AuthNavigation({
                 href="/"
                 className="btn-brutal btn-brutal-purple px-4 py-2 text-sm hover:-translate-y-1 hover:shadow-brutal-lime transition-all duration-300"
               >
-                Wróć na stronę główną
+                {t('nav.backToHome')}
               </a>
             )
           )}

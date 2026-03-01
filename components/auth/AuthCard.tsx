@@ -7,6 +7,7 @@ import BrutalTabs from '@/components/ui/BrutalTabs'
 import LoginTab from './LoginTab'
 import RegisterTab from './RegisterTab'
 import ResetPasswordTab from './ResetPasswordTab'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface AuthCardProps {
   defaultTab?: 'login' | 'register' | 'reset'
@@ -20,6 +21,7 @@ export default function AuthCard({ defaultTab = 'login' }: AuthCardProps) {
     defaultTab === 'register' ? 'register' : 'login'
   )
   const router = useRouter()
+  const { t } = useTranslation()
 
   const handleAuthSuccess = () => {
     // Redirect to resolver to determine next step
@@ -56,7 +58,7 @@ export default function AuthCard({ defaultTab = 'login' }: AuthCardProps) {
   const tabs = [
     {
       id: 'login',
-      label: 'Zaloguj się',
+      label: t('auth.login.tab'),
       content: (
         <LoginTab
           onSuccess={handleAuthSuccess}
@@ -67,7 +69,7 @@ export default function AuthCard({ defaultTab = 'login' }: AuthCardProps) {
     },
     {
       id: 'register',
-      label: 'Załóż konto',
+      label: t('auth.register.tab'),
       content: (
         <RegisterTab
           onSuccess={handleAuthSuccess}
@@ -81,10 +83,10 @@ export default function AuthCard({ defaultTab = 'login' }: AuthCardProps) {
     <BrutalCard size="lg" className="w-full max-w-2xl mx-auto">
       <div className="mb-6 text-center">
         <h1 className="font-headline text-3xl font-bold text-pedro-dark mb-2">
-          Dołącz do PEDRO
+          {t('auth.joinTitle')}
         </h1>
         <p className="text-gray-600">
-          Web służy do onboardingu i rozliczeń. Produkt jest w aplikacji mobilnej.
+          {t('auth.joinSubtitle')}
         </p>
       </div>
 

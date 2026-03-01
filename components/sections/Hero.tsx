@@ -5,9 +5,11 @@ import { backgrounds, mascots, functionalIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
 import ParallaxElement from '@/components/animations/ParallaxElement'
 import { useRipple } from '@/hooks/useRipple'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function Hero() {
     const createRipple = useRipple()
+    const { t } = useTranslation()
 
     const handleStoreClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         createRipple(e)
@@ -29,10 +31,10 @@ export default function Hero() {
                 <div className="max-w-2xl text-center md:text-left pt-16 md:pt-0 pb-4 md:pb-0">
                     {/* Headline - 4 lines as specified */}
                     <h1 className="font-headline text-3xl sm:text-4xl md:text-hero text-white leading-tight md:leading-none tracking-tight text-poster-shadow mb-4 md:mb-12">
-                        PEDRO NIE<br />
-                        PRZEPŁACA.<br />
-                        PEDRO POLUJE<br />
-                        NA PROMKI
+                        {t('hero.line1')}<br />
+                        {t('hero.line2')}<br />
+                        {t('hero.line3')}<br />
+                        {t('hero.line4')}
                     </h1>
 
                     {/* Store Badges */}

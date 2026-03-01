@@ -8,6 +8,7 @@ import { updateEmailSchema, type UpdateEmailFormData } from '@/lib/validations'
 import BrutalInput from '@/components/ui/BrutalInput'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface UserSettingsFormProps {
   user: User
@@ -15,6 +16,7 @@ interface UserSettingsFormProps {
 }
 
 export default function UserSettingsForm({ user, onEmailUpdate }: UserSettingsFormProps) {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -40,7 +42,7 @@ export default function UserSettingsForm({ user, onEmailUpdate }: UserSettingsFo
 
     try {
       await onEmailUpdate(data.newEmail)
-      setSuccess('Email został zaktualizowany. Sprawdź swoją skrzynkę pocztową i potwierdź nowy adres.')
+      setSuccess(t('userSettings.emailUpdateSuccess'))
       reset()
       setShowEmailForm(false)
     } catch (error: any) {
@@ -82,13 +84,13 @@ export default function UserSettingsForm({ user, onEmailUpdate }: UserSettingsFo
         <div className="flex justify-between items-center p-4 bg-gray-50 rounded-button border-2 border-gray-200">
           <div>
             <label className="block text-sm font-bold text-pedro-dark mb-1">
-              Aktualny email
+              {t('userSettings.currentEmail')}
             </label>
             <span className="text-pedro-dark">{user.email}</span>
             {!user.emailVerified && (
               <div className="mt-2">
                 <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs font-medium">
-                  Niezweryfikowany
+                  {t('userSettings.unverified')}
                 </span>
               </div>
             )}
@@ -100,7 +102,7 @@ export default function UserSettingsForm({ user, onEmailUpdate }: UserSettingsFo
               size="sm"
               onClick={() => setShowEmailForm(true)}
             >
-              Zmień email
+              {t('userSettings.changeEmail')}
             </BrutalButton>
           )}
         </div>
@@ -108,22 +110,22 @@ export default function UserSettingsForm({ user, onEmailUpdate }: UserSettingsFo
         {/* Email Change Form */}
         {showEmailForm && (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4 bg-blue-50 rounded-button border-2 border-blue-200">
-            <h3 className="font-bold text-pedro-dark mb-4">Zmiana adresu email</h3>
+            <h3 className="font-bold text-pedro-dark mb-4">{t('userSettings.changeEmailTitle')}</h3>
             
             <BrutalInput
-              label="Nowy adres email"
+              label={t('userSettings.newEmail')}
               type="email"
-              placeholder="nowy@email.com"
+              placeholder={t('userSettings.newEmailPlaceholder')}
               error={errors.newEmail?.message}
               required
               {...register('newEmail')}
             />
 
             <BrutalInput
-              label="Obecne hasło"
+              label={t('userSettings.currentPassword')}
               type="password"
-              placeholder="Wpisz obecne hasło"
-              helper="Wymagane do potwierdzenia tożsamości"
+              placeholder={t('userSettings.currentPasswordPlaceholder')}
+              helper={t('userSettings.passwordHelper')}
               error={errors.password?.message}
               required
               {...register('password')}
@@ -137,7 +139,7 @@ export default function UserSettingsForm({ user, onEmailUpdate }: UserSettingsFo
                 loading={loading}
                 className="flex-1"
               >
-                Zaktualizuj email
+                {t('userSettings.updateEmail')}
               </BrutalButton>
               
               <BrutalButton
@@ -147,13 +149,12 @@ export default function UserSettingsForm({ user, onEmailUpdate }: UserSettingsFo
                 onClick={handleCancel}
                 disabled={loading}
               >
-                Anuluj
+                {t('userSettings.cancel')}
               </BrutalButton>
             </div>
 
             <div className="text-xs text-gray-600 bg-white p-3 rounded border">
-              <strong>Uwaga:</strong> Po zmianie emaila otrzymasz wiadomość weryfikacyjną na nowy adres. 
-              Musisz potwierdzić nowy email, aby móc się zalogować.
+              <strong>Uwaga:</strong> {t('userSettings.emailUpdateNotice')}
             </div>
           </form>
         )}
@@ -161,30 +162,30 @@ export default function UserSettingsForm({ user, onEmailUpdate }: UserSettingsFo
 
       {/* Account Info */}
       <div className="p-4 bg-gray-50 rounded-button border-2 border-gray-200">
-        <h3 className="font-bold text-pedro-dark mb-3">Informacje o koncie</h3>
+        <h3 className="font-bold text-pedro-dark mb-3">{t('userSettings.accountInfo')}</h3>
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-600">Data utworzenia:</span>
+            <span className="text-gray-600">{t('userSettings.createdAt')}</span>
             <span className="text-pedro-dark">
               {user.metadata.creationTime ? 
                 new Date(user.metadata.creationTime).toLocaleDateString('pl-PL') : 
-                'Nieznana'
+                t('userSettings.unknown')
               }
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Ostatnie logowanie:</span>
+            <span className="text-gray-600">{t('userSettings.lastLogin')}</span>
             <span className="text-pedro-dark">
               {user.metadata.lastSignInTime ? 
                 new Date(user.metadata.lastSignInTime).toLocaleDateString('pl-PL') : 
-                'Nieznane'
+                t('userSettings.unknownDate')
               }
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Status weryfikacji:</span>
+            <span className="text-gray-600">{t('userSettings.verificationStatus')}</span>
             <span className={`font-medium ${user.emailVerified ? 'text-green-600' : 'text-yellow-600'}`}>
-              {user.emailVerified ? 'Zweryfikowany' : 'Niezweryfikowany'}
+              {user.emailVerified ? t('userSettings.verified') : t('userSettings.unverified')}
             </span>
           </div>
         </div>

@@ -11,6 +11,7 @@ import { registerSchema, type RegisterFormData } from '@/lib/validations'
 import BrutalInput from '@/components/ui/BrutalInput'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface RegisterTabProps {
   onSuccess: () => void
@@ -24,6 +25,7 @@ export default function RegisterTab({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
+  const { t } = useTranslation()
 
   const {
     register,
@@ -77,19 +79,19 @@ export default function RegisterTab({
       // Handle Firebase Auth errors
       switch (error.code) {
         case 'auth/email-already-in-use':
-          setError('Ten email jest już zarejestrowany. Spróbuj się zalogować.')
+          setError(t('auth.errors.emailInUse'))
           break
         case 'auth/weak-password':
-          setError('Hasło jest za słabe. Użyj co najmniej 8 znaków.')
+          setError(t('auth.errors.weakPassword'))
           break
         case 'auth/invalid-email':
-          setError('Nieprawidłowy format email.')
+          setError(t('auth.errors.invalidEmail'))
           break
         case 'auth/operation-not-allowed':
-          setError('Rejestracja jest obecnie niedostępna.')
+          setError(t('auth.errors.registrationDisabled'))
           break
         default:
-          setError('Wystąpił błąd podczas rejestracji. Spróbuj ponownie.')
+          setError(t('auth.errors.genericRegister'))
       }
     } finally {
       setLoading(false)
@@ -101,10 +103,10 @@ export default function RegisterTab({
       <div className="space-y-6 text-center">
         <div className="text-6xl mb-4">🎉</div>
         <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-2">
-          Konto utworzone!
+          {t('auth.register.successTitle')}
         </h2>
         <p className="text-gray-600 mb-6">
-          Witaj w PEDRO! Przekierowujemy Cię do panelu...
+          {t('auth.register.successMessage')}
         </p>
         <div className="w-8 h-8 border-4 border-pedro-purple border-t-transparent rounded-full animate-spin mx-auto"></div>
       </div>
@@ -115,10 +117,10 @@ export default function RegisterTab({
     <div className="space-y-6">
       <div className="text-center">
         <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-2">
-          Rejestracja
+          {t('auth.register.title')}
         </h2>
         <p className="text-gray-600">
-          Stwórz konto w 20 sekund. Potem tylko skanujesz i masz.
+          {t('auth.register.subtitle')}
         </p>
       </div>
 
@@ -134,17 +136,17 @@ export default function RegisterTab({
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <BrutalInput
-            label="Imię"
+            label={t('auth.register.firstName')}
             type="text"
-            placeholder="np. Ola"
+            placeholder={t('auth.register.firstNamePlaceholder')}
             error={errors.firstName?.message}
             {...register('firstName')}
           />
 
           <BrutalInput
-            label="Nazwisko"
+            label={t('auth.register.lastName')}
             type="text"
-            placeholder="np. Kowalska"
+            placeholder={t('auth.register.lastNamePlaceholder')}
             error={errors.lastName?.message}
             {...register('lastName')}
           />
@@ -153,25 +155,24 @@ export default function RegisterTab({
         <BrutalInput
           label="Email"
           type="email"
-          placeholder="np. ola@pedro.app"
+          placeholder={t('auth.register.emailPlaceholder')}
           error={errors.email?.message}
           {...register('email')}
         />
 
         <BrutalInput
-          label="Hasło"
+          label={t('securitySettings.password')}
           type="password"
-          placeholder="Co najmniej 8 znaków"
+          placeholder={t('auth.register.passwordPlaceholder')}
           showPasswordToggle
           error={errors.password?.message}
-          helper="Użyj co najmniej 8 znaków"
+          helper={t('auth.register.passwordHelper')}
           {...register('password')}
         />
 
         <div className="bg-pedro-light p-4 rounded-card border-2 border-pedro-purple/20">
           <p className="text-sm text-gray-700">
-            <strong>Informacja:</strong> Web służy do onboardingu i rozliczeń. 
-            Produkt jest w aplikacji mobilnej.
+            <strong>{t('auth.register.infoLabel')}</strong> {t('auth.register.infoNotice')}
           </p>
         </div>
 
@@ -182,30 +183,30 @@ export default function RegisterTab({
           loading={loading}
           className="w-full"
         >
-          Utwórz konto
+          {t('auth.register.submit')}
         </BrutalButton>
       </form>
 
       <div className="text-center">
         <p className="text-gray-600">
-          Masz już konto?{' '}
+          {t('auth.register.hasAccount')}{' '}
           <button
             onClick={onSwitchToLogin}
             className="text-pedro-purple hover:text-pedro-dark transition-colors font-bold underline"
           >
-            Zaloguj się →
+            {t('auth.register.loginLink')}
           </button>
         </p>
       </div>
 
       <div className="text-xs text-gray-500 text-center">
-        Rejestrując się, akceptujesz{' '}
+        {t('auth.register.termsNotice')}{' '}
         <Link href="/legal/regulamin" className="underline hover:text-pedro-purple">
-          Regulamin
+          {t('auth.login.termsLink')}
         </Link>{' '}
-        i{' '}
+        {t('auth.login.and')}{' '}
         <Link href="/legal/polityka-prywatnosci" className="underline hover:text-pedro-purple">
-          Politykę Prywatności
+          {t('auth.login.privacyLink')}
         </Link>
         .
       </div>

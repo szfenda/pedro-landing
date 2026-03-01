@@ -3,6 +3,7 @@
 import { businessIcons, functionalIcons } from '@/lib/assets'
 import { useEffect, useRef, useState } from 'react'
 import { useAuth } from '@/lib/auth-context'
+import { useTranslation } from '@/lib/i18n-context'
 import { useRouter } from 'next/navigation'
 
 export default function B2B() {
@@ -11,6 +12,7 @@ export default function B2B() {
     const [isNavigating, setIsNavigating] = useState(false)
     const sectionRef = useRef<HTMLElement>(null)
     const { user } = useAuth()
+    const { t } = useTranslation()
     const router = useRouter()
 
     // Handler for "Dodaj swoją firmę" button
@@ -64,10 +66,10 @@ export default function B2B() {
     }, [hasAnimated])
 
     const benefits = [
-        'Płacisz tylko za efekt, nie za klik',
-        'Docierasz do klientów w Twojej okolicy',
-        'Prosty panel – dodajesz promkę w 2 minuty',
-        'Widzisz na żywo, kto skanuje Twoje kody',
+        t('b2b.benefit1'),
+        t('b2b.benefit2'),
+        t('b2b.benefit3'),
+        t('b2b.benefit4'),
     ]
 
     return (
@@ -83,12 +85,12 @@ export default function B2B() {
                     {/* Left Column - Text + CTA (60%) */}
                     <div className="lg:col-span-3 space-y-8">
                         <h2 className="font-headline text-h2 text-pedro-dark">
-                            Masz lokalny biznes?<br />
-                            Zatrudnij Pedra.
+                            {t('b2b.title1')}<br />
+                            {t('b2b.title2')}
                         </h2>
 
                         <p className="text-body text-pedro-dark">
-                            Pedro znajduje dla Ciebie klientów, którzy są tuż obok. Żadnych banerów, żadnej nachodliwej reklamy – tylko ludzie szukający właśnie Twojej oferty.
+                            {t('b2b.description')}
                         </p>
 
                         {/* Benefits List with Stagger */}
@@ -128,11 +130,11 @@ export default function B2B() {
                                 {isNavigating ? (
                                     <>
                                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        Przekierowywanie...
+                                        {t('b2b.redirecting')}
                                     </>
                                 ) : (
                                     <>
-                                        Dodaj swoją firmę
+                                        {t('b2b.cta')}
                                         <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span>
                                     </>
                                 )}
@@ -141,9 +143,9 @@ export default function B2B() {
 
                         {/* Count-up Stats */}
                         <div className="bg-white/80 backdrop-blur-sm brutal-border rounded-card p-6 inline-block">
-                            <p className="text-sm text-gray-600 mb-2">Dzisiaj w PEDRO:</p>
+                            <p className="text-sm text-gray-600 mb-2">{t('b2b.statsLabel')}</p>
                             <p className="text-3xl font-bold text-pedro-purple">
-                                {count.toLocaleString('pl-PL')} transakcji
+                                {count.toLocaleString('pl-PL')} {t('b2b.statsValue')}
                             </p>
                         </div>
                     </div>

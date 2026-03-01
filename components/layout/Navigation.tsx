@@ -5,13 +5,16 @@ import { usePathname, useRouter } from 'next/navigation'
 import { logos, functionalIcons, businessIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
 import { useAuth } from '@/lib/auth-context'
+import { useTranslation } from '@/lib/i18n-context'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
+import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Navigation() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-    const { user } = useAuth()
+    const { user, loading: authLoading } = useAuth()
+    const { t } = useTranslation()
     const router = useRouter()
     const pathname = usePathname()
     const userMenuRef = useRef<HTMLDivElement>(null)
@@ -20,10 +23,10 @@ export default function Navigation() {
     const isLegalPage = pathname?.startsWith('/legal')
 
     const navLinks = [
-        { label: 'O nas', href: 'o-nas' },
-        { label: 'Funkcje', href: 'funkcje' },
-        { label: 'Pobierz', href: 'pobierz' },
-        { label: 'Kontakt', href: 'kontakt' },
+        { label: t('nav.about'), href: 'o-nas' },
+        { label: t('nav.features'), href: 'funkcje' },
+        { label: t('nav.download'), href: 'pobierz' },
+        { label: t('nav.contact'), href: 'kontakt' },
     ]
 
     const handleNavClick = (href: string) => {
@@ -137,8 +140,14 @@ export default function Navigation() {
                 </div>
 
                 {/* Desktop User Menu */}
-                <div className="hidden md:block relative" ref={userMenuRef}>
-                    {user ? (
+                <div className="hidden md:flex items-center gap-3">
+                    <LanguageSwitcher />
+                    <div className="relative" ref={userMenuRef}>
+                    {authLoading ? (
+                        <div className="px-6 py-3 text-sm opacity-0 pointer-events-none">
+                            {t('nav.login')}
+                        </div>
+                    ) : user ? (
                         <>
                             <button 
                                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -146,7 +155,7 @@ export default function Navigation() {
                                 aria-expanded={isUserMenuOpen}
                                 aria-haspopup="true"
                             >
-                                Moje konto
+                                {t('nav.myAccount')}
                                 <img
                                     src={functionalIcons.arrowDown}
                                     alt=""
@@ -169,7 +178,7 @@ export default function Navigation() {
                                             width={20}
                                             height={20}
                                         />
-                                        Dashboard
+                                        {t('nav.dashboard')}
                                     </button>
                                     
                                     <button
@@ -180,7 +189,7 @@ export default function Navigation() {
                                         className="w-full text-left px-4 py-3 hover:bg-pedro-light rounded-button transition-colors flex items-center gap-3 font-medium text-pedro-dark"
                                     >
                                         <span className="text-lg">⚙️</span>
-                                        Ustawienia
+                                        {t('nav.settings')}
                                     </button>
                                     
                                     <hr className="my-2 border-pedro-dark/20" />
@@ -190,7 +199,7 @@ export default function Navigation() {
                                         className="w-full text-left px-4 py-3 hover:bg-red-50 text-red-600 rounded-button transition-colors flex items-center gap-3 font-medium"
                                     >
                                         <span className="text-lg">🚪</span>
-                                        Wyloguj
+                                        {t('nav.logout')}
                                     </button>
                                 </div>
                             )}
@@ -200,19 +209,23 @@ export default function Navigation() {
                             onClick={() => router.push('/auth')}
                             className="btn-brutal btn-brutal-purple px-6 py-3 text-sm hover:-translate-y-1 hover:shadow-brutal-lime transition-all duration-300"
                         >
-                            Log in
+                            {t('nav.login')}
                         </button>
                     )}
+                    </div>
                 </div>
 
-                {/* Mobile Menu Button */}
-                <button
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="md:hidden text-pedro-dark text-3xl font-bold bg-white/90 backdrop-blur-sm rounded-lg p-2 border-2 border-pedro-dark shadow-sm hover:bg-white transition-all duration-300"
-                    aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-                >
-                    {isMobileMenuOpen ? '✕' : '☰'}
-                </button>
+                {/* Mobile: LanguageSwitcher + Menu Button */}
+                <div className="md:hidden flex items-center gap-2">
+                    <LanguageSwitcher />
+                    <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="text-pedro-dark text-3xl font-bold bg-white/90 backdrop-blur-sm rounded-lg p-2 border-2 border-pedro-dark shadow-sm hover:bg-white transition-all duration-300"
+                        aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                    >
+                        {isMobileMenuOpen ? '✕' : '☰'}
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Menu */}
@@ -232,7 +245,7 @@ export default function Navigation() {
                             </button>
                         ))}
                         
-                        {user ? (
+                        {authLoading ? null : user ? (
                             <>
                                 <button 
                                     onClick={() => {
@@ -241,7 +254,7 @@ export default function Navigation() {
                                     }}
                                     className="btn-brutal btn-brutal-purple w-full mt-4"
                                 >
-                                    Moje konto
+                                    {t('nav.myAccount')}
                                 </button>
                                 <button 
                                     onClick={() => {
@@ -250,7 +263,7 @@ export default function Navigation() {
                                     }}
                                     className="btn-brutal btn-brutal-outline-white w-full mt-2 text-red-600 border-red-600 hover:bg-red-50"
                                 >
-                                    🚪 Wyloguj
+                                    🚪 {t('nav.logout')}
                                 </button>
                             </>
                         ) : (
@@ -261,7 +274,7 @@ export default function Navigation() {
                                 }}
                                 className="btn-brutal btn-brutal-purple w-full mt-4"
                             >
-                                Log in
+                                {t('nav.login')}
                             </button>
                         )}
                     </div>

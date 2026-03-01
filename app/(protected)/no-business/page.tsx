@@ -8,8 +8,10 @@ import BrutalCard from '@/components/ui/BrutalCard'
 import BrutalButton from '@/components/ui/BrutalButton'
 import AuthNavigation from '@/components/layout/AuthNavigation'
 import { mascots } from '@/lib/assets'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function NoBusinessPage() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const router = useRouter()
 
@@ -39,17 +41,17 @@ export default function NoBusinessPage() {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-pedro-dark mb-4">
-              Witaj w PEDRO!
+              {t('noBusiness.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Masz konto użytkownika. Wybierz co chcesz robić dalej.
+              {t('noBusiness.subtitle')}
             </p>
           </div>
 
           {/* User info badge */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-pedro-purple text-white px-4 py-2 rounded-button font-bold">
-              <span>Zalogowano jako:</span>
+              <span>{t('noBusiness.loggedAs')}</span>
               <span>{user?.email}</span>
             </div>
           </div>
@@ -69,25 +71,25 @@ export default function NoBusinessPage() {
               </div>
               
               <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-4">
-                Korzystasz jako użytkownik
+                {t('noBusiness.userCard.title')}
               </h2>
               
               <p className="text-gray-600 mb-6">
-                Masz konto użytkownika PEDRO. Pełna funkcjonalność dostępna jest w aplikacji mobilnej.
+                {t('noBusiness.userCard.description')}
               </p>
 
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3 text-sm">
                   <span className="text-pedro-lime text-lg">✓</span>
-                  <span>Znajdź lokalne promocje</span>
+                  <span>{t('noBusiness.userCard.benefit1')}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <span className="text-pedro-lime text-lg">✓</span>
-                  <span>Skanuj kupony QR</span>
+                  <span>{t('noBusiness.userCard.benefit2')}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <span className="text-pedro-lime text-lg">✓</span>
-                  <span>Oszczędzaj przy kasie</span>
+                  <span>{t('noBusiness.userCard.benefit3')}</span>
                 </div>
               </div>
 
@@ -96,11 +98,10 @@ export default function NoBusinessPage() {
                 size="lg"
                 className="w-full"
                 onClick={() => {
-                  // Placeholder - will be real app store links
-                  alert('Link do aplikacji mobilnej będzie dostępny wkrótce!')
+                  alert(t('common.appComingSoon'))
                 }}
               >
-                Pobierz aplikację
+                {t('noBusiness.userCard.cta')}
               </BrutalButton>
             </BrutalCard>
 
@@ -118,25 +119,25 @@ export default function NoBusinessPage() {
               </div>
               
               <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-4">
-                Dodaj swój biznes
+                {t('noBusiness.businessCard.title')}
               </h2>
               
               <p className="text-gray-600 mb-6">
-                Chcesz dodać restaurację, sklep lub usługę? Zarejestruj swój biznes i włącz pakiet.
+                {t('noBusiness.businessCard.description')}
               </p>
 
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3 text-sm">
                   <span className="text-pedro-purple text-lg">🏪</span>
-                  <span>Dodaj swoją firmę</span>
+                  <span>{t('noBusiness.businessCard.benefit1')}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <span className="text-pedro-purple text-lg">📊</span>
-                  <span>Zarządzaj promocjami</span>
+                  <span>{t('noBusiness.businessCard.benefit2')}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <span className="text-pedro-purple text-lg">💰</span>
-                  <span>Płać za efekt</span>
+                  <span>{t('noBusiness.businessCard.benefit3')}</span>
                 </div>
               </div>
 
@@ -146,7 +147,7 @@ export default function NoBusinessPage() {
                 className="w-full"
                 onClick={handleAddBusiness}
               >
-                Dodaj biznes
+                {t('noBusiness.businessCard.cta')}
               </BrutalButton>
             </BrutalCard>
           </div>
@@ -155,11 +156,10 @@ export default function NoBusinessPage() {
           <div className="mt-12 text-center">
             <div className="bg-pedro-light border-2 border-pedro-purple/20 rounded-card p-6 max-w-2xl mx-auto">
               <h3 className="font-bold text-pedro-dark mb-2">
-                Informacja o platformie
+                {t('noBusiness.platformInfo.title')}
               </h3>
               <p className="text-sm text-gray-600">
-                Panel webowy służy do onboardingu biznesów i rozliczeń. 
-                Główny produkt (znajdowanie promocji) dostępny jest w aplikacji mobilnej.
+                {t('noBusiness.platformInfo.description')}
               </p>
             </div>
           </div>

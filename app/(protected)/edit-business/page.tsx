@@ -11,8 +11,10 @@ import BusinessForm from '@/components/business/BusinessForm'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import { mascots } from '@/lib/assets'
 import { BusinessFormData } from '@/lib/validations'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function EditBusinessPage() {
+  const { t } = useTranslation()
   const { user, loading: authLoading } = useAuth()
   const router = useRouter()
   const [partner, setPartner] = useState<any>(null)
@@ -51,7 +53,7 @@ export default function EditBusinessPage() {
         setPartner(partnerData)
       } catch (error) {
         console.error('Error fetching partner:', error)
-        setError('Wystąpił błąd podczas ładowania danych biznesu.')
+        setError(t('editBusiness.loadError'))
       } finally {
         setLoading(false)
       }
@@ -91,13 +93,13 @@ export default function EditBusinessPage() {
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.message || 'Wystąpił błąd podczas aktualizacji danych')
+        throw new Error(result.message || t('editBusiness.updateError'))
       }
 
       // Redirect to dashboard with success message
       router.push('/dashboard?updated=true')
     } catch (error: any) {
-      setError(error.message || 'Wystąpił błąd podczas aktualizacji danych')
+      setError(error.message || t('editBusiness.updateError'))
     }
   }
 
@@ -107,10 +109,10 @@ export default function EditBusinessPage() {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-pedro-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-            Ładowanie danych biznesu...
+            {t('editBusiness.loading')}
           </h2>
           <p className="text-gray-600">
-            Pobieramy aktualne informacje
+            {t('editBusiness.loadingSubtitle')}
           </p>
         </div>
       </div>
@@ -122,16 +124,16 @@ export default function EditBusinessPage() {
       <div className="min-h-screen bg-pedro-light flex items-center justify-center">
         <div className="text-center">
           <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-            Nie znaleziono biznesu
+            {t('dashboard.noBusinessTitle')}
           </h2>
           <p className="text-gray-600 mb-4">
-            Nie masz jeszcze zarejestrowanego biznesu.
+            {t('dashboard.noBusinessSubtitle')}
           </p>
           <button
             onClick={() => router.push('/no-business')}
             className="text-pedro-purple underline"
           >
-            Wróć do panelu głównego
+            {t('dashboard.backToPanel')}
           </button>
         </div>
       </div>
@@ -174,11 +176,10 @@ export default function EditBusinessPage() {
             </div>
             
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-pedro-dark mb-4">
-              Edytuj dane biznesu
+              {t('editBusiness.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Zaktualizuj informacje o swoim biznesie. Wszystkie zmiany zostaną 
-              natychmiast zapisane.
+              {t('editBusiness.subtitle')}
             </p>
           </div>
 
@@ -199,13 +200,13 @@ export default function EditBusinessPage() {
               <div className="text-2xl">ℹ️</div>
               <div>
                 <h3 className="font-bold text-pedro-dark mb-2">
-                  Informacje o edycji
+                  {t('editBusiness.infoTitle')}
                 </h3>
                 <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• Możesz edytować wszystkie dane biznesu</li>
-                  <li>• Zmiany w danych mogą wymagać ponownej weryfikacji</li>
-                  <li>• Aktualizacja NIP może wpłynąć na rozliczenia</li>
-                  <li>• Wszystkie zmiany są zapisywane natychmiast</li>
+                  <li>• {t('editBusiness.info1')}</li>
+                  <li>• {t('editBusiness.info2')}</li>
+                  <li>• {t('editBusiness.info3')}</li>
+                  <li>• {t('editBusiness.info4')}</li>
                 </ul>
               </div>
             </div>
@@ -225,7 +226,7 @@ export default function EditBusinessPage() {
           {/* Footer Info */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
-              Masz pytania? Skontaktuj się z nami:{' '}
+              {t('editBusiness.support')}{' '}
               <a href="mailto:kontakt@pedro.app" className="text-pedro-purple underline">
                 kontakt@pedro.app
               </a>

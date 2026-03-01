@@ -7,8 +7,10 @@ import { auth } from '@/lib/firebase'
 import AuthNavigation from '@/components/layout/AuthNavigation'
 import BusinessForm from '@/components/business/BusinessForm'
 import { mascots } from '@/lib/assets'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function RegisterBusinessPage() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const router = useRouter()
 
@@ -48,11 +50,10 @@ export default function RegisterBusinessPage() {
             </div>
             
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-pedro-dark mb-4">
-              Dodaj swój biznes
+              {t('registerBusiness.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Wypełnij formularz, aby zarejestrować swoją firmę w PEDRO. 
-              Zajmie to tylko kilka minut.
+              {t('registerBusiness.subtitle')}
             </p>
           </div>
 
@@ -62,13 +63,13 @@ export default function RegisterBusinessPage() {
               <div className="text-2xl">💡</div>
               <div>
                 <h3 className="font-bold text-pedro-dark mb-2">
-                  Jak to działa?
+                  {t('registerBusiness.howItWorks')}
                 </h3>
                 <ul className="text-sm text-gray-700 space-y-1">
-                  <li>• Wypełnij formularz rejestracji biznesu</li>
-                  <li>• Wybierz pakiet płatności (Pay-per-Use)</li>
-                  <li>• Zarządzaj ofertami w aplikacji mobilnej</li>
-                  <li>• Płać tylko za wykorzystane kupony</li>
+                  <li>• {t('registerBusiness.step1')}</li>
+                  <li>• {t('registerBusiness.step2')}</li>
+                  <li>• {t('registerBusiness.step3')}</li>
+                  <li>• {t('registerBusiness.step4')}</li>
                 </ul>
               </div>
             </div>
@@ -82,7 +83,7 @@ export default function RegisterBusinessPage() {
           {/* Footer Info */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
-              Masz pytania? Skontaktuj się z nami:{' '}
+              {t('registerBusiness.support')}{' '}
               <a href="mailto:kontakt@pedro.app" className="text-pedro-purple underline">
                 kontakt@pedro.app
               </a>

@@ -4,8 +4,11 @@ import Image from 'next/image'
 import { featureIcons, categoryIcons } from '@/lib/assets'
 import { useState } from 'react'
 import { useTilt3D } from '@/hooks/useTilt3D'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function Features() {
+    const { t } = useTranslation()
+
     return (
         <section id="funkcje" className="relative bg-pedro-light py-section overflow-hidden">
             {/* Background Doodles */}
@@ -44,7 +47,7 @@ export default function Features() {
                 {/* Section Heading */}
                 <div className="text-center mb-16">
                     <h2 className="font-headline text-h2 text-pedro-dark mb-4">
-                        Trzy proste kroki do oszczędności
+                        {t('features.title')}
                     </h2>
                 </div>
 
@@ -53,36 +56,26 @@ export default function Features() {
                     {/* Card 1 - Lokalny Radar */}
                     <FeatureCard
                         icon={featureIcons.search}
-                        title={
-                            <>
-                                Lokalny<br />
-                                Radar
-                            </>
-                        }
-                        badge="Twoja dzielnica"
+                        title={<>{t('features.search.title1')}<br />{t('features.search.title2')}</>}
+                        badge={t('features.search.badge')}
                         badgeColor="lime"
                     >
                         <p className="text-gray-600 text-center">
-                            Tylko promocje w Twoim otoczeniu. Zero spamu, zero przejażdżek na drugi koniec miasta.
+                            {t('features.search.description')}
                         </p>
                     </FeatureCard>
 
                     {/* Card 2 - Portfel bez śmieci */}
                     <FeatureCard
                         icon={featureIcons.wallet}
-                        title={
-                            <>
-                                Portfel<br />
-                                bez śmieci
-                            </>
-                        }
+                        title={<>{t('features.wallet.title1')}<br />{t('features.wallet.title2')}</>}
                     >
                         <div className="text-center">
                             <p className="text-sm text-gray-600 mb-3">
-                                Kupony ważne tu i teraz:
+                                {t('features.wallet.subtitle')}
                             </p>
                             <p className="text-2xl font-bold text-pedro-dark">
-                                <span className="text-4xl text-pedro-purple">0</span> przeterminowanych kuponów
+                                <span className="text-4xl text-pedro-purple">0</span> {t('features.wallet.count')}
                             </p>
                         </div>
                     </FeatureCard>
@@ -90,16 +83,11 @@ export default function Features() {
                     {/* Card 3 - Skanujesz i masz */}
                     <FeatureCard
                         icon={featureIcons.qr}
-                        title={
-                            <>
-                                Skanujesz<br />
-                                i masz
-                            </>
-                        }
+                        title={<>{t('features.qr.title1')}<br />{t('features.qr.title2')}</>}
                         showScanLine
                     >
                         <p className="text-gray-600 text-center">
-                            Jeden QR kod przy kasie. Bez szperania w portfelu, bez kombinowania.
+                            {t('features.qr.description')}
                         </p>
                     </FeatureCard>
                 </div>

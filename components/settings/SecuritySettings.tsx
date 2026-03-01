@@ -7,12 +7,14 @@ import { changePasswordSchema, type ChangePasswordFormData } from '@/lib/validat
 import BrutalInput from '@/components/ui/BrutalInput'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface SecuritySettingsProps {
   onPasswordChange: (currentPassword: string, newPassword: string) => Promise<any>
 }
 
 export default function SecuritySettings({ onPasswordChange }: SecuritySettingsProps) {
+  const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -42,7 +44,7 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
 
     try {
       await onPasswordChange(data.currentPassword, data.newPassword)
-      setSuccess('Hasło zostało pomyślnie zmienione.')
+      setSuccess(t('securitySettings.passwordSuccess'))
       reset()
       setShowPasswordForm(false)
     } catch (error: any) {
@@ -70,7 +72,13 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
     if (/[0-9]/.test(password)) strength++
     if (/[^A-Za-z0-9]/.test(password)) strength++
 
-    const labels = ['Bardzo słabe', 'Słabe', 'Średnie', 'Dobre', 'Bardzo dobre']
+    const labels = [
+      t('securitySettings.strengthVeryWeak'),
+      t('securitySettings.strengthWeak'),
+      t('securitySettings.strengthMedium'),
+      t('securitySettings.strengthGood'),
+      t('securitySettings.strengthVeryGood'),
+    ]
     const colors = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-blue-500', 'bg-green-500']
 
     return {
@@ -107,11 +115,11 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
         <div className="flex justify-between items-center p-4 bg-gray-50 rounded-button border-2 border-gray-200">
           <div>
             <label className="block text-sm font-bold text-pedro-dark mb-1">
-              Hasło
+              {t('securitySettings.password')}
             </label>
             <span className="text-gray-600">••••••••••••</span>
             <p className="text-xs text-gray-500 mt-1">
-              Ostatnia zmiana: nieznana
+              {t('securitySettings.lastChanged')}
             </p>
           </div>
           
@@ -121,7 +129,7 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
               size="sm"
               onClick={() => setShowPasswordForm(true)}
             >
-              Zmień hasło
+              {t('securitySettings.changePassword')}
             </BrutalButton>
           )}
         </div>
@@ -129,22 +137,22 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
         {/* Password Change Form */}
         {showPasswordForm && (
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4 bg-blue-50 rounded-button border-2 border-blue-200">
-            <h3 className="font-bold text-pedro-dark mb-4">Zmiana hasła</h3>
+            <h3 className="font-bold text-pedro-dark mb-4">{t('securitySettings.changePasswordTitle')}</h3>
             
             <BrutalInput
-              label="Obecne hasło"
+              label={t('securitySettings.currentPassword')}
               type="password"
-              placeholder="Wpisz obecne hasło"
+              placeholder={t('securitySettings.currentPasswordPlaceholder')}
               error={errors.currentPassword?.message}
               required
               {...register('currentPassword')}
             />
 
             <BrutalInput
-              label="Nowe hasło"
+              label={t('securitySettings.newPassword')}
               type="password"
-              placeholder="Wpisz nowe hasło"
-              helper="Minimum 8 znaków"
+              placeholder={t('securitySettings.newPasswordPlaceholder')}
+              helper={t('securitySettings.newPasswordHelper')}
               error={errors.newPassword?.message}
               required
               {...register('newPassword')}
@@ -154,7 +162,7 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
             {newPassword && (
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Siła hasła:</span>
+                  <span className="text-gray-600">{t('securitySettings.strengthLabel')}</span>
                   <span className={`font-medium ${
                     passwordStrength.strength >= 4 ? 'text-green-600' :
                     passwordStrength.strength >= 3 ? 'text-blue-600' :
@@ -171,15 +179,15 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
                   ></div>
                 </div>
                 <div className="text-xs text-gray-600">
-                  Wskazówki: użyj dużych i małych liter, cyfr oraz znaków specjalnych
+                  {t('securitySettings.strengthTip')}
                 </div>
               </div>
             )}
 
             <BrutalInput
-              label="Potwierdź nowe hasło"
+              label={t('securitySettings.confirmPassword')}
               type="password"
-              placeholder="Powtórz nowe hasło"
+              placeholder={t('securitySettings.confirmPasswordPlaceholder')}
               error={errors.confirmPassword?.message}
               required
               {...register('confirmPassword')}
@@ -193,7 +201,7 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
                 loading={loading}
                 className="flex-1"
               >
-                Zmień hasło
+                {t('securitySettings.submit')}
               </BrutalButton>
               
               <BrutalButton
@@ -203,13 +211,12 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
                 onClick={handleCancel}
                 disabled={loading}
               >
-                Anuluj
+                {t('securitySettings.cancel')}
               </BrutalButton>
             </div>
 
             <div className="text-xs text-gray-600 bg-white p-3 rounded border">
-              <strong>Uwaga:</strong> Po zmianie hasła zostaniesz wylogowany z innych urządzeń 
-              ze względów bezpieczeństwa.
+              <strong>Uwaga:</strong> {t('securitySettings.passwordNotice')}
             </div>
           </form>
         )}
@@ -217,13 +224,13 @@ export default function SecuritySettings({ onPasswordChange }: SecuritySettingsP
 
       {/* Security Tips */}
       <div className="p-4 bg-blue-50 rounded-button border-2 border-blue-200">
-        <h3 className="font-bold text-pedro-dark mb-3">💡 Wskazówki bezpieczeństwa</h3>
+        <h3 className="font-bold text-pedro-dark mb-3">{t('securitySettings.tipsTitle')}</h3>
         <ul className="text-sm text-gray-700 space-y-1">
-          <li>• Używaj unikalnego hasła dla każdego konta</li>
-          <li>• Hasło powinno mieć co najmniej 12 znaków</li>
-          <li>• Włącz dwuskładnikową autoryzację (wkrótce dostępna)</li>
-          <li>• Nie udostępniaj swojego hasła nikomu</li>
-          <li>• Regularnie zmieniaj hasło (co 3-6 miesięcy)</li>
+          <li>• {t('securitySettings.tip1')}</li>
+          <li>• {t('securitySettings.tip2')}</li>
+          <li>• {t('securitySettings.tip3')}</li>
+          <li>• {t('securitySettings.tip4')}</li>
+          <li>• {t('securitySettings.tip5')}</li>
         </ul>
       </div>
     </div>

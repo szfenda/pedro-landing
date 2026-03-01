@@ -1,4 +1,7 @@
+'use client'
+
 import { cn } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface DashboardCardProps {
   title: string
@@ -17,6 +20,8 @@ export default function DashboardCard({
   error,
   className,
 }: DashboardCardProps) {
+  const { t } = useTranslation()
+
   return (
     <div
       className={cn(
@@ -48,7 +53,7 @@ export default function DashboardCard({
         {error ? (
           <div className="text-center py-8">
             <div className="text-4xl mb-4">⚠️</div>
-            <p className="text-pedro-pink font-medium mb-2">Wystąpił błąd</p>
+            <p className="text-pedro-pink font-medium mb-2">{t('dashboardCard.error')}</p>
             <p className="text-gray-600 text-sm">{error}</p>
           </div>
         ) : (

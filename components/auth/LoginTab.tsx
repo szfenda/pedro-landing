@@ -9,6 +9,7 @@ import { loginSchema, type LoginFormData } from '@/lib/validations'
 import BrutalInput from '@/components/ui/BrutalInput'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface LoginTabProps {
   onSuccess: () => void
@@ -23,6 +24,7 @@ export default function LoginTab({
 }: LoginTabProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { t } = useTranslation()
 
   const {
     register,
@@ -47,16 +49,16 @@ export default function LoginTab({
         case 'auth/user-not-found':
         case 'auth/wrong-password':
         case 'auth/invalid-credential':
-          setError('Nieprawidłowy email lub hasło.')
+          setError(t('auth.errors.invalidCredentials'))
           break
         case 'auth/too-many-requests':
-          setError('Zbyt wiele prób logowania. Spróbuj ponownie później.')
+          setError(t('auth.errors.tooManyRequests'))
           break
         case 'auth/user-disabled':
-          setError('To konto zostało zablokowane.')
+          setError(t('auth.errors.userDisabled'))
           break
         default:
-          setError('Wystąpił błąd podczas logowania. Spróbuj ponownie.')
+          setError(t('auth.errors.genericLogin'))
       }
     } finally {
       setLoading(false)
@@ -67,10 +69,10 @@ export default function LoginTab({
     <div className="space-y-6">
       <div className="text-center">
         <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-2">
-          Logowanie
+          {t('auth.login.title')}
         </h2>
         <p className="text-gray-600">
-          Wróć do polowania na promki
+          {t('auth.login.subtitle')}
         </p>
       </div>
 
@@ -87,15 +89,15 @@ export default function LoginTab({
         <BrutalInput
           label="Email"
           type="email"
-          placeholder="np. ola@pedro.app"
+          placeholder={t('auth.login.emailPlaceholder')}
           error={errors.email?.message}
           {...register('email')}
         />
 
         <BrutalInput
-          label="Hasło"
+          label={t('securitySettings.password')}
           type="password"
-          placeholder="Twoje hasło"
+          placeholder={t('auth.login.passwordPlaceholder')}
           showPasswordToggle
           error={errors.password?.message}
           {...register('password')}
@@ -107,7 +109,7 @@ export default function LoginTab({
             onClick={onSwitchToReset}
             className="text-pedro-purple hover:text-pedro-dark transition-colors underline"
           >
-            Zapomniałeś hasła?
+            {t('auth.login.forgotPassword')}
           </button>
         </div>
 
@@ -118,30 +120,30 @@ export default function LoginTab({
           loading={loading}
           className="w-full"
         >
-          Zaloguj się
+          {t('auth.login.submit')}
         </BrutalButton>
       </form>
 
       <div className="text-center">
         <p className="text-gray-600">
-          Nie masz konta?{' '}
+          {t('auth.login.noAccount')}{' '}
           <button
             onClick={onSwitchToRegister}
             className="text-pedro-purple hover:text-pedro-dark transition-colors font-bold underline"
           >
-            Załóż konto →
+            {t('auth.login.createAccount')}
           </button>
         </p>
       </div>
 
       <div className="text-xs text-gray-500 text-center">
-        Logując się, akceptujesz{' '}
+        {t('auth.login.termsNotice')}{' '}
         <a href="#" className="underline hover:text-pedro-purple">
-          Regulamin
+          {t('auth.login.termsLink')}
         </a>{' '}
-        i{' '}
+        {t('auth.login.and')}{' '}
         <a href="#" className="underline hover:text-pedro-purple">
-          Politykę Prywatności
+          {t('auth.login.privacyLink')}
         </a>
         .
       </div>

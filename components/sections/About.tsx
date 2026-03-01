@@ -3,10 +3,12 @@
 import Image from 'next/image'
 import { mascots, functionalIcons } from '@/lib/assets'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function About() {
     const [isVisible, setIsVisible] = useState(false)
     const sectionRef = useRef<HTMLElement>(null)
+    const { t } = useTranslation()
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -26,18 +28,9 @@ export default function About() {
     }, [])
 
     const benefits = [
-        {
-            text: 'Lokalnie (Twoja dzielnica)',
-            delay: '0.1s',
-        },
-        {
-            text: 'Bez spamu (tylko realne promki)',
-            delay: '0.2s',
-        },
-        {
-            text: 'Szybko przy kasie (skanujesz i masz)',
-            delay: '0.3s',
-        },
+        { text: t('about.benefit1'), delay: '0.1s' },
+        { text: t('about.benefit2'), delay: '0.2s' },
+        { text: t('about.benefit3'), delay: '0.3s' },
     ]
 
     return (
@@ -51,15 +44,15 @@ export default function About() {
                     {/* Left Column - Text Content */}
                     <div className={`space-y-8 ${isVisible ? 'scroll-reveal revealed' : 'scroll-reveal'}`}>
                         <h2 className="font-headline text-h2 text-pedro-dark">
-                            Co to jest PEDRO?
+                            {t('about.title')}
                         </h2>
 
                         <div className="space-y-4">
                             <p className="text-body text-gray-700 leading-relaxed">
-                                PEDRO to twój osobisty asystent promocji, który pokazuje Ci najlepsze okazje w Twojej okolicy.
+                                {t('about.description1')}
                             </p>
                             <p className="text-body text-gray-700 leading-relaxed">
-                                Zapomnij o przeglądaniu dziesiątek aplikacji i gazetach reklamowych. Pedro poluje na promki za Ciebie!
+                                {t('about.description2')}
                             </p>
                         </div>
 

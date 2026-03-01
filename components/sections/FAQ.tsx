@@ -1,33 +1,18 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslation } from '@/lib/i18n-context'
 
 export default function FAQ() {
+    const { t } = useTranslation()
+
     const faqs = [
-        {
-            question: 'Jak działa PEDRO?',
-            answer: 'PEDRO automatycznie znajduje najlepsze promocje w Twojej okolicy. Wystarczy otworzyć aplikację, a Pedro pokaże Ci aktualne okazje w pobliskich sklepach i lokalach.'
-        },
-        {
-            question: 'Czy aplikacja jest darmowa?',
-            answer: 'Tak! PEDRO jest całkowicie darmowy dla użytkowników. Zarabiamy na partnerstwach z lokalnymi biznesami.'
-        },
-        {
-            question: 'Jak dodać kupon do portfela?',
-            answer: 'Wystarczy kliknąć "Użyj" przy wybranej promocji. Kupon automatycznie pojawi się w Twoim portfelu i będzie gotowy do zeskanowania przy kasie.'
-        },
-        {
-            question: 'Czy mogę korzystać offline?',
-            answer: 'Zapisane kupony możesz używać offline. Do przeglądania nowych promocji potrzebne jest połączenie z internetem.'
-        },
-        {
-            question: 'Jak mogę dodać swoją firmę?',
-            answer: 'Kliknij "Dodaj swoją firmę" w sekcji dla biznesu lub skontaktuj się z nami. Proces dodawania promocji jest prosty i zajmuje około 2 minut.'
-        },
-        {
-            question: 'Czy PEDRO jest dostępne poza Trójmiastem?',
-            answer: 'Obecnie skupiamy się na Gdańsku, Gdyni i Sopocie. Jednak już niedługo rozszerzamy działalność na inne miasta w Polsce!'
-        },
+        { question: t('faq.questions.q1.question'), answer: t('faq.questions.q1.answer') },
+        { question: t('faq.questions.q2.question'), answer: t('faq.questions.q2.answer') },
+        { question: t('faq.questions.q3.question'), answer: t('faq.questions.q3.answer') },
+        { question: t('faq.questions.q4.question'), answer: t('faq.questions.q4.answer') },
+        { question: t('faq.questions.q5.question'), answer: t('faq.questions.q5.answer') },
+        { question: t('faq.questions.q6.question'), answer: t('faq.questions.q6.answer') },
     ]
 
     return (
@@ -36,10 +21,10 @@ export default function FAQ() {
                 {/* Section Heading */}
                 <div className="text-center mb-16">
                     <h2 className="font-headline text-h2 text-pedro-dark mb-4">
-                        Często zadawane pytania
+                        {t('faq.title')}
                     </h2>
                     <p className="text-body text-gray-600">
-                        Wszystko, co musisz wiedzieć o PEDRO
+                        {t('faq.subtitle')}
                     </p>
                 </div>
 

@@ -10,8 +10,10 @@ import AuthNavigation from '@/components/layout/AuthNavigation'
 import BillingCard from '@/components/business/BillingCard'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import { mascots } from '@/lib/assets'
+import { useTranslation } from '@/lib/i18n-context'
 
 function BillingContent() {
+  const { t } = useTranslation()
   const { user, loading: authLoading } = useAuth()
   const router = useRouter()
   const [partner, setPartner] = useState<any>(null)
@@ -27,9 +29,9 @@ function BillingContent() {
       const canceled = urlParams.get('canceled')
 
       if (sessionId) {
-        setSuccessMessage('Płatność została pomyślnie skonfigurowana! Twój plan PPU jest teraz aktywny.')
+        setSuccessMessage(t('billingPage.paymentSuccess'))
       } else if (canceled) {
-        setError('Płatność została anulowana. Możesz spróbować ponownie.')
+        setError(t('billingPage.paymentCanceled'))
       }
     }
   }, [])
@@ -66,7 +68,7 @@ function BillingContent() {
         setPartner(partnerData)
       } catch (error) {
         console.error('Error fetching partner:', error)
-        setError('Wystąpił błąd podczas ładowania danych. Spróbuj odświeżyć stronę.')
+        setError(t('dashboard.loadError'))
       } finally {
         setLoading(false)
       }
@@ -98,10 +100,10 @@ function BillingContent() {
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-pedro-purple border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-            Ładowanie danych...
+            {t('billingPage.loading')}
           </h2>
           <p className="text-gray-600">
-            Pobieramy informacje o Twoim koncie
+            {t('billingPage.loadingSubtitle')}
           </p>
         </div>
       </div>
@@ -113,16 +115,16 @@ function BillingContent() {
       <div className="min-h-screen bg-pedro-light flex items-center justify-center">
         <div className="text-center">
           <h2 className="font-headline text-xl font-bold text-pedro-dark mb-2">
-            Nie znaleziono biznesu
+            {t('dashboard.noBusinessTitle')}
           </h2>
           <p className="text-gray-600 mb-4">
-            Nie masz jeszcze zarejestrowanego biznesu.
+            {t('dashboard.noBusinessSubtitle')}
           </p>
           <button
             onClick={() => router.push('/no-business')}
             className="text-pedro-purple underline"
           >
-            Wróć do panelu głównego
+            {t('dashboard.backToPanel')}
           </button>
         </div>
       </div>
@@ -152,10 +154,10 @@ function BillingContent() {
             </div>
             
             <h1 className="font-headline text-4xl md:text-5xl font-bold text-pedro-dark mb-4">
-              Rozliczenia i płatności
+              {t('billingPage.title')}
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Zarządzaj swoim planem płatności i śledź wykorzystanie kuponów.
+              {t('billingPage.subtitle')}
             </p>
           </div>
 
@@ -209,7 +211,7 @@ function BillingContent() {
           {/* Footer Info */}
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600">
-              Masz pytania dotyczące rozliczeń? Skontaktuj się z nami:{' '}
+              {t('billingPage.billingSupport')}{' '}
               <a href="mailto:kontakt@pedro.app" className="text-pedro-purple underline">
                 kontakt@pedro.app
               </a>

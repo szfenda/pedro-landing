@@ -9,6 +9,7 @@ import { resetPasswordSchema, type ResetPasswordFormData } from '@/lib/validatio
 import BrutalInput from '@/components/ui/BrutalInput'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
+import { useTranslation } from '@/lib/i18n-context'
 
 interface ResetPasswordTabProps {
   onBackToLogin: () => void
@@ -19,6 +20,7 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [cooldown, setCooldown] = useState(0)
+  const { t } = useTranslation()
 
   const {
     register,
@@ -59,13 +61,13 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
           setSuccess(true)
           break
         case 'auth/invalid-email':
-          setError('Nieprawidłowy format email.')
+          setError(t('auth.errors.invalidEmail'))
           break
         case 'auth/too-many-requests':
-          setError('Zbyt wiele prób. Spróbuj ponownie później.')
+          setError(t('auth.errors.resetTooMany'))
           break
         default:
-          setError('Wystąpił błąd. Spróbuj ponownie.')
+          setError(t('auth.errors.genericReset'))
       }
     } finally {
       setLoading(false)
@@ -85,17 +87,17 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
         <div className="text-center">
           <div className="text-6xl mb-4">📧</div>
           <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-2">
-            Sprawdź pocztę
+            {t('auth.resetPassword.successTitle')}
           </h2>
           <p className="text-gray-600 mb-6">
-            Jeśli konto istnieje, wysłaliśmy link do resetu hasła na:{' '}
+            {t('auth.resetPassword.successMessage')}{' '}
             <strong>{getValues('email')}</strong>
           </p>
         </div>
 
         <BrutalAlert
           type="info"
-          message="Sprawdź również folder spam. Link jest ważny przez 1 godzinę."
+          message={t('auth.resetPassword.spamNotice')}
         />
 
         <div className="space-y-4">
@@ -106,7 +108,7 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
             disabled={cooldown > 0}
             className="w-full"
           >
-            {cooldown > 0 ? `Wyślij ponownie (${cooldown}s)` : 'Wyślij ponownie'}
+            {cooldown > 0 ? t('auth.resetPassword.resendCooldown', { seconds: cooldown }) : t('auth.resetPassword.resend')}
           </BrutalButton>
 
           <BrutalButton
@@ -115,7 +117,7 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
             size="lg"
             className="w-full"
           >
-            Wróć do logowania →
+            {t('auth.resetPassword.backToLogin')}
           </BrutalButton>
         </div>
       </div>
@@ -126,10 +128,10 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
     <div className="space-y-6">
       <div className="text-center">
         <h2 className="font-headline text-2xl font-bold text-pedro-dark mb-2">
-          Reset hasła
+          {t('auth.resetPassword.title')}
         </h2>
         <p className="text-gray-600">
-          Podaj email, wyślemy Ci link do ustawienia nowego hasła.
+          {t('auth.resetPassword.subtitle')}
         </p>
       </div>
 
@@ -146,7 +148,7 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
         <BrutalInput
           label="Email"
           type="email"
-          placeholder="np. ola@pedro.app"
+          placeholder={t('auth.resetPassword.emailPlaceholder')}
           error={errors.email?.message}
           {...register('email')}
         />
@@ -158,7 +160,7 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
           loading={loading}
           className="w-full"
         >
-          Wyślij link resetujący
+          {t('auth.resetPassword.submit')}
         </BrutalButton>
       </form>
 
@@ -167,12 +169,12 @@ export default function ResetPasswordTab({ onBackToLogin }: ResetPasswordTabProp
           onClick={onBackToLogin}
           className="text-pedro-purple hover:text-pedro-dark transition-colors font-bold underline"
         >
-          Wróć do logowania →
+          {t('auth.resetPassword.backToLogin')}
         </button>
       </div>
 
       <div className="text-xs text-gray-500 text-center">
-        Jeśli konto istnieje, wyślemy wiadomość na podany adres.
+        {t('auth.resetPassword.notice')}
       </div>
     </div>
   )
