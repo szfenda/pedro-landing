@@ -24,9 +24,10 @@ components/
 │   ├── BrutalCard.tsx     # Card container component
 │   └── ProgressIndicator.tsx # Multi-step progress bar
 ├── layout/
-│   ├── Navigation.tsx     # Fixed top nav with auth state
-│   ├── AuthNavigation.tsx # Auth-specific navigation
-│   └── Footer.tsx         # Dark footer with Pedro Peeking + legal links
+│   ├── Navigation.tsx     # Fixed top nav with auth state + LanguageSwitcher + authLoading guard
+│   ├── AuthNavigation.tsx # Auth-specific navigation (translated)
+│   ├── LanguageSwitcher.tsx # PL/EN dropdown with brutal design, a11y (role=listbox)
+│   └── Footer.tsx         # Dark footer with Pedro Peeking + legal links (translated)
 └── sections/              # Landing page sections
     ├── Hero.tsx           # 100vh split layout (CRITICAL: 1:1 design)
     ├── About.tsx          # 2-column with Pedro Thumbs Up
@@ -207,7 +208,9 @@ const handleCheckout = async () => {
 
 ### Navigation.tsx (UPDATED)
 **New Features:**
-- Auth state awareness
+- Auth state awareness with `authLoading` guard (invisible placeholder during load to prevent flash)
+- LanguageSwitcher integrated (desktop: between nav pills and user menu; mobile: next to burger)
+- All text translated via `useTranslation()` hook
 - Dynamic login/dashboard button
 - User menu dropdown (when logged in)
 - Logout functionality
@@ -230,6 +233,38 @@ const handleAuthClick = () => {
 - Logo only
 - Back to home button
 - Minimal design to focus on auth flow
+- Translated via `useTranslation()`
+
+### LanguageSwitcher.tsx (NEW - Mar 2025)
+**Purpose:** PL/EN language toggle dropdown in Navigation
+- Brutal design with hard shadow
+- Click-outside and Escape to close
+- `role="listbox"` / `role="option"` for a11y
+- `mounted` state guard to prevent hydration flash (shows empty label until mounted)
+- Reads/writes `pedro-locale` in localStorage via `useTranslation()` hook
+
+## i18n System (Mar 2025)
+
+### Architecture
+- **Config:** `lib/i18n-config.ts` — `Locale` type, `defaultLocale: 'pl'`, `localeNames`
+- **Context:** `lib/i18n-context.tsx` — `I18nProvider` wraps app in `layout.tsx`, provides `useTranslation()` hook
+- **Translations:** `messages/pl.json` (static import), `messages/en.json` (lazy `import()` on switch)
+- **Anti-flash:** Inline `<script>` in `<head>` sets `lang` attribute from localStorage before React hydrates
+
+### useTranslation() Hook
+```tsx
+const { t, locale, setLocale } = useTranslation()
+t('hero.title')              // simple key
+t('greeting', { name: 'X' }) // param interpolation {{name}}
+```
+
+### Performance
+- Only `pl.json` is statically imported (default locale)
+- `en.json` loaded via dynamic `import()` when user switches to EN
+- Module-level cache (`messagesCache`, `enLoaded` flag) prevents re-fetching
+
+### All translated components
+Landing sections, auth forms, business forms, settings, billing, dashboard, navigation, footer. Legal documents and Zod validation messages stay PL only.
 
 ## Critical Landing Page Components (Must Match Design 1:1)
 ## Critical Landing Page Components (Must Match Design 1:1)

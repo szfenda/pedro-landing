@@ -68,6 +68,17 @@
 - **TypeScript Structure:** Type-safe document management system
 - **Status:** ✅ FULLY IMPLEMENTED AND TESTED
 
+### i18n System ✅ NEW (Mar 2025)
+- **Languages:** Polish (default) + English, client-side switching
+- **Implementation:** React Context (`I18nProvider`) + `useTranslation()` hook
+- **Translation files:** `messages/pl.json` (~300 keys), `messages/en.json` (lazy-loaded)
+- **Switcher:** `LanguageSwitcher.tsx` in Navigation (desktop + mobile)
+- **Scope:** All UI text (landing, auth, dashboard, settings, billing, business forms)
+- **Excluded:** Legal documents (PL only), Zod validation messages, API routes
+- **Performance:** EN translations lazy-loaded via dynamic `import()`, anti-flash script in `<head>`
+- **Fixes applied:** Hydration flash for locale label + auth button loading guard
+- **Status:** ✅ FULLY IMPLEMENTED AND TESTED
+
 ### Technical Infrastructure ✅
 - **Route Structure:** 7 complete pages with proper organization
 - **API Endpoints:** 4 endpoints (health, contact, 3x stripe)
@@ -91,7 +102,7 @@ components/
 ├── business/       # 4 business components  
 ├── legal/          # 2 legal components ✅ NEW
 ├── ui/             # 6 brutal UI components
-└── layout/         # 2 navigation components (updated with legal links)
+└── layout/         # 3 navigation components + LanguageSwitcher
 ```
 
 ### Route Structure

@@ -62,13 +62,18 @@
 │   ├── business/         # Business management components
 │   ├── legal/            # Legal documents components ✅ NEW
 │   ├── ui/              # Brutal design system
-│   ├── layout/          # Navigation components
+│   ├── layout/          # Navigation + LanguageSwitcher + Footer
 │   └── sections/        # Landing page sections
+├── messages/
+│   ├── pl.json           # Polish translations (~300 keys)
+│   └── en.json           # English translations (lazy-loaded)
 ├── lib/
 │   ├── firebase.ts       # Firebase client configuration
 │   ├── firebase-admin.ts # Firebase admin (server-side)
 │   ├── stripe.ts         # Stripe client configuration
 │   ├── auth-context.tsx  # React auth context provider
+│   ├── i18n-config.ts    # Locale types, defaultLocale, localeNames
+│   ├── i18n-context.tsx  # I18nProvider + useTranslation() hook
 │   ├── validations.ts    # Zod schemas for forms
 │   ├── contact.ts        # Email sending service ✅
 │   ├── logger.ts         # Structured logging ✅

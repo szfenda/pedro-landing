@@ -18,6 +18,7 @@ PEDRO is a complete web application that combines a marketing landing page with 
 5. **Business Dashboard** - Real-time business management interface
 6. **Contact Form** - Fully functional with GoDaddy SMTP ✅ **WORKING**
 7. **Legal Documents System** - Regulamin & Polityka Prywatności ✅ **NEW (Jan 2025)**
+8. **i18n System** - Polish/English language switching ✅ **NEW (Mar 2025)**
 
 ## Technical Architecture
 
@@ -115,6 +116,16 @@ components/
 - **Version Management:** Git-based versioning with easy updates
 - **Integration:** Links in footer and registration form
 - **TypeScript Structure:** Type-safe document management system
+
+### 7. i18n System ✅ **NEW (Mar 2025)**
+- **Languages:** Polish (default) + English
+- **Approach:** Client-side React Context, no routing changes (no /en/ prefix)
+- **Storage:** `localStorage` key `pedro-locale`, anti-flash inline script in `<head>`
+- **Translation files:** `messages/pl.json` (~300 keys), `messages/en.json` (lazy-loaded)
+- **Hook:** `useTranslation()` from `lib/i18n-context.tsx` → `t('key.path')` with param interpolation
+- **Switcher:** `components/layout/LanguageSwitcher.tsx` in Navigation (desktop + mobile)
+- **Scope:** All UI text translated (landing, auth, dashboard, settings, billing, business forms)
+- **Excluded:** Legal documents (PL only), Zod validation messages (PL only), API routes
 
 ## Design System: "Brutal UI" ✅
 

@@ -4,7 +4,7 @@
 **✅ DEPLOYED & LIVE:** https://pedro.app  
 **Platform:** Vercel (migrated from Firebase Hosting)  
 **Status:** Production ready, all features operational  
-**Last Updated:** December 31, 2024
+**Last Updated:** March 2025
 
 **🌐 Live Features:**
 - ✅ Landing page with brutal design
@@ -15,6 +15,7 @@
 - ✅ Contact form with email sending (SMTP working)
 - ✅ Health monitoring endpoint
 - ✅ Structured logging system
+- ✅ i18n PL/EN language switching (Mar 2025)
 
 ## 🔧 Essential Commands
 ```bash
@@ -38,6 +39,11 @@ git add . && git commit -m "message" && git push origin main
 - `next.config.js` - Vercel-optimized Next.js config
 - `middleware.ts` - Auth middleware with Vercel cookie handling
 - `lib/auth-context.tsx` - Updated auth context for Vercel
+- `lib/i18n-config.ts` - Locale types, defaultLocale, localeNames
+- `lib/i18n-context.tsx` - I18nProvider + useTranslation() hook (lazy EN loading)
+- `messages/pl.json` - Polish translations (~300 keys)
+- `messages/en.json` - English translations (lazy-loaded)
+- `components/layout/LanguageSwitcher.tsx` - PL/EN dropdown in Navigation
 - `app/api/health/route.ts` - Health monitoring endpoint
 - `lib/logger.ts` - Structured logging system
 - `app/api/contact/route.ts` - Contact form API with SMTP
