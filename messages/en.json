@@ -532,6 +532,14 @@
   "dashboardCard": {
     "error": "An error occurred"
   },
+  "cookies": {
+    "title": "Cookies",
+    "description": "We use cookies necessary for the site to function and optional analytics cookies (Google Analytics) that help us improve the service.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "privacyLink": "Privacy Policy",
+    "settings": "Cookie settings"
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",

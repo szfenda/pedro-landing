@@ -40,15 +40,28 @@ const I18nContext = createContext<I18nContextType>({
 })
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('pedro-locale')
-      if (saved && locales.includes(saved as Locale)) return saved as Locale
-    }
-    return defaultLocale
-  })
+  const [locale, setLocaleState] = useState<Locale>(defaultLocale)
 
   const [, setReady] = useState(0)
+
+  // Hydrate locale from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('pedro-locale')
+      if (saved && locales.includes(saved as Locale)) {
+        setLocaleState(saved as Locale)
+        document.documentElement.lang = saved
+        if (saved === 'en' && !enLoaded) {
+          loadEN().then(() => setReady((r) => r + 1))
+        }
+      }
+    } catch {}
+  }, [])
+
+  // Sync document lang attribute on locale change (after initial mount)
+  useEffect(() => {
+    document.documentElement.lang = locale
+  }, [locale])
 
   // Preload EN messages when locale is EN
   useEffect(() => {

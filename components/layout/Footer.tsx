@@ -13,6 +13,10 @@ export default function Footer() {
     const footerLinks = [
         { label: t('footer.terms'), href: '/legal/regulamin' },
         { label: t('footer.privacy'), href: '/legal/polityka-prywatnosci' },
+        { label: t('cookies.settings'), onClick: () => {
+            localStorage.removeItem('pedro-cookie-consent')
+            window.location.reload()
+        }},
         { label: t('footer.contact'), onClick: () => smoothScrollTo('kontakt') },
         { label: t('footer.forBusiness'), onClick: () => smoothScrollTo('dla-biznesu') },
     ]

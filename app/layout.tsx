@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { delaGothicOne, inter } from './fonts'
 import { AuthProvider } from '@/lib/auth-context'
 import { I18nProvider } from '@/lib/i18n-context'
+import CookieConsent from '@/components/ui/CookieConsent'
 import './globals.css'
 import '../styles/animations.css'
 
@@ -59,7 +60,6 @@ export default function RootLayout({
     return (
         <html lang="pl" className={`${delaGothicOne.variable} ${inter.variable}`}>
             <head>
-                <script dangerouslySetInnerHTML={{ __html: `try{var l=localStorage.getItem('pedro-locale');if(l==='en')document.documentElement.lang='en'}catch(e){}` }} />
                 <meta name="theme-color" content="#6C5CE7" />
                 <meta name="msapplication-TileColor" content="#6C5CE7" />
                 <meta name="msapplication-config" content="/browserconfig.xml" />
@@ -68,6 +68,7 @@ export default function RootLayout({
                 <I18nProvider>
                     <AuthProvider>
                         {children}
+                        <CookieConsent />
                     </AuthProvider>
                 </I18nProvider>
             </body>

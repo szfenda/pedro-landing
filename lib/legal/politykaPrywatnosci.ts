@@ -96,12 +96,22 @@ export function getPolitykaPrywatnosciDocument(): LegalDocument {
       {
         id: 'cookies',
         title: '8. Cookies',
-        content: '',
+        content: 'Strona www.pedro.app wykorzystuje pliki cookies (ciasteczka). Poniżej znajduje się szczegółowa informacja o stosowanych plikach cookie.',
         subsections: [
           {
-            id: 'wykorzystanie-cookies',
-            title: '',
-            content: 'Strona www.pedro.app wykorzystuje pliki cookies w celach:\n- zapewnienia prawidłowego działania serwisu,\n- analizy statystycznej (Google Analytics).\n\nUżytkownik może zarządzać cookies poprzez ustawienia przeglądarki.'
+            id: 'cookies-niezbedne',
+            title: 'Cookies niezbędne (nie wymagają zgody):',
+            content: '- **firebase-auth-token** — cookie sesji autoryzacyjnej, umożliwia zalogowanie się i utrzymanie sesji. Czas życia: 1 godzina. Dostawca: PEDRO.\n- **pedro-locale** — localStorage, zapamiętuje wybrany język interfejsu (PL/EN). Czas życia: bezterminowo. Dostawca: PEDRO.\n- **pedro-cookie-consent** — localStorage, przechowuje informację o wyrażonej zgodzie na cookies. Czas życia: bezterminowo. Dostawca: PEDRO.'
+          },
+          {
+            id: 'cookies-analityczne',
+            title: 'Cookies analityczne (wymagają zgody):',
+            content: '- **Google Analytics (_ga, _ga_*)** — cookies służące do analizy ruchu na stronie, zbierają anonimowe dane statystyczne. Czas życia: do 2 lat. Dostawca: Google LLC.\n\nCookies analityczne są uruchamiane **wyłącznie po wyrażeniu zgody** przez użytkownika za pomocą okna cookie wyświetlanego przy pierwszej wizycie na stronie.'
+          },
+          {
+            id: 'zarzadzanie-cookies',
+            title: 'Zarządzanie cookies:',
+            content: 'Użytkownik może zarządzać cookies poprzez:\n- okno zgody wyświetlane przy pierwszej wizycie na stronie,\n- link „Ustawienia cookies" dostępny w stopce strony,\n- ustawienia swojej przeglądarki internetowej.\n\nWycofanie zgody na cookies analityczne nie wpływa na możliwość korzystania ze strony.'
           }
         ]
       },
