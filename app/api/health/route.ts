@@ -16,8 +16,8 @@ export async function GET() {
       console.error('Firebase health check failed:', error)
     }
 
-    // Test SMTP configuration
-    const smtpStatus = process.env.SMTP_USER && process.env.SMTP_PASS ? 'configured' : 'missing'
+    // Test Resend configuration
+    const resendStatus = process.env.RESEND_API_KEY ? 'configured' : 'missing'
 
     // Test Stripe configuration
     const stripeStatus = process.env.STRIPE_SECRET_KEY ? 'configured' : 'missing'
@@ -28,7 +28,7 @@ export async function GET() {
       environment: process.env.NODE_ENV || 'unknown',
       services: {
         firebase: firebaseStatus,
-        smtp: smtpStatus,
+        resend: resendStatus,
         stripe: stripeStatus
       }
     }

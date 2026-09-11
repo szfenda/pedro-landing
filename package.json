@@ -25,6 +25,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.48.0",
+    "resend": "^6.27.0",
     "sharp": "^0.34.5",
     "stripe": "^14.0.0",
     "tailwind-merge": "^2.6.0",

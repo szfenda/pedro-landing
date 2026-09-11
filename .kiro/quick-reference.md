@@ -64,20 +64,22 @@ git add . && git commit -m "message" && git push origin main
 - ✅ **SMTP configuration working with GoDaddy credentials**
 - ✅ **All environment variables configured in Vercel**
 
-## 🔧 SMTP Configuration (Working)
-**GoDaddy Titan Email Setup:**
+## 🔧 Email Configuration (Resend API)
+**Resend Setup:**
 ```bash
-✅ SMTP_USER=[YOUR_EMAIL]
-✅ SMTP_PASS=[CONFIGURED_IN_VERCEL]
-✅ SMTP_TO=[DESTINATION_EMAIL]
+✅ RESEND_API_KEY=[CONFIGURED_IN_VERCEL]
+✅ From: Kontakt Pedro <kontakt@pedro.app>
+✅ To: kontakt@pedro.app
+✅ Reply-To: [user_email]
 ```
 
-**Contact Form Status:** 🟢 FULLY OPERATIONAL
-- Form validation: ✅ Working
-- Email sending: ✅ Working (tested successfully)
-- Error handling: ✅ Implemented with timeouts
+**Contact Form Status:** 🟢 FULLY OPERATIONAL (Resend)
+- Form validation: ✅ Working (Zod)
+- Email sending: ✅ Working (Resend API)
+- Error handling: ✅ Implemented with structured logging
 - Success feedback: ✅ Polish language responses
 - **Test URL:** https://pedro.app/#kontakt
+
 
 ## 🎯 Immediate Tasks
 1. **Store Links:** Replace `href="#"` with real URLs in Hero.tsx, Download.tsx

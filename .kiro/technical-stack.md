@@ -19,7 +19,8 @@
 ## Payments & Email
 - **Stripe:** 17.3.0 (Server-side)
 - **@stripe/stripe-js:** 4.8.0 (Client-side)
-- **Nodemailer:** 7.0.12 (Email sending) ✅ **CONFIGURED**
+- **Resend:** 4.x (Transactional email sending via API) ✅ **CONFIGURED**
+
 
 ## Key Dependencies
 ```json
@@ -180,15 +181,15 @@ All API routes run on Vercel serverless functions:
 
 ### Health Monitoring
 - **`/api/health`** - Service status monitoring ✅ ACTIVE
-- Returns: Firebase, SMTP, Stripe connection status
+- Returns: Firebase, Resend, Stripe connection status
 - Structured logging with JSON format
 
 ### Contact Form
 - **`/api/contact`** - Email sending endpoint ✅ WORKING
-- SMTP: GoDaddy Titan Email ([YOUR_EMAIL])
+- Provider: Resend API (from: `Kontakt Pedro <kontakt@pedro.app>`, to: `kontakt@pedro.app`, reply_to: user email)
 - Validation: Zod schema with Polish regex support
 - Error handling: Comprehensive with structured logging
-- Timeouts: 10s connection, 5s greeting, 10s socket
+
 
 ### Stripe Integration
 - **`/api/stripe/create-checkout-session`** - Subscription setup
