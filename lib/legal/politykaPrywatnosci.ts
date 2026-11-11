@@ -1,7 +1,8 @@
 /**
  * Polityka Prywatności PEDRO
- * Ostatnia aktualizacja: 2 stycznia 2025
- * Wersja: 1.0.0-beta
+ * Ostatnia aktualizacja: 11 listopada 2026
+ * Wersja: 1.1.0-beta
+ * PDF: node scripts/generate-legal-pdf.js polityka (po każdej zmianie treści)
  */
 
 import { LegalDocument } from './types'
