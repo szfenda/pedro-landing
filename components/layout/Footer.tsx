@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { logos, mascots, socialIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n-context'
+import { COOKIE_CONSENT_KEY, disableAnalytics } from '@/lib/analytics'
 
 export default function Footer() {
     const [showBubble, setShowBubble] = useState(false)
@@ -14,7 +15,13 @@ export default function Footer() {
         { label: t('footer.terms'), href: '/legal/regulamin' },
         { label: t('footer.privacy'), href: '/legal/polityka-prywatnosci' },
         { label: t('cookies.settings'), onClick: () => {
-            localStorage.removeItem('pedro-cookie-consent')
+            // Ponowny wybór: usuwamy decyzję i ciasteczka GA, po przeładowaniu GA nie startuje bez nowej zgody
+            try {
+                localStorage.removeItem(COOKIE_CONSENT_KEY)
+            } catch {
+                // ignorujemy
+            }
+            disableAnalytics()
             window.location.reload()
         }},
         { label: t('footer.contact'), onClick: () => smoothScrollTo('kontakt') },

@@ -3,8 +3,12 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n-context'
-
-const COOKIE_CONSENT_KEY = 'pedro-cookie-consent'
+import {
+  COOKIE_CONSENT_KEY,
+  disableAnalytics,
+  hasAnalyticsConsent,
+  loadAnalytics,
+} from '@/lib/analytics'
 
 interface CookieConsentState {
   necessary: boolean
@@ -20,6 +24,8 @@ export default function CookieConsent() {
     // Check if consent was already given
     try {
       const saved = localStorage.getItem(COOKIE_CONSENT_KEY)
+      // Zgoda zapisana wcześniej → GA (T-006 #3). Bez zgody nic nie ładujemy.
+      if (hasAnalyticsConsent()) loadAnalytics()
       if (!saved) {
         // Small delay for smooth page load
         const timer = setTimeout(() => setIsVisible(true), 1000)
@@ -37,10 +43,13 @@ export default function CookieConsent() {
       analytics: true,
       timestamp: new Date().toISOString(),
     }
-    localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consent))
+    try {
+      localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consent))
+    } catch {
+      // localStorage niedostępny — zgoda tylko na tę wizytę
+    }
     setIsVisible(false)
-    // Here you would initialize Google Analytics
-    // window.gtag?.('consent', 'update', { analytics_storage: 'granted' })
+    loadAnalytics()
   }
 
   const handleReject = () => {
@@ -49,8 +58,13 @@ export default function CookieConsent() {
       analytics: false,
       timestamp: new Date().toISOString(),
     }
-    localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consent))
+    try {
+      localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(consent))
+    } catch {
+      // localStorage niedostępny
+    }
     setIsVisible(false)
+    disableAnalytics()
   }
 
   if (!isVisible) return null
