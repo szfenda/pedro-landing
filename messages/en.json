@@ -19,7 +19,10 @@
     "appStore": "Download on the",
     "appStoreName": "App Store",
     "googlePlay": "GET IT ON",
-    "googlePlayName": "Google Play"
+    "googlePlayName": "Google Play",
+    "openWebApp": "Open PEDRO in your browser",
+    "openWebAppShort": "Open PEDRO",
+    "storesSoon": "Android & iOS apps — coming soon"
   },
   "about": {
     "title": "What is PEDRO?",

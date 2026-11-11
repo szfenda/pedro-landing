@@ -2,17 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import { useRipple } from '@/hooks/useRipple'
-import { smoothScrollTo } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n-context'
+import { webAppLink } from '@/lib/appLink'
 
 export default function MobileStickyCTA() {
     const [isVisible, setIsVisible] = useState(false)
     const createRipple = useRipple()
-
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.preventDefault()
-        createRipple(e)
-        smoothScrollTo('pobierz')
-    }
+    const { t } = useTranslation()
 
     useEffect(() => {
         const handleScroll = () => {
@@ -34,12 +30,12 @@ export default function MobileStickyCTA() {
         <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
             <div className="bg-white border-t-3 border-pedro-dark p-4">
                 <a
-                    href="#"
-                    onClick={handleClick}
+                    href={webAppLink('sticky')}
+                    onClick={createRipple}
                     className="btn-brutal btn-brutal-lime w-full text-center py-4 text-lg font-bold relative overflow-hidden"
-                    aria-label="Download PEDRO app"
+                    aria-label={t('hero.openWebApp')}
                 >
-                    Pobierz PEDRO
+                    {t('hero.openWebAppShort')} →
                 </a>
             </div>
         </div>
