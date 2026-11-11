@@ -13,14 +13,29 @@ type GtagWindow = Window & {
 
 let loaded = false
 
-/** Czy zapisana decyzja to zgoda na analitykę. */
-export function hasAnalyticsConsent(): boolean {
+/** Ważność decyzji w banerze: 12 miesięcy (T-007 #2, jak w web-appce). */
+export const CONSENT_MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000
+
+/**
+ * Zapisana i wciąż ważna decyzja (zgoda lub odmowa). Starsza niż 12 miesięcy albo
+ * bez poprawnej daty = brak decyzji → baner pokazuje się ponownie, GA nie startuje.
+ */
+export function getValidConsent(): { analytics: boolean } | null {
     try {
         const saved = localStorage.getItem(COOKIE_CONSENT_KEY)
-        return saved ? JSON.parse(saved)?.analytics === true : false
+        if (!saved) return null
+        const parsed = JSON.parse(saved)
+        const savedAt = Date.parse(parsed?.timestamp)
+        if (!Number.isFinite(savedAt) || Date.now() - savedAt > CONSENT_MAX_AGE_MS) return null
+        return { analytics: parsed?.analytics === true }
     } catch {
-        return false
+        return null
     }
+}
+
+/** Czy jest ważna zgoda na analitykę. */
+export function hasAnalyticsConsent(): boolean {
+    return getValidConsent()?.analytics === true
 }
 
 /** Ładuje gtag.js i konfiguruje GA (wywoływać tylko po zgodzie). */

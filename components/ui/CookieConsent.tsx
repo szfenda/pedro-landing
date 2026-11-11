@@ -6,6 +6,7 @@ import { useTranslation } from '@/lib/i18n-context'
 import {
   COOKIE_CONSENT_KEY,
   disableAnalytics,
+  getValidConsent,
   hasAnalyticsConsent,
   loadAnalytics,
 } from '@/lib/analytics'
@@ -23,10 +24,10 @@ export default function CookieConsent() {
   useEffect(() => {
     // Check if consent was already given
     try {
-      const saved = localStorage.getItem(COOKIE_CONSENT_KEY)
-      // Zgoda zapisana wcześniej → GA (T-006 #3). Bez zgody nic nie ładujemy.
+      // Ważna zgoda (≤ 12 miesięcy) → GA (T-006 #3, T-007 #2). Bez zgody nic nie ładujemy.
       if (hasAnalyticsConsent()) loadAnalytics()
-      if (!saved) {
+      // Brak decyzji albo wygasła (> 12 miesięcy) → baner ponownie
+      if (!getValidConsent()) {
         // Small delay for smooth page load
         const timer = setTimeout(() => setIsVisible(true), 1000)
         return () => clearTimeout(timer)
