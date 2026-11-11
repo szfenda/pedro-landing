@@ -10,6 +10,21 @@ const nextConfig = {
     eslint: {
         ignoreDuringBuilds: true,
     },
+    // T-006 #2: stare/zewnętrzne adresy (linki z aplikacji, QR partnera) → istniejące strony.
+    async redirects() {
+        const appDownload = 'https://app.pedro.app/?utm_source=landing&utm_medium=redirect&utm_campaign=download'
+        return [
+            { source: '/legal/privacy', destination: '/legal/polityka-prywatnosci/', permanent: true },
+            { source: '/legal/terms', destination: '/legal/regulamin/', permanent: true },
+            { source: '/legal/cookies', destination: '/legal/polityka-prywatnosci/#cookies', permanent: true },
+            // Brak osobnej strony licencji open source — regulamin opisuje zasady korzystania z aplikacji
+            { source: '/legal/licenses', destination: '/legal/regulamin/', permanent: true },
+            { source: '/download', destination: appDownload, permanent: true },
+            { source: '/update', destination: appDownload, permanent: true },
+            // QR partnera (https://pedro.app/partner/<id>) zeskanowany zwykłym aparatem → oferty partnera w web-appce
+            { source: '/partner/:id', destination: 'https://app.pedro.app/partner/:id', permanent: true },
+        ]
+    },
     // Usuń env section - Vercel zarządza tym automatycznie
 }
 
