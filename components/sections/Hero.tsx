@@ -16,7 +16,7 @@ export default function Hero() {
         <section id="top" className="relative h-screen flex flex-col md:flex-row -mt-16 md:-mt-20 pt-16 md:pt-20">
             {/* Left Half - Text + CTA */}
             <div
-                className="relative w-full md:w-1/2 flex items-center justify-center px-8 md:px-16 py-4 md:py-0 min-h-[65vh] md:min-h-screen"
+                className="relative w-full md:w-1/2 flex items-center justify-center px-8 md:px-10 lg:px-16 py-4 md:py-0 min-h-[65vh] md:min-h-screen"
                 style={{
                     backgroundImage: `url(${backgrounds.heroLeft})`,
                     backgroundSize: 'cover',
@@ -26,7 +26,7 @@ export default function Hero() {
             >
                 <div className="max-w-2xl text-center md:text-left pt-16 md:pt-0 pb-4 md:pb-0">
                     {/* Headline - 4 lines as specified */}
-                    <h1 className="font-headline text-3xl sm:text-4xl md:text-hero text-white leading-tight md:leading-none tracking-tight text-poster-shadow mb-4 md:mb-12">
+                    <h1 className="font-headline text-3xl sm:text-4xl md:text-hero-fit text-white leading-tight md:leading-none tracking-tight text-poster-shadow mb-4 md:mb-[min(3rem,5vh)]">
                         {t('hero.line1')}<br />
                         {t('hero.line2')}<br />
                         {t('hero.line3')}<br />
@@ -38,7 +38,7 @@ export default function Hero() {
                         <a
                             href={webAppLink('hero')}
                             onClick={createRipple}
-                            className="btn-brutal btn-brutal-lime border-3 border-pedro-dark rounded-button px-6 md:px-8 py-3 md:py-4 min-h-[44px] md:min-h-[52px] text-sm md:text-lg font-bold relative overflow-hidden"
+                            className="btn-brutal btn-brutal-lime border-3 border-pedro-dark rounded-button px-6 md:px-5 lg:px-8 py-3 md:py-4 min-h-[44px] md:min-h-[52px] text-sm md:text-base lg:text-lg font-bold whitespace-nowrap relative overflow-hidden"
                         >
                             {t('hero.openWebApp')} →
                         </a>

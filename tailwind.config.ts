@@ -23,6 +23,8 @@ const config: Config = {
       fontSize: {
         // Hero and section sizing
         'hero': ['clamp(3rem, 8vw, 5rem)', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
+        // T-006 #5: hero na niskich ekranach desktop — rozmiar ograniczany też wysokością okna
+        'hero-fit': ['clamp(2.5rem, min(6vw, 8vh), 5rem)', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
         'h2': ['clamp(2.5rem, 5vw, 3.25rem)', { lineHeight: '1.1' }],
         'h3': ['clamp(1.75rem, 3vw, 2.25rem)', { lineHeight: '1.2' }],
         'body': ['1.125rem', { lineHeight: '1.6' }],
