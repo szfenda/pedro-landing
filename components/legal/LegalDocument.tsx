@@ -52,7 +52,7 @@ export function LegalDocumentComponent({ document }: LegalDocumentProps) {
       <BrutalCard className="p-8">
         <div className="prose prose-lg max-w-none">
           {document.content.map((section) => (
-            <div key={section.id} className="mb-8">
+            <div key={section.id} id={section.id} className="mb-8 scroll-mt-28">
               <h2 className="text-2xl font-bold text-pedro-dark mb-4 font-dela">
                 {section.title}
               </h2>

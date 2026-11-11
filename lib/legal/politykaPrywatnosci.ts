@@ -10,8 +10,8 @@ export function getPolitykaPrywatnosciDocument(): LegalDocument {
   return {
     id: 'polityka-prywatnosci',
     title: 'Polityka Prywatności PEDRO',
-    lastUpdated: '2025-01-02',
-    version: '1.0.0-beta',
+    lastUpdated: '2026-11-11',
+    version: '1.1.0-beta',
     slug: 'polityka-prywatnosci',
     description: 'Polityka Prywatności opisuje zasady przetwarzania danych osobowych użytkowników aplikacji mobilnej oraz serwisu internetowego PEDRO.',
     pdfUrl: '/legal/polityka-prywatnosci-pedro.pdf',
@@ -99,13 +99,18 @@ export function getPolitykaPrywatnosciDocument(): LegalDocument {
         content: 'Strona www.pedro.app wykorzystuje pliki cookies (ciasteczka). Poniżej znajduje się szczegółowa informacja o stosowanych plikach cookie.',
         subsections: [
           {
+            id: 'cookies-app-web',
+            title: 'Aplikacja w przeglądarce (app.pedro.app).',
+            content: 'Wersja webowa aplikacji PEDRO pod adresem app.pedro.app korzysta z Google Analytics (Firebase Analytics, dostawca: Google) wyłącznie po wyrażeniu zgody w pasku „Pliki cookie” wyświetlanym przy pierwszej wizycie. Bez zgody skrypt Google Analytics nie jest ładowany i żadne dane analityczne nie są wysyłane. Informacja o decyzji jest zapisywana w pamięci przeglądarki (localStorage, klucz **pedro-analytics-consent**, bezterminowo, dostawca: PEDRO). Zgodę można w każdej chwili wycofać w aplikacji: zakładka „Więcej” → „Prywatność” → „Cookies analityczne”; po wycofaniu usuwamy pliki **_ga** i **_ga_***. Wycofanie zgody nie wpływa na możliwość korzystania z aplikacji. Przy wejściu z naszej strony www.pedro.app adres zawiera parametry **utm_*** (źródło wejścia), które — po zgodzie — trafiają do Google Analytics.'
+          },
+          {
             id: 'cookies-niezbedne',
             title: 'Cookies niezbędne (nie wymagają zgody):',
             content: '- **firebase-auth-token** — cookie sesji autoryzacyjnej, umożliwia zalogowanie się i utrzymanie sesji. Czas życia: 1 godzina. Dostawca: PEDRO.\n- **pedro-locale** — localStorage, zapamiętuje wybrany język interfejsu (PL/EN). Czas życia: bezterminowo. Dostawca: PEDRO.\n- **pedro-cookie-consent** — localStorage, przechowuje informację o wyrażonej zgodzie na cookies. Czas życia: bezterminowo. Dostawca: PEDRO.'
           },
           {
             id: 'cookies-analityczne',
-            title: 'Cookies analityczne (wymagają zgody):',
+            title: 'Cookies analityczne (wymagają zgody) (www.pedro.app i app.pedro.app):',
             content: '- **Google Analytics (_ga, _ga_*)** — cookies służące do analizy ruchu na stronie, zbierają anonimowe dane statystyczne. Czas życia: do 2 lat. Dostawca: Google LLC.\n\nCookies analityczne są uruchamiane **wyłącznie po wyrażeniu zgody** przez użytkownika za pomocą okna cookie wyświetlanego przy pierwszej wizycie na stronie.'
           },
           {
