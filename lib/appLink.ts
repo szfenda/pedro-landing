@@ -5,7 +5,7 @@
  */
 export const WEB_APP_URL = 'https://app.pedro.app'
 
-export type WebAppCtaPlace = 'hero' | 'download' | 'sticky'
+export type WebAppCtaPlace = 'hero' | 'download' | 'sticky' | 'no_business'
 
 export function webAppLink(place: WebAppCtaPlace): string {
     return `${WEB_APP_URL}/?utm_source=landing&utm_medium=cta&utm_campaign=${place}`
