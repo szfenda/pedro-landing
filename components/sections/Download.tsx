@@ -17,7 +17,10 @@ export default function Download() {
     ]
 
     return (
-        <section id="pobierz" className="relative bg-gradient-to-br from-pedro-purple via-pedro-pink to-pedro-purple py-section overflow-hidden">
+        <section id="wyprobuj" className="relative bg-gradient-to-br from-pedro-purple via-pedro-pink to-pedro-purple py-section overflow-hidden">
+            {/* Stary adres #pobierz (linki zewnętrzne) — alias nowej kotwicy #wyprobuj (T-006 #4) */}
+            <span id="pobierz" className="absolute top-0" aria-hidden="true" />
+
             {/* Decorative Elements */}
             <div className="absolute inset-0 opacity-10">
                 <div className="absolute top-20 left-10 w-32 h-32 bg-pedro-lime rounded-full blur-3xl animate-float" />

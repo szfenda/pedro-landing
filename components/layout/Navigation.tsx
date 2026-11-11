@@ -25,7 +25,7 @@ export default function Navigation() {
     const navLinks = [
         { label: t('nav.about'), href: 'o-nas' },
         { label: t('nav.features'), href: 'funkcje' },
-        { label: t('nav.download'), href: 'pobierz' },
+        { label: t('nav.download'), href: 'wyprobuj' },
         { label: t('nav.contact'), href: 'kontakt' },
     ]
 

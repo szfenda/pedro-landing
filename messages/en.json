@@ -2,7 +2,7 @@
   "nav": {
     "about": "About",
     "features": "Features",
-    "download": "Download",
+    "download": "Try it",
     "contact": "Contact",
     "login": "Log in",
     "myAccount": "My account",
@@ -16,10 +16,6 @@
     "line2": "OVERPAY.",
     "line3": "PEDRO HUNTS",
     "line4": "FOR DEALS",
-    "appStore": "Download on the",
-    "appStoreName": "App Store",
-    "googlePlay": "GET IT ON",
-    "googlePlayName": "Google Play",
     "openWebApp": "Open PEDRO in your browser",
     "openWebAppShort": "Open PEDRO",
     "storesSoon": "Android & iOS apps — coming soon"
@@ -95,7 +91,7 @@
     }
   },
   "download": {
-    "title1": "Download PEDRO",
+    "title1": "Try PEDRO",
     "title2": "and hunt for deals",
     "subtitle": "Join thousands of users already saving with Pedro",
     "benefit1": "100% free",

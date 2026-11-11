@@ -2,7 +2,7 @@
   "nav": {
     "about": "O nas",
     "features": "Funkcje",
-    "download": "Pobierz",
+    "download": "Wypróbuj",
     "contact": "Kontakt",
     "login": "Log in",
     "myAccount": "Moje konto",
@@ -16,10 +16,6 @@
     "line2": "PRZEPŁACA.",
     "line3": "PEDRO POLUJE",
     "line4": "NA PROMKI",
-    "appStore": "Download on the",
-    "appStoreName": "App Store",
-    "googlePlay": "GET IT ON",
-    "googlePlayName": "Google Play",
     "openWebApp": "Otwórz PEDRO w przeglądarce",
     "openWebAppShort": "Otwórz PEDRO",
     "storesSoon": "Aplikacje na Androida i iOS — wkrótce"
@@ -95,7 +91,7 @@
     }
   },
   "download": {
-    "title1": "Pobierz PEDRO",
+    "title1": "Wypróbuj PEDRO",
     "title2": "i poluj na promki",
     "subtitle": "Dołącz do tysięcy użytkowników, którzy już oszczędzają z Pedrem",
     "benefit1": "100% za darmo",
