@@ -20,6 +20,13 @@
     "openWebAppShort": "Otwórz PEDRO",
     "storesSoon": "Aplikacje na Androida i iOS — wkrótce"
   },
+  "promosToday": {
+    "title": "Promki na dziś",
+    "subtitle": "Prawdziwe promocje z Gdańska, sprawdzone u źródła. Teraz aktualnych: {count}.",
+    "until": "do {date}",
+    "untilFurtherNotice": "do odwołania",
+    "seeAll": "Zobacz wszystkie {count} →"
+  },
   "about": {
     "title": "Co to jest PEDRO?",
     "description1": "PEDRO to twój osobisty asystent promocji, który pokazuje Ci najlepsze okazje w Twojej okolicy.",

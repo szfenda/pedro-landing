@@ -20,6 +20,13 @@
     "openWebAppShort": "Open PEDRO",
     "storesSoon": "Android & iOS apps — coming soon"
   },
+  "promosToday": {
+    "title": "Today's deals",
+    "subtitle": "Real deals from Gdańsk, checked at the source. Live right now: {count}.",
+    "until": "until {date}",
+    "untilFurtherNotice": "until further notice",
+    "seeAll": "See all {count} →"
+  },
   "about": {
     "title": "What is PEDRO?",
     "description1": "PEDRO is your personal deals assistant that shows you the best offers in your area.",
