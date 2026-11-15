@@ -276,6 +276,7 @@
     "backToPanel": "Back to main panel",
     "loadError": "An error occurred while loading data. Try refreshing the page.",
     "status": {
+      "verificationVerified": "Verified",
       "title": "Business status",
       "companyName": "Company name:",
       "nip": "Tax ID:",
@@ -327,6 +328,9 @@
     "support": "Have questions? Contact us:"
   },
   "billingPage": {
+    "paymentsFrozen": "During the beta you use PEDRO for free — payments (Pay-per-Use) are switched off for now. We will let you know well in advance before anything changes.",
+    "betaTrialOne": "Beta — free until {date} ({days} day left)",
+    "betaTrial": "Beta — free until {date} ({days} days left)",
     "title": "Billing & payments",
     "subtitle": "Manage your payment plan and track coupon usage.",
     "loading": "Loading data...",

@@ -6,10 +6,14 @@ import BrutalCard from '@/components/ui/BrutalCard'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import { useTranslation } from '@/lib/i18n-context'
+import { betaTrialInfo } from '@/lib/betaLimits'
 
 interface PartnerData {
   id: string
   companyName: string
+  /** Faza beta (T-056): pierwsze 100 firm, bezpłatnie do `betaTrialEndsAt` */
+  beta?: boolean
+  betaTrialEndsAt?: unknown
   businessModel: {
     currentPhase: string
     ppuEnabled: boolean
@@ -120,6 +124,7 @@ export default function BillingCard({
 
   const isPPUActive = partner.businessModel.ppuEnabled
   const currentPhase = partner.businessModel.currentPhase
+  const betaTrial = partner.beta ? betaTrialInfo(partner.betaTrialEndsAt) : null
 
   return (
     <div className="space-y-6">
@@ -162,6 +167,14 @@ export default function BillingCard({
                 : t('billingPage.betaDescription')
               }
             </p>
+            {betaTrial && (
+              <p className="mt-3 inline-block bg-pedro-lime/40 brutal-border rounded-button px-3 py-2 text-sm font-bold text-pedro-dark">
+                {t(betaTrial.daysLeft === 1 ? 'billingPage.betaTrialOne' : 'billingPage.betaTrial', {
+                  date: betaTrial.date,
+                  days: betaTrial.daysLeft,
+                })}
+              </p>
+            )}
           </div>
 
           {/* Features List */}
@@ -228,18 +241,11 @@ export default function BillingCard({
         <div className="space-y-4">
           {!isPPUActive ? (
             <>
-              <p className="text-gray-600 text-sm mb-4">
-                {t('billingPage.activatePPUDescription')}
+              {/* T-056 / D-040: płatności zamrożone — przycisk aktywacji PPU ukryty (zamiast nieaktywnego),
+                  żeby nie sugerować, że trzeba coś opłacić. handleUpgrade zostaje na później. */}
+              <p className="text-gray-700 text-sm bg-pedro-light/60 rounded-button p-3">
+                {t('billingPage.paymentsFrozen')}
               </p>
-              <BrutalButton
-                variant="primary"
-                size="lg"
-                loading={loading}
-                onClick={handleUpgrade}
-                className="w-full"
-              >
-                {t('billingPage.activatePPU')}
-              </BrutalButton>
             </>
           ) : (
             <>

@@ -276,6 +276,7 @@
     "backToPanel": "Wróć do panelu głównego",
     "loadError": "Wystąpił błąd podczas ładowania danych. Spróbuj odświeżyć stronę.",
     "status": {
+      "verificationVerified": "Zweryfikowana",
       "title": "Status biznesu",
       "companyName": "Nazwa firmy:",
       "nip": "NIP:",
@@ -327,6 +328,9 @@
     "support": "Masz pytania? Skontaktuj się z nami:"
   },
   "billingPage": {
+    "paymentsFrozen": "W fazie beta korzystasz bezpłatnie — płatności (Pay-per-Use) są na razie wyłączone. Damy znać z wyprzedzeniem, zanim cokolwiek się zmieni.",
+    "betaTrialOne": "Faza beta — bezpłatnie do {date} (został {days} dzień)",
+    "betaTrial": "Faza beta — bezpłatnie do {date} (zostało {days} dni)",
     "title": "Rozliczenia i płatności",
     "subtitle": "Zarządzaj swoim planem płatności i śledź wykorzystanie kuponów.",
     "loading": "Ładowanie danych...",

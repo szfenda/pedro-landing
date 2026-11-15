@@ -12,6 +12,7 @@ import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import { mascots } from '@/lib/assets'
 import { useTranslation } from '@/lib/i18n-context'
+import { betaTrialInfo } from '@/lib/betaLimits'
 
 export default function DashboardPage() {
   const { t } = useTranslation()
@@ -132,6 +133,9 @@ export default function DashboardPage() {
   const isPPUActive = partner.businessModel?.ppuEnabled || false
   const currentPhase = partner.businessModel?.currentPhase || 'beta_free'
   const monthlyUsage = partner.monthlyUsage || { redeemedCoupons: 0, totalAmount: 0 }
+  // T-056: firma z pierwszej setki — „Faza beta — bezpłatnie do DD.MM.RRRR (zostało N dni)”
+  const betaTrial = partner.beta ? betaTrialInfo(partner.betaTrialEndsAt) : null
+  const isVerified = partner.verificationStatus === 'verified'
 
   return (
     <div className="min-h-screen bg-pedro-light">
@@ -243,8 +247,14 @@ export default function DashboardPage() {
                 
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">{t('dashboard.status.verificationStatus')}</span>
-                  <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-sm font-medium">
-                    {t('dashboard.status.verificationPending')}
+                  <span
+                    className={`px-2 py-1 rounded text-sm font-medium ${
+                      isVerified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}
+                  >
+                    {isVerified
+                      ? t('dashboard.status.verificationVerified')
+                      : t('dashboard.status.verificationPending')}
                   </span>
                 </div>
                 
@@ -277,6 +287,14 @@ export default function DashboardPage() {
               }
             >
               <div className="space-y-4">
+                {betaTrial && (
+                  <p className="bg-pedro-lime/40 brutal-border rounded-button px-3 py-2 text-sm font-bold text-pedro-dark">
+                    {t(betaTrial.daysLeft === 1 ? 'billingPage.betaTrialOne' : 'billingPage.betaTrial', {
+                      date: betaTrial.date,
+                      days: betaTrial.daysLeft,
+                    })}
+                  </p>
+                )}
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">{t('dashboard.billing.currentPlan')}</span>
                   <span className="font-bold text-pedro-dark">
