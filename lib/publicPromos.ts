@@ -16,7 +16,8 @@ const COLLECTION = 'public_promos'
 const PAGE_SIZE = 300
 const MAX_PAGES = 5
 export const PROMOS_REVALIDATE_SECONDS = 3600
-export const WEB_APP_URL = 'https://app.pedro.app'
+// Ten sam adres co CTA (lib/appLink.ts, T-058) — lokalnie np. NEXT_PUBLIC_WEB_APP_URL=http://localhost:8082
+export const WEB_APP_URL = (process.env.NEXT_PUBLIC_WEB_APP_URL || 'https://app.pedro.app').replace(/\/+$/, '')
 
 const FIELDS = [
     'title',
