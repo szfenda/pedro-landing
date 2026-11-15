@@ -4,12 +4,13 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { doc, setDoc } from 'firebase/firestore'
+import { collection, doc, getCountFromServer, setDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
 import { useAuth } from '@/lib/auth-context'
 import { useSystemConfig } from '@/hooks/useSystemConfig'
 import { businessFormSchema, type BusinessFormData } from '@/lib/validations'
 import { cn } from '@/lib/utils'
+import { betaRegistrationFields } from '@/lib/betaLimits'
 import BrutalInput from '@/components/ui/BrutalInput'
 import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
@@ -110,7 +111,19 @@ export default function BusinessForm({
 
       // Create mode logic (existing)
       const partnerId = `partner_${user!.uid}_${Date.now()}`
-      
+
+      // Faza beta (T-056, D-040): pierwsze 100 firm — weryfikacja automatyczna i 90 dni bezpłatnie.
+      // Liczymy firmy zapytaniem `count` (reguły: odczyt `partners` dla zalogowanych) — tak samo
+      // jak aplikacja (PEDRO_Bolt/services/partnersService.ts). Błąd liczenia → `pending` jak dotąd.
+      let existingPartners: number | null = null
+      try {
+        existingPartners = (await getCountFromServer(collection(db, 'partners'))).data().count
+      } catch (countError) {
+        console.warn('Beta count skipped:', countError)
+      }
+      const beta = betaRegistrationFields(existingPartners)
+      const now = new Date()
+
       await setDoc(doc(db, 'partners', partnerId), {
         id: partnerId,
         createdBy: user!.uid,
@@ -131,8 +144,22 @@ export default function BusinessForm({
         billing: {
           stripeCustomerId: null,
         },
-        isActive: true,
-        createdAt: new Date(),
+        // Pola wymagane przez reguły `validatePartnerCreate` (PEDRO_Bolt/firestore.rules) — jak w aplikacji
+        verificationStatus: beta.verificationStatus,
+        isActive: beta.isActive,
+        ...(beta.beta && beta.betaTrialEndsAt
+          ? { beta: true, betaTrialEndsAt: beta.betaTrialEndsAt }
+          : {}),
+        stats: {
+          totalOffers: 0,
+          activeOffers: 0,
+          totalViews: 0,
+          totalSales: 0,
+          rating: 0,
+          reviewCount: 0,
+        },
+        createdAt: now,
+        updatedAt: now,
       })
 
       // Call custom onSubmit if provided
