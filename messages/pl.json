@@ -300,7 +300,7 @@
     "offers": {
       "title": "Zarządzanie ofertami",
       "openApp": "Otwórz app",
-      "mobileNotice": "Oferty i kupony dodasz w aplikacji mobilnej PEDRO",
+      "mobileNotice": "Oferty i kupony dodasz w aplikacji PEDRO — działa w przeglądarce",
       "webNotice": "Panel webowy służy tylko do onboardingu i rozliczeń. Wszystkie funkcje produktowe są w aplikacji.",
       "createPromo": "Tworzenie promocji",
       "manageCoupons": "Zarządzanie kuponami",
@@ -358,7 +358,7 @@
     "managePaymentDescription": "Zarządzaj swoim planem, metodami płatności i fakturami.",
     "downloadInvoice": "Pobierz fakturę",
     "webPanelInfo": "Panel webowy = onboarding + billing",
-    "mobileAppInfo": "Oferty i kupony dodasz w aplikacji mobilnej PEDRO.",
+    "mobileAppInfo": "Oferty i kupony dodasz w aplikacji PEDRO — działa w przeglądarce.",
     "goToApp": "Przejdź do aplikacji",
     "checkoutError": "Wystąpił błąd podczas tworzenia sesji płatności. Spróbuj ponownie.",
     "portalError": "Wystąpił błąd podczas otwierania panelu płatności. Spróbuj ponownie."
@@ -562,7 +562,6 @@
     "next": "Dalej",
     "close": "Zamknij",
     "retry": "Spróbuj ponownie",
-    "required": "*",
-    "appComingSoon": "Link do aplikacji mobilnej będzie dostępny wkrótce!"
+    "required": "*"
   }
 }

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { mascots } from '@/lib/assets'
 import { useRipple } from '@/hooks/useRipple'
 import { useTranslation } from '@/lib/i18n-context'
-import { webAppLink } from '@/lib/appLink'
+import { webAppLink, webAppLinkClick } from '@/lib/appLink'
 
 export default function Download() {
     const createRipple = useRipple()
@@ -42,7 +42,11 @@ export default function Download() {
                     <div className="flex flex-col gap-4 items-center mb-12">
                         <a
                             href={webAppLink('download')}
-                            onClick={createRipple}
+                            onClick={(e) => {
+                                createRipple(e)
+                                // T-058: zalogowany na www → aplikacja bez ponownego logowania
+                                webAppLinkClick('download', '/')(e)
+                            }}
                             className="btn-brutal btn-brutal-lime border-3 border-pedro-dark rounded-button px-8 py-4 min-h-[52px] text-lg font-bold relative overflow-hidden"
                         >
                             {t('hero.openWebApp')} →

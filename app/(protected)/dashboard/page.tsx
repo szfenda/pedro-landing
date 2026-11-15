@@ -13,6 +13,7 @@ import BrutalAlert from '@/components/ui/BrutalAlert'
 import { mascots } from '@/lib/assets'
 import { useTranslation } from '@/lib/i18n-context'
 import { betaTrialInfo } from '@/lib/betaLimits'
+import { openWebApp } from '@/lib/appLink'
 
 export default function DashboardPage() {
   const { t } = useTranslation()
@@ -89,8 +90,14 @@ export default function DashboardPage() {
     router.push('/billing')
   }
 
-  const handleGoToApp = () => {
-    alert(t('common.appComingSoon'))
+  // T-058: do app.pedro.app z zachowaniem logowania (panel partnera)
+  const [openingApp, setOpeningApp] = useState(false)
+  const handleGoToApp = async () => {
+    if (openingApp) return
+    setOpeningApp(true)
+    await openWebApp('dashboard', '/partner/dashboard')
+    // Przy przejściu strona się zmienia; gdyby nie — odblokowujemy przycisk
+    setOpeningApp(false)
   }
 
   if (authLoading || loading) {
@@ -359,6 +366,7 @@ export default function DashboardPage() {
                   variant="lime"
                   size="sm"
                   onClick={handleGoToApp}
+                  loading={openingApp}
                 >
                   {t('dashboard.offers.openApp')}
                 </BrutalButton>
@@ -393,6 +401,7 @@ export default function DashboardPage() {
                     variant="primary"
                     size="md"
                     onClick={handleGoToApp}
+                    loading={openingApp}
                     className="w-full"
                   >
                     {t('dashboard.offers.goToApp')}

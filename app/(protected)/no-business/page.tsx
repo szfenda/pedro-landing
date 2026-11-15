@@ -9,7 +9,7 @@ import BrutalButton from '@/components/ui/BrutalButton'
 import AuthNavigation from '@/components/layout/AuthNavigation'
 import { mascots } from '@/lib/assets'
 import { useTranslation } from '@/lib/i18n-context'
-import { webAppLink } from '@/lib/appLink'
+import { openWebApp } from '@/lib/appLink'
 
 export default function NoBusinessPage() {
   const { t } = useTranslation()
@@ -99,8 +99,8 @@ export default function NoBusinessPage() {
                 size="lg"
                 className="w-full"
                 onClick={() => {
-                  // T-007 #3: zamiast alertu „wkrótce” — web-app (D-001: sklepy wstrzymane)
-                  window.location.assign(webAppLink('no_business'))
+                  // T-007 #3 / T-058: web-app — zalogowany przechodzi bez ponownego logowania
+                  void openWebApp('no_business', '/')
                 }}
               >
                 {t('noBusiness.userCard.cta')} →

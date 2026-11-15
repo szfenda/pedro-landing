@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useRipple } from '@/hooks/useRipple'
 import { useTranslation } from '@/lib/i18n-context'
-import { webAppLink } from '@/lib/appLink'
+import { webAppLink, webAppLinkClick } from '@/lib/appLink'
 
 export default function MobileStickyCTA() {
     const [isVisible, setIsVisible] = useState(false)
@@ -31,7 +31,11 @@ export default function MobileStickyCTA() {
             <div className="bg-white border-t-3 border-pedro-dark p-4">
                 <a
                     href={webAppLink('sticky')}
-                    onClick={createRipple}
+                    onClick={(e) => {
+                        createRipple(e)
+                        // T-058: zalogowany na www → aplikacja bez ponownego logowania
+                        webAppLinkClick('sticky', '/')(e)
+                    }}
                     className="btn-brutal btn-brutal-lime w-full text-center py-4 text-lg font-bold relative overflow-hidden"
                     aria-label={t('hero.openWebApp')}
                 >

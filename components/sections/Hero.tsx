@@ -6,7 +6,7 @@ import { smoothScrollTo } from '@/lib/utils'
 import ParallaxElement from '@/components/animations/ParallaxElement'
 import { useRipple } from '@/hooks/useRipple'
 import { useTranslation } from '@/lib/i18n-context'
-import { webAppLink } from '@/lib/appLink'
+import { webAppLink, webAppLinkClick } from '@/lib/appLink'
 
 export default function Hero() {
     const createRipple = useRipple()
@@ -37,7 +37,11 @@ export default function Hero() {
                     <div className="flex flex-col gap-3 items-center md:items-start mt-4 md:mt-0">
                         <a
                             href={webAppLink('hero')}
-                            onClick={createRipple}
+                            onClick={(e) => {
+                                createRipple(e)
+                                // T-058: zalogowany na www → aplikacja bez ponownego logowania
+                                webAppLinkClick('hero', '/')(e)
+                            }}
                             className="btn-brutal btn-brutal-lime border-3 border-pedro-dark rounded-button px-6 md:px-5 lg:px-8 py-3 md:py-4 min-h-[44px] md:min-h-[52px] text-sm md:text-base lg:text-lg font-bold whitespace-nowrap relative overflow-hidden"
                         >
                             {t('hero.openWebApp')} →

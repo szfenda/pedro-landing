@@ -7,6 +7,7 @@ import BrutalButton from '@/components/ui/BrutalButton'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import { useTranslation } from '@/lib/i18n-context'
 import { betaTrialInfo } from '@/lib/betaLimits'
+import { openWebApp } from '@/lib/appLink'
 
 interface PartnerData {
   id: string
@@ -122,6 +123,7 @@ export default function BillingCard({
     }
   }
 
+  const [openingApp, setOpeningApp] = useState(false)
   const isPPUActive = partner.businessModel.ppuEnabled
   const currentPhase = partner.businessModel.currentPhase
   const betaTrial = partner.beta ? betaTrialInfo(partner.betaTrialEndsAt) : null
@@ -288,8 +290,13 @@ export default function BillingCard({
           <BrutalButton
             variant="lime"
             size="sm"
-            onClick={() => {
-              alert(t('common.appComingSoon'))
+            loading={openingApp}
+            onClick={async () => {
+              // T-058: do app.pedro.app z zachowaniem logowania (panel partnera)
+              if (openingApp) return
+              setOpeningApp(true)
+              await openWebApp('billing', '/partner/dashboard')
+              setOpeningApp(false)
             }}
           >
             {t('billingPage.goToApp')}

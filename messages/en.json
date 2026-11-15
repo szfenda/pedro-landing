@@ -300,7 +300,7 @@
     "offers": {
       "title": "Offer management",
       "openApp": "Open app",
-      "mobileNotice": "Add offers and coupons in the PEDRO mobile app",
+      "mobileNotice": "Add offers and coupons in the PEDRO app — it works in your browser",
       "webNotice": "The web panel is only for onboarding and billing. All product features are in the app.",
       "createPromo": "Create promotions",
       "manageCoupons": "Manage coupons",
@@ -358,7 +358,7 @@
     "managePaymentDescription": "Manage your plan, payment methods, and invoices.",
     "downloadInvoice": "Download invoice",
     "webPanelInfo": "Web panel = onboarding + billing",
-    "mobileAppInfo": "Add offers and coupons in the PEDRO mobile app.",
+    "mobileAppInfo": "Add offers and coupons in the PEDRO app — it works in your browser.",
     "goToApp": "Go to app",
     "checkoutError": "An error occurred while creating the payment session. Please try again.",
     "portalError": "An error occurred while opening the payment panel. Please try again."
@@ -562,7 +562,6 @@
     "next": "Next",
     "close": "Close",
     "retry": "Try again",
-    "required": "*",
-    "appComingSoon": "Mobile app link will be available soon!"
+    "required": "*"
   }
 }
