@@ -12,6 +12,8 @@ export default function Footer() {
     const { t } = useTranslation()
 
     const footerLinks = [
+        // T-079: strony SEO z promocjami
+        { label: t('footer.promos'), href: '/promocje/' },
         { label: t('footer.terms'), href: '/legal/regulamin' },
         { label: t('footer.privacy'), href: '/legal/polityka-prywatnosci' },
         { label: t('cookies.settings'), onClick: () => {

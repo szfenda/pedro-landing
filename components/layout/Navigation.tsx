@@ -19,8 +19,8 @@ export default function Navigation() {
     const pathname = usePathname()
     const userMenuRef = useRef<HTMLDivElement>(null)
 
-    // Check if we're on a legal page
-    const isLegalPage = pathname?.startsWith('/legal')
+    // Poza stroną główną (regulamin, /promocje/ — T-079) linki sekcji prowadzą na stronę główną
+    const isLegalPage = pathname !== '/'
 
     const navLinks = [
         { label: t('nav.about'), href: 'o-nas' },
