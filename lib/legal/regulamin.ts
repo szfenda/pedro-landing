@@ -1,7 +1,7 @@
 /**
  * Regulamin korzystania z aplikacji PEDRO (wersja BETA)
- * Ostatnia aktualizacja: 2 stycznia 2025
- * Wersja: 1.0.0-beta
+ * Ostatnia aktualizacja: 21 listopada 2026 (T-078: §8 Baza promocji PEDRO)
+ * Wersja: 1.1.0-beta
  */
 
 import { LegalDocument } from './types'
@@ -10,8 +10,8 @@ export function getRegulaminDocument(): LegalDocument {
   return {
     id: 'regulamin',
     title: 'Regulamin korzystania z aplikacji PEDRO',
-    lastUpdated: '2025-01-02',
-    version: '1.0.0-beta',
+    lastUpdated: '2026-11-21',
+    version: '1.1.0-beta',
     slug: 'regulamin',
     description: 'Regulamin określa zasady korzystania z aplikacji mobilnej oraz serwisu internetowego PEDRO w fazie BETA.',
     pdfUrl: '/legal/regulamin-pedro-beta.pdf',
@@ -191,8 +191,45 @@ export function getRegulaminDocument(): LegalDocument {
         ]
       },
       {
+        id: 'baza-promocji',
+        title: '§8. Baza promocji PEDRO',
+        content: '',
+        subsections: [
+          {
+            id: 'baza-ochrona',
+            title: '1.',
+            content: 'Promocje prezentowane w Aplikacji i na stronie pedro.app tworzą **bazę danych PEDRO**. Administrator ponosi istotny nakład na jej zebranie, sprawdzanie aktualności i opisanie, dlatego baza jest chroniona jako baza danych (ustawa z dnia 27 lipca 2001 r. o ochronie baz danych), a opisy promocji przygotowane przez PEDRO — także prawem autorskim.'
+          },
+          {
+            id: 'baza-fakty',
+            title: '2.',
+            content: 'Same informacje o promocjach (np. wysokość rabatu, termin) należą do firm, które je ogłaszają. Ochrona dotyczy zbioru jako całości, jego wyboru i układu oraz opisów przygotowanych przez PEDRO.'
+          },
+          {
+            id: 'baza-uzytek-osobisty',
+            title: '3.',
+            content: 'Z bazy możesz korzystać wyłącznie na własny, osobisty użytek — przeglądając promocje w Aplikacji lub na stronie pedro.app.'
+          },
+          {
+            id: 'baza-zakazy',
+            title: '4.',
+            content: 'Bez pisemnej zgody Administratora zabronione jest:\na) automatyczne pobieranie danych z Aplikacji lub strony (roboty, skrypty, scraping, bezpośrednie zapytania do API lub bazy),\nb) kopiowanie całości lub istotnej części bazy,\nc) powtarzające się i systematyczne pobieranie nawet małych części bazy,\nd) ponowne publikowanie lub udostępnianie bazy albo jej części, w tym w innych serwisach i aplikacjach.'
+          },
+          {
+            id: 'baza-wyszukiwarki',
+            title: '5.',
+            content: 'Zakaz z ust. 4 nie dotyczy wyszukiwarek internetowych, które indeksują stronę pedro.app w zwykły sposób, zgodnie z plikiem robots.txt.'
+          },
+          {
+            id: 'baza-zgoda',
+            title: '6.',
+            content: 'Jeśli chcesz wykorzystać dane PEDRO (np. we współpracy lub w projekcie), napisz na **kontakt@pedro.app**.'
+          }
+        ]
+      },
+      {
         id: 'odpowiedzialnosc',
-        title: '§8. Odpowiedzialność',
+        title: '§9. Odpowiedzialność',
         content: '',
         subsections: [
           {
@@ -214,7 +251,7 @@ export function getRegulaminDocument(): LegalDocument {
       },
       {
         id: 'reklamacje',
-        title: '§9. Reklamacje i kontakt',
+        title: '§10. Reklamacje i kontakt',
         content: '',
         subsections: [
           {
@@ -231,7 +268,7 @@ export function getRegulaminDocument(): LegalDocument {
       },
       {
         id: 'postanowienia-koncowe',
-        title: '§10. Postanowienia końcowe',
+        title: '§11. Postanowienia końcowe',
         content: '',
         subsections: [
           {

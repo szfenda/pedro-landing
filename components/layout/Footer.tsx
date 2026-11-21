@@ -29,7 +29,7 @@ export default function Footer() {
     ]
 
     return (
-        <footer className="relative bg-pedro-dark border-t-4 border-pedro-lime py-12 overflow-hidden">
+        <footer className="relative bg-pedro-dark border-t-4 border-pedro-lime pt-12 pb-32 md:pb-12 overflow-hidden">
             <div className="container-pedro">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
                     {/* Column 1 - Logo & Description */}
@@ -120,9 +120,16 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-gray-700 pt-8 text-center">
+                <div className="border-t border-gray-700 pt-8 text-center px-20 md:px-0">
                     <p className="text-gray-400 text-sm">
-                        {t('footer.madeWith')} © {new Date().getFullYear()} PEDRO
+                        {t('footer.madeWith')}
+                    </p>
+                    {/* T-078: informacja o ochronie bazy promocji (regulamin §8) */}
+                    <p className="text-gray-400 text-sm mt-2">
+                        © {new Date().getFullYear()} PEDRO · {t('footer.dbProtected')} ·{' '}
+                        <Link href="/legal/regulamin/#baza-promocji" className="underline hover:text-pedro-lime transition-colors">
+                            {t('footer.terms')}
+                        </Link>
                     </p>
                 </div>
             </div>
