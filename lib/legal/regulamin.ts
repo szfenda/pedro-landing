@@ -14,7 +14,8 @@ export function getRegulaminDocument(): LegalDocument {
     version: '1.1.0-beta',
     slug: 'regulamin',
     description: 'Regulamin określa zasady korzystania z aplikacji mobilnej oraz serwisu internetowego PEDRO w fazie BETA.',
-    pdfUrl: '/legal/regulamin-pedro-beta.pdf',
+    // Stary PDF (public/legal/regulamin-pedro-beta.pdf) jest bez §8 — nie linkujemy (T-078)
+    pdfUrl: '',
     content: [
       {
         id: 'informacje-ogolne',
@@ -93,9 +94,9 @@ export function getRegulaminDocument(): LegalDocument {
         content: '',
         subsections: [
           {
-            id: 'wymaganie-konta',
+            id: 'kiedy-konto',
             title: '1.',
-            content: 'Korzystanie z Aplikacji wymaga utworzenia konta.'
+            content: 'Przeglądanie promocji w Aplikacji i na stronie pedro.app nie wymaga konta. Konto jest potrzebne tylko do funkcji przypisanych do użytkownika, w szczególności: zapisywania i wykorzystywania kuponów, przechowywania ulubionych na wielu urządzeniach oraz panelu firmy (dodawanie i edycja ofert).'
           },
           {
             id: 'dane-rejestracji',
@@ -105,7 +106,7 @@ export function getRegulaminDocument(): LegalDocument {
           {
             id: 'dobrowolnosc-danych',
             title: '3.',
-            content: 'Podanie danych jest dobrowolne, lecz niezbędne do korzystania z Aplikacji.'
+            content: 'Podanie danych jest dobrowolne, lecz niezbędne do założenia konta.'
           },
           {
             id: 'usuniecie-konta',

@@ -10,6 +10,8 @@ interface LegalDocumentProps {
 }
 
 export function LegalDocumentComponent({ document }: LegalDocumentProps) {
+  // Pusty pdfUrl = brak aktualnego PDF → przycisk ukryty (regulamin 1.1.0-beta, T-078)
+  const hasPdf = !!document.pdfUrl
   const handleDownloadPDF = () => {
     window.open(document.pdfUrl, '_blank')
   }
@@ -38,14 +40,16 @@ export function LegalDocumentComponent({ document }: LegalDocumentProps) {
         </div>
 
         {/* Download PDF Button */}
-        <BrutalButton
-          variant="outline"
-          onClick={handleDownloadPDF}
-          className="mb-8"
-        >
-          <span className="mr-2">⬇️</span>
-          Pobierz PDF
-        </BrutalButton>
+        {hasPdf && (
+          <BrutalButton
+            variant="outline"
+            onClick={handleDownloadPDF}
+            className="mb-8"
+          >
+            <span className="mr-2">⬇️</span>
+            Pobierz PDF
+          </BrutalButton>
+        )}
       </div>
 
       {/* Content */}
@@ -94,15 +98,17 @@ export function LegalDocumentComponent({ document }: LegalDocumentProps) {
 
       {/* Footer Actions */}
       <div className="mt-8 text-center">
-        <BrutalButton
-          variant="primary"
-          onClick={handleDownloadPDF}
-          className="mr-4"
-        >
-          <span className="mr-2">⬇️</span>
-          Pobierz PDF
-        </BrutalButton>
-        
+        {hasPdf && (
+          <BrutalButton
+            variant="primary"
+            onClick={handleDownloadPDF}
+            className="mr-4"
+          >
+            <span className="mr-2">⬇️</span>
+            Pobierz PDF
+          </BrutalButton>
+        )}
+
         <BrutalButton
           variant="outline"
           onClick={() => window.history.back()}

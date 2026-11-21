@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { logos, mascots, socialIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n-context'
@@ -10,6 +11,21 @@ import { COOKIE_CONSENT_KEY, disableAnalytics } from '@/lib/analytics'
 export default function Footer() {
     const [showBubble, setShowBubble] = useState(false)
     const { t } = useTranslation()
+    const pathname = usePathname()
+    // Poza stroną główną (regulamin, /promocje/) sekcje są na stronie głównej → /#sekcja
+    const isHome = pathname === '/'
+    // Wejście na /#sekcja z innej strony: przewiń po załadowaniu (animacje zmieniają wysokość sekcji)
+    useEffect(() => {
+        if (!isHome) return
+        const id = window.location.hash.slice(1)
+        if (!id) return
+        const timer = window.setTimeout(() => smoothScrollTo(id), 400)
+        return () => window.clearTimeout(timer)
+    }, [isHome])
+    const goToSection = (id: string) => {
+        if (isHome) smoothScrollTo(id)
+        else window.location.href = id === 'top' ? '/' : `/#${id}`
+    }
 
     const footerLinks = [
         // T-079: strony SEO z promocjami
@@ -26,8 +42,8 @@ export default function Footer() {
             disableAnalytics()
             window.location.reload()
         }},
-        { label: t('footer.contact'), onClick: () => smoothScrollTo('kontakt') },
-        { label: t('footer.forBusiness'), onClick: () => smoothScrollTo('dla-biznesu') },
+        { label: t('footer.contact'), onClick: () => goToSection('kontakt') },
+        { label: t('footer.forBusiness'), onClick: () => goToSection('dla-biznesu') },
     ]
 
     return (
@@ -37,7 +53,7 @@ export default function Footer() {
                     {/* Column 1 - Logo & Description */}
                     <div className="space-y-4">
                         <button
-                            onClick={() => smoothScrollTo('top')}
+                            onClick={() => goToSection('top')}
                             className="text-white font-headline text-3xl font-bold transition-all duration-300 hover:text-pedro-lime hover:rotate-6 inline-block"
                         >
                             PEDRO
