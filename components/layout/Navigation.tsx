@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { logos, functionalIcons, businessIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
@@ -127,6 +128,14 @@ export default function Navigation() {
 
                 {/* Desktop Navigation - Black Pill */}
                 <div className="hidden md:flex items-center bg-pedro-dark rounded-full px-8 py-3 gap-6">
+                    {/* T-079b: strony /promocje/ — zwykły link (widoczny dla Google) */}
+                    <Link
+                        href="/promocje/"
+                        className="text-white text-sm font-medium transition-all duration-300 hover:text-pedro-lime relative group"
+                    >
+                        {t('nav.promos')}
+                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-pedro-lime transition-all duration-300 group-hover:w-full"></span>
+                    </Link>
                     {navLinks.map((link) => (
                         <button
                             key={link.href}
@@ -232,6 +241,13 @@ export default function Navigation() {
             {isMobileMenuOpen && (
                 <div className="md:hidden absolute top-16 left-0 right-0 bg-pedro-dark/95 backdrop-blur-md border-t-3 border-pedro-lime shadow-2xl">
                     <div className="flex flex-col p-6 gap-4">
+                        <Link
+                            href="/promocje/"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="text-white text-lg font-medium py-2 text-left transition-colors hover:text-pedro-lime"
+                        >
+                            {t('nav.promos')}
+                        </Link>
                         {navLinks.map((link) => (
                             <button
                                 key={link.href}

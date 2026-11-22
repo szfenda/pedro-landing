@@ -295,3 +295,48 @@ export function seoMetadata(path: string, title: string, description: string) {
         twitter: { card: 'summary' as const, title, description, images: [image] },
     }
 }
+
+/** T-079b: skrót dla strony głównej — miasta, najpopularniejsze miasto+kategoria, okazje (te same progi ≥ 3). */
+export interface HomePromoLinks {
+    total: number
+    cities: PageLink[]
+    top: PageLink[]
+    occasions: PageLink[]
+}
+
+export function buildHomeLinks(data: SeoData, topLimit = 8): HomePromoLinks {
+    const pages = buildPages(data)
+    // Naprzemiennie po miastach (najliczniejsza kategoria każdego miasta, potem druga…),
+    // żeby linki z głównej prowadziły nie tylko do Gdańska
+    const perCity = [...pages.cities]
+        .sort((a, b) => b.count - a.count)
+        .map((c) =>
+            [...c.categories]
+                .sort((a, b) => b.count - a.count)
+                .map((l) => ({ ...l, label: `${l.label} — ${c.city.slug === 'okolice' ? 'okolice' : c.city.name}` }))
+        )
+    const top: PageLink[] = []
+    for (let round = 0; top.length < topLimit && perCity.some((list) => list.length > round); round++) {
+        for (const list of perCity) {
+            if (list[round] && top.length < topLimit) top.push(list[round])
+        }
+    }
+    return {
+        total: data.promos.length,
+        cities: pages.cities.map((c) => ({
+            path: c.path,
+            label: c.city.slug === 'okolice' ? 'Okolice' : c.city.name,
+            count: c.count,
+        })),
+        top,
+        occasions: pages.occasions,
+    }
+}
+
+/** Dane sekcji strony głównej albo null (brak admina / błąd) — sekcji wtedy nie pokazujemy. */
+export async function getHomePromoLinks(): Promise<HomePromoLinks | null> {
+    const data = await getSeoData()
+    if (!data || data.promos.length === 0) return null
+    const links = buildHomeLinks(data)
+    return links.cities.length ? links : null
+}
