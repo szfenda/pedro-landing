@@ -85,6 +85,8 @@ export default function Contact() {
                     <div className="flex gap-6 justify-center mt-8">
                         <a href="#" aria-label="Instagram" className="transition-transform hover:scale-110 hover:rotate-6">
                             <img
+                                loading="lazy"
+                                decoding="async"
                                 src={socialIcons.instagram}
                                 alt="Instagram"
                                 width={40}
@@ -94,6 +96,8 @@ export default function Contact() {
                         </a>
                         <a href="#" aria-label="TikTok" className="transition-transform hover:scale-110 hover:rotate-6">
                             <img
+                                loading="lazy"
+                                decoding="async"
                                 src={socialIcons.tiktok}
                                 alt="TikTok"
                                 width={40}
@@ -103,6 +107,8 @@ export default function Contact() {
                         </a>
                         <a href="#" aria-label="Facebook" className="transition-transform hover:scale-110 hover:rotate-6">
                             <img
+                                loading="lazy"
+                                decoding="async"
                                 src={socialIcons.facebook}
                                 alt="Facebook"
                                 width={40}

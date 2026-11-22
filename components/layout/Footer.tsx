@@ -100,6 +100,8 @@ export default function Footer() {
                                 className="transition-all duration-300 hover:scale-110 hover:rotate-6"
                             >
                                 <img
+                                    loading="lazy"
+                                    decoding="async"
                                     src={socialIcons.instagram}
                                     alt="Instagram"
                                     width={32}
@@ -113,6 +115,8 @@ export default function Footer() {
                                 className="transition-all duration-300 hover:scale-110 hover:rotate-6"
                             >
                                 <img
+                                    loading="lazy"
+                                    decoding="async"
                                     src={socialIcons.tiktok}
                                     alt="TikTok"
                                     width={32}
@@ -126,6 +130,8 @@ export default function Footer() {
                                 className="transition-all duration-300 hover:scale-110 hover:rotate-6"
                             >
                                 <img
+                                    loading="lazy"
+                                    decoding="async"
                                     src={socialIcons.facebook}
                                     alt="Facebook"
                                     width={32}
@@ -159,6 +165,8 @@ export default function Footer() {
                 onMouseLeave={() => setShowBubble(false)}
             >
                 <img
+                    loading="lazy"
+                    decoding="async"
                     src={mascots.peeking}
                     alt="Pedro peeking"
                     width={120}

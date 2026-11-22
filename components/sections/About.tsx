@@ -66,6 +66,8 @@ export default function About() {
                                 >
                                     <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center">
                                         <img
+                                            loading="lazy"
+                                            decoding="async"
                                             src={functionalIcons.checkmark}
                                             alt="Check"
                                             width={32}
@@ -84,6 +86,8 @@ export default function About() {
                     <div className={`flex items-center justify-center ${isVisible ? 'scroll-reveal revealed' : 'scroll-reveal'}`} style={{ animationDelay: '0.4s' }}>
                         <div className="relative group">
                             <img
+                                loading="lazy"
+                                decoding="async"
                                 src={mascots.thumbsUp}
                                 alt="Pedro giving thumbs up"
                                 width={400}

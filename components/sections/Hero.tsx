@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { preload } from 'react-dom'
 import { backgrounds, mascots, functionalIcons } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
 import ParallaxElement from '@/components/animations/ParallaxElement'
@@ -9,6 +10,8 @@ import { useTranslation } from '@/lib/i18n-context'
 import { webAppLink, webAppLinkClick } from '@/lib/appLink'
 
 export default function Hero() {
+    // T-083: tło lewej połowy = element LCP (CSS background) — pobierz od razu z HTML
+    preload(backgrounds.heroLeft, { as: 'image', fetchPriority: 'high' })
     const createRipple = useRipple()
     const { t } = useTranslation()
 

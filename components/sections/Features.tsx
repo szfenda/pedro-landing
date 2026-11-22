@@ -14,6 +14,8 @@ export default function Features() {
             {/* Background Doodles */}
             <div className="absolute inset-0 pointer-events-none opacity-20 hidden md:block">
                 <img
+                    loading="lazy"
+                    decoding="async"
                     src={categoryIcons.pizza}
                     alt=""
                     width={80}
@@ -21,6 +23,8 @@ export default function Features() {
                     className="absolute top-20 left-10 rotate-12"
                 />
                 <img
+                    loading="lazy"
+                    decoding="async"
                     src={categoryIcons.burger}
                     alt=""
                     width={80}
@@ -28,6 +32,8 @@ export default function Features() {
                     className="absolute top-40 right-20 -rotate-6"
                 />
                 <img
+                    loading="lazy"
+                    decoding="async"
                     src={categoryIcons.scissors}
                     alt=""
                     width={70}
@@ -35,6 +41,8 @@ export default function Features() {
                     className="absolute bottom-32 left-1/4 rotate-45"
                 />
                 <img
+                    loading="lazy"
+                    decoding="async"
                     src={categoryIcons.drink}
                     alt=""
                     width={70}
@@ -126,6 +134,8 @@ function FeatureCard({ icon, title, children, badge, badgeColor = 'lime', showSc
             {/* Icon Container with Scan Line */}
             <div className="relative w-32 h-32 mb-6 flex items-center justify-center">
                 <img
+                    loading="lazy"
+                    decoding="async"
                     src={icon}
                     alt=""
                     width={120}

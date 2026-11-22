@@ -72,6 +72,8 @@ export default function Download() {
                     <div className="mt-12 hidden md:block">
                         <div className="relative inline-block">
                             <img
+                                loading="lazy"
+                                decoding="async"
                                 src={mascots.smartphone}
                                 alt="Pedro with smartphone"
                                 width={200}

@@ -1,20 +1,20 @@
 // Asset path constants for type-safe asset references
 export const backgrounds = {
-    heroLeft: '/assets/images/backgrounds/back_left_under_text.png',
-    heroRight: '/assets/images/backgrounds/back_right_under_phone.png',
+    heroLeft: '/assets/images/backgrounds/back_left_under_text.webp',
+    heroRight: '/assets/images/backgrounds/back_right_under_phone.webp',
 } as const;
 
 export const mascots = {
-    raccoonPhone: '/assets/images/mascots/pedro_raccoon_phone.png',
-    thumbsUp: '/assets/images/mascots/pedro_thumbs_up.png',
-    smartphone: '/assets/images/mascots/pedro_smartphone.png',
-    peeking: '/assets/images/mascots/pedro_peeking.png',
-    hunting: '/assets/images/mascots/pedro_hunting.png',
+    raccoonPhone: '/assets/images/mascots/pedro_raccoon_phone.webp',
+    thumbsUp: '/assets/images/mascots/pedro_thumbs_up.webp',
+    smartphone: '/assets/images/mascots/pedro_smartphone.webp',
+    peeking: '/assets/images/mascots/pedro_peeking.webp',
+    hunting: '/assets/images/mascots/pedro_hunting.webp',
 } as const;
 
 export const logos = {
     white: '/assets/images/logos/logo_white.png',
-    main: '/assets/images/logos/logo_main.png',
+    main: '/assets/images/logos/logo_main.webp',
     icon: '/assets/images/logos/logo_icon.png',
     transparent: '/assets/images/logos/logo_transparent.png',
 } as const;
@@ -24,39 +24,39 @@ export const patterns = {
 } as const;
 
 export const featureIcons = {
-    search: '/assets/icons/features/icon_search.png',
-    wallet: '/assets/icons/features/icon_wallet.png',
-    qr: '/assets/icons/features/icon_qr.png',
+    search: '/assets/icons/features/icon_search.webp',
+    wallet: '/assets/icons/features/icon_wallet.webp',
+    qr: '/assets/icons/features/icon_qr.webp',
 } as const;
 
 export const categoryIcons = {
-    pizza: '/assets/icons/categories/icon_pizza.png',
-    burger: '/assets/icons/categories/icon_burger.png',
-    drink: '/assets/icons/categories/icon_drink.png',
-    scissors: '/assets/icons/categories/icon_scissors.png',
-    ticket: '/assets/icons/categories/icon_ticket.png',
+    pizza: '/assets/icons/categories/icon_pizza.webp',
+    burger: '/assets/icons/categories/icon_burger.webp',
+    drink: '/assets/icons/categories/icon_drink.webp',
+    scissors: '/assets/icons/categories/icon_scissors.webp',
+    ticket: '/assets/icons/categories/icon_ticket.webp',
 } as const;
 
 export const functionalIcons = {
-    checkmark: '/assets/icons/functional/icon_checkmark.png',
-    arrowRight: '/assets/icons/functional/icon_arrow_right.png',
-    arrowDown: '/assets/icons/functional/icon_arrow_down.png',
-    location: '/assets/icons/functional/icon_location.png',
-    heart: '/assets/icons/functional/icon_heart.png',
-    bell: '/assets/icons/functional/icon_bell.png',
+    checkmark: '/assets/icons/functional/icon_checkmark.webp',
+    arrowRight: '/assets/icons/functional/icon_arrow_right.webp',
+    arrowDown: '/assets/icons/functional/icon_arrow_down.webp',
+    location: '/assets/icons/functional/icon_location.webp',
+    heart: '/assets/icons/functional/icon_heart.webp',
+    bell: '/assets/icons/functional/icon_bell.webp',
 } as const;
 
 export const businessIcons = {
-    money: '/assets/icons/business/icon_money.png',
-    analytics: '/assets/icons/business/icon_analytics.png',
-    target: '/assets/icons/business/icon_target.png',
-    store: '/assets/icons/business/icon_store.png',
+    money: '/assets/icons/business/icon_money.webp',
+    analytics: '/assets/icons/business/icon_analytics.webp',
+    target: '/assets/icons/business/icon_target.webp',
+    store: '/assets/icons/business/icon_store.webp',
 } as const;
 
 export const socialIcons = {
-    instagram: '/assets/icons/social/icon_instagram.png',
-    tiktok: '/assets/icons/social/icon_tiktok.png',
-    facebook: '/assets/icons/social/icon_facebook.png',
+    instagram: '/assets/icons/social/icon_instagram.webp',
+    tiktok: '/assets/icons/social/icon_tiktok.webp',
+    facebook: '/assets/icons/social/icon_facebook.webp',
 } as const;
 
 export const elements = {

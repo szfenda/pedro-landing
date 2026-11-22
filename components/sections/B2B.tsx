@@ -103,6 +103,8 @@ export default function B2B() {
                                 >
                                     <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center mt-1">
                                         <img
+                                            loading="lazy"
+                                            decoding="async"
                                             src={functionalIcons.checkmark}
                                             alt="Check"
                                             width={32}
@@ -155,7 +157,9 @@ export default function B2B() {
                         {/* Pedro Hunting Illustration */}
                         <div className="flex items-center justify-center">
                             <img
-                                src="/assets/images/mascots/pedro_hunting.png"
+                                loading="lazy"
+                                decoding="async"
+                                src="/assets/images/mascots/pedro_hunting.webp"
                                 alt="Pedro hunting for deals"
                                 width={400}
                                 height={350}
@@ -167,6 +171,8 @@ export default function B2B() {
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                             <div className="relative w-48 h-48 md:w-64 md:h-64">
                                 <img
+                                    loading="lazy"
+                                    decoding="async"
                                     src={businessIcons.money}
                                     alt=""
                                     width={48}
@@ -175,6 +181,8 @@ export default function B2B() {
                                     style={{ animationDelay: '0s' }}
                                 />
                                 <img
+                                    loading="lazy"
+                                    decoding="async"
                                     src={businessIcons.analytics}
                                     alt=""
                                     width={48}
@@ -183,6 +191,8 @@ export default function B2B() {
                                     style={{ animationDelay: '2.67s' }}
                                 />
                                 <img
+                                    loading="lazy"
+                                    decoding="async"
                                     src={businessIcons.target}
                                     alt=""
                                     width={48}
