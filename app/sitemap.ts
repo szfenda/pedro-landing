@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { SITE_URL, buildPages, getSeoData } from '@/lib/seoPromos'
 
 // T-079: mapa strony dla wyszukiwarek — strona główna, dokumenty prawne i strony /promocje/ (≥ 3 promocje)
-export const revalidate = 21600
+export const revalidate = 172800 // T-089: zapas 48 h; odświeża cron (dane rano, strony po północy)
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const now = new Date()

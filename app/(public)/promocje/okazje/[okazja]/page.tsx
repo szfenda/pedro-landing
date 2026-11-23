@@ -10,8 +10,8 @@ import {
     seoMetadata,
 } from '@/lib/seoPromos'
 
-// T-079: /promocje/okazje/<okazja>/ (pole `campaigns`) — ISR co 6 h; strona tylko przy ≥ 3 promocjach
-export const revalidate = 21600
+// T-079: /promocje/okazje/<okazja>/ (pole `campaigns`) — ISR (T-089: cron raz na dobę); strona tylko przy ≥ 3 promocjach
+export const revalidate = 172800 // T-089: zapas 48 h; odświeża cron (dane rano, strony po północy)
 
 type Params = Promise<{ okazja: string }>
 

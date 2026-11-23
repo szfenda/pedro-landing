@@ -4,8 +4,8 @@ import { notFound } from 'next/navigation'
 import { Breadcrumbs, LinkChips, SeoHeader, SeoShell } from '@/components/promos/SeoPromoPage'
 import { buildPages, cityLabel, getSeoData, promoWord, seoMetadata } from '@/lib/seoPromos'
 
-// T-079: spis stron „promocje <miasto> <kategoria>” — ISR co 6 h (= SEO_REVALIDATE_SECONDS)
-export const revalidate = 21600
+// T-079: spis stron „promocje <miasto> <kategoria>” — ISR (T-089: cron raz na dobę)
+export const revalidate = 172800 // T-089: zapas 48 h; odświeża cron (dane rano, strony po północy)
 
 export async function generateMetadata(): Promise<Metadata> {
     const data = await getSeoData()

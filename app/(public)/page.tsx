@@ -11,18 +11,18 @@ import Download from '@/components/sections/Download'
 import Contact from '@/components/sections/Contact'
 import ScrollProgress from '@/components/ui/ScrollProgress'
 import MobileStickyCTA from '@/components/ui/MobileStickyCTA'
-import { getPromosToday } from '@/lib/publicPromos'
 import PromosByCity from '@/components/sections/PromosByCity'
-import { getHomePromoLinks } from '@/lib/seoPromos'
+import { getHomePromoLinks, getPromosToday } from '@/lib/seoPromos'
 
-// T-054: „Promki na dziś” z Firestore — strona odświeżana co godzinę (ISR)
-export const revalidate = 3600
+// T-054/T-089: „Promki na dziś” ze wspólnej kopii (raz na dobę po Weryfikatorze, cron) —
+// przeliczenie strony po północy robi cron; 48 h to tylko zapas (= SEO_REVALIDATE_SECONDS)
+export const revalidate = 172800
 
 export default async function Home() {
     // null = błąd odczytu albo 0 promocji → sekcji nie pokazujemy
     const [promosToday, promoLinks] = await Promise.all([
         getPromosToday(),
-        // T-079b: wejście do stron /promocje/ (cache stron SEO, bez nowych odczytów bazy)
+        // T-079b: wejście do stron /promocje/ (ta sama kopia, bez nowych odczytów bazy)
         getHomePromoLinks(),
     ])
 

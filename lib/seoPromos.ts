@@ -12,10 +12,16 @@
  */
 import { unstable_cache } from 'next/cache'
 import { adminDb } from '@/lib/firebase-admin'
-import { WEB_APP_URL } from '@/lib/publicPromos'
+import { WEB_APP_URL, allPromosUrl, promoUrl, type PromosToday } from '@/lib/publicPromos'
 
-/** Odświeżanie stron i danych (≤ 24 h wg karty; 6 h = ~4 odczyty kolekcji na dobę). */
-export const SEO_REVALIDATE_SECONDS = 21600
+/**
+ * T-089 (D-057): dane odświeża raz na dobę cron Vercel po porannym Weryfikatorze
+ * (`/api/cron/promocje-dane`, tag `PROMOS_CACHE_TAG`), a strony po północy przelicza
+ * `/api/cron/promocje-polnoc` (bez odczytu bazy). Czas poniżej to tylko zapas (48 h),
+ * gdyby cron nie zadziałał. Strony mają ten sam zapas w `export const revalidate`.
+ */
+export const SEO_REVALIDATE_SECONDS = 172800
+export const PROMOS_CACHE_TAG = 'public-promos'
 /** Strona istnieje tylko przy co najmniej tylu promocjach (cienkie strony szkodzą w Google). */
 export const MIN_PROMOS = 3
 export const SITE_URL = 'https://www.pedro.app'
@@ -92,6 +98,13 @@ export interface SeoPromo {
     validUntil: string | null
     campaigns: string[]
     publishedAt: number
+    /** T-089: dla sekcji „Promki na dziś” na stronie głównej (nie trafiają na strony SEO) */
+    city: string
+    district: string
+    /** ms albo null — wyróżnienie ważne do */
+    featuredUntil: number | null
+    /** RRRR-MM-DD (Polska) ostatniego dnia widoczności albo null; filtr przy każdym renderze */
+    lastDay: string | null
 }
 
 export interface SeoData {
@@ -137,20 +150,22 @@ async function readFromFirestore(): Promise<SeoData | null> {
             'sourceUrl',
             'status',
             'publishedAt',
-            'campaigns'
+            'campaigns',
+            'featured',
+            'featuredUntil'
         )
         .get()
 
     const now = new Date()
-    const today = warsawDay(now)
     const promos: SeoPromo[] = []
     snap.forEach((doc: any) => {
         const f = doc.data() ?? {}
         const title = str(f.title)
         const validUntil = toDate(f.validUntil)
         // Reguły widoczności jak w aplikacji i lib/publicPromos.ts
+        // (data ważności sprawdzana w getSeoData przy każdym renderze — dane żyją dobę, T-089)
         if (!title || !str(f.sourceUrl)) return
-        if (validUntil && warsawDay(validUntil) < today) return
+        const featuredUntil = toDate(f.featuredUntil)
         const city = str(f.city)
         const citySlug = citySlugOf(city)
         const district = str(f.district)
@@ -165,6 +180,10 @@ async function readFromFirestore(): Promise<SeoData | null> {
             validUntil: f.validUntilEstimated === true || !validUntil ? null : validUntil.toISOString(),
             campaigns: Array.isArray(f.campaigns) ? f.campaigns.filter((c: unknown) => typeof c === 'string') : [],
             publishedAt: toDate(f.publishedAt)?.getTime() ?? 0,
+            city,
+            district,
+            featuredUntil: f.featured === true && featuredUntil ? featuredUntil.getTime() : null,
+            lastDay: validUntil ? warsawDay(validUntil) : null,
         })
     })
     promos.sort((a, b) => b.publishedAt - a.publishedAt)
@@ -175,20 +194,71 @@ async function readFromFirestore(): Promise<SeoData | null> {
  * Jeden odczyt kolekcji na okres odświeżania — wspólny dla wszystkich stron i sitemap
  * (cache danych Next.js), a w obrębie procesu dodatkowo zapamiętana obietnica (build).
  */
-const cachedRead = unstable_cache(readFromFirestore, ['seo-public-promos-v1'], {
+const cachedRead = unstable_cache(readFromFirestore, ['seo-public-promos-v2'], {
     revalidate: SEO_REVALIDATE_SECONDS,
+    tags: [PROMOS_CACHE_TAG],
 })
 let memo: { at: number; promise: Promise<SeoData | null> } | null = null
 
+/** Cron (T-089) czyści pamięć procesu, żeby przeliczane strony nie wzięły starej kopii. */
+export function clearSeoMemo() {
+    memo = null
+}
+
+/** Widoczność liczona przy każdym renderze (dane żyją dobę, a „do 30.11” kończy się o północy PL). */
+function withVisible(data: SeoData | null): SeoData | null {
+    if (!data) return null
+    const today = warsawDay(new Date())
+    return { ...data, promos: data.promos.filter((p) => !p.lastDay || p.lastDay >= today) }
+}
+
 export async function getSeoData(): Promise<SeoData | null> {
-    if (memo && Date.now() - memo.at < 5 * 60 * 1000) return memo.promise
-    const promise = cachedRead().catch((error) => {
-        console.error('[seoPromos] Nie udało się pobrać public_promos:', error)
-        memo = null
-        return null
+    if (!memo || Date.now() - memo.at >= 5 * 60 * 1000) {
+        const promise = cachedRead().catch((error) => {
+            console.error('[seoPromos] Nie udało się pobrać public_promos:', error)
+            memo = null
+            return null
+        })
+        memo = { at: Date.now(), promise }
+    }
+    return withVisible(await memo.promise)
+}
+
+/**
+ * „Promki na dziś” na stronie głównej (T-054) z tej samej kopii co strony SEO (T-089).
+ * Kolejność jak wcześniej: wyróżnione z ważnym `featuredUntil`, potem najnowsze.
+ */
+export function selectPromosToday(data: SeoData, now: Date, limit = 6): PromosToday {
+    const t = now.getTime()
+    const isFeatured = (p: SeoPromo) => p.featuredUntil !== null && p.featuredUntil >= t
+    const visible = [...data.promos].sort((a, b) => {
+        const fa = isFeatured(a)
+        const fb = isFeatured(b)
+        if (fa !== fb) return fa ? -1 : 1
+        return b.publishedAt - a.publishedAt
     })
-    memo = { at: Date.now(), promise }
-    return promise
+    return {
+        total: visible.length,
+        allUrl: allPromosUrl(),
+        promos: visible.slice(0, limit).map((p) => ({
+            id: p.id,
+            title: p.title,
+            businessName: p.businessName,
+            categoryId: p.categoryId,
+            place: [p.businessName, p.district || p.city].filter(Boolean).join(' · '),
+            discountText: p.discountText,
+            validUntil: p.validUntil,
+            url: promoUrl(p.id),
+        })),
+    }
+}
+
+/** Dane sekcji albo null (błąd / brak promocji) — wtedy sekcji nie pokazujemy. */
+export async function getPromosToday(): Promise<PromosToday | null> {
+    const data = await getSeoData()
+    if (!data) return null
+    const result = selectPromosToday(data, new Date())
+    return result.total > 0 ? result : null
 }
 
 // ---- wybór i struktura stron (czyste funkcje) ----

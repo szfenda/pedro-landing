@@ -33,5 +33,15 @@
         }
       ]
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/promocje-dane/",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/promocje-polnoc/",
+      "schedule": "5 23 * * *"
+    }
   ]
 }
