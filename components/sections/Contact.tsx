@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { contactSchema, ContactFormData } from '@/lib/validations'
-import { socialIcons } from '@/lib/assets'
+import { socialIcons, socialLinks } from '@/lib/assets'
 import BrutalAlert from '@/components/ui/BrutalAlert'
 import BrutalInput from '@/components/ui/BrutalInput'
 import { useTranslation } from '@/lib/i18n-context'
@@ -83,7 +83,7 @@ export default function Contact() {
 
                     {/* Social Links */}
                     <div className="flex gap-6 justify-center mt-8">
-                        <a href="#" aria-label="Instagram" className="transition-transform hover:scale-110 hover:rotate-6">
+                        <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition-transform hover:scale-110 hover:rotate-6">
                             <img
                                 loading="lazy"
                                 decoding="async"
@@ -94,7 +94,7 @@ export default function Contact() {
                                 className="opacity-70 hover:opacity-100 transition-opacity"
                             />
                         </a>
-                        <a href="#" aria-label="TikTok" className="transition-transform hover:scale-110 hover:rotate-6">
+                        <a href={socialLinks.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="transition-transform hover:scale-110 hover:rotate-6">
                             <img
                                 loading="lazy"
                                 decoding="async"
@@ -105,7 +105,7 @@ export default function Contact() {
                                 className="opacity-70 hover:opacity-100 transition-opacity"
                             />
                         </a>
-                        <a href="#" aria-label="Facebook" className="transition-transform hover:scale-110 hover:rotate-6">
+                        <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="transition-transform hover:scale-110 hover:rotate-6">
                             <img
                                 loading="lazy"
                                 decoding="async"

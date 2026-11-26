@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { logos, mascots, socialIcons } from '@/lib/assets'
+import { logos, mascots, socialIcons, socialLinks } from '@/lib/assets'
 import { smoothScrollTo } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n-context'
 import { COOKIE_CONSENT_KEY, disableAnalytics } from '@/lib/analytics'
@@ -95,7 +95,9 @@ export default function Footer() {
                         <h3 className="text-white font-bold mb-4">{t('footer.followUs')}</h3>
                         <div className="flex gap-4">
                             <a
-                                href="#"
+                                href={socialLinks.instagram}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 aria-label="Instagram"
                                 className="transition-all duration-300 hover:scale-110 hover:rotate-6"
                             >
@@ -110,7 +112,9 @@ export default function Footer() {
                                 />
                             </a>
                             <a
-                                href="#"
+                                href={socialLinks.tiktok}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 aria-label="TikTok"
                                 className="transition-all duration-300 hover:scale-110 hover:rotate-6"
                             >
@@ -125,7 +129,9 @@ export default function Footer() {
                                 />
                             </a>
                             <a
-                                href="#"
+                                href={socialLinks.facebook}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 aria-label="Facebook"
                                 className="transition-all duration-300 hover:scale-110 hover:rotate-6"
                             >

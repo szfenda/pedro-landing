@@ -59,6 +59,13 @@ export const socialIcons = {
     facebook: '/assets/icons/social/icon_facebook.webp',
 } as const;
 
+// Profile PEDRO w social (05_SOCIAL.md)
+export const socialLinks = {
+    instagram: 'https://www.instagram.com/pedro.app.2026/',
+    tiktok: 'https://www.tiktok.com/@pedro_app',
+    facebook: 'https://www.facebook.com/profile.php?id=61596848007003',
+} as const;
+
 export const elements = {
     patternIcons: '/assets/elements/pattern_icons.png',
     particles: '/assets/elements/particles.png',
