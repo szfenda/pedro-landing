@@ -7,7 +7,7 @@ import { seoMetadata } from '@/lib/seoPromos'
 export const metadata: Metadata = seoMetadata(
     '/zglos/',
     'Zgłoś firmę do PEDRO — promocje w Trójmieście',
-    'Brakuje Twojej ulubionej knajpki, salonu albo siłowni w PEDRO? Wklej link do firmy — sprawdzimy jej stronę i aktualne promocje.'
+    'Brakuje tu kogoś? Zgłoś ulubioną firmę albo dodaj swoją — wklej link, a Pedro sprawdzi jej stronę i aktualne promocje.'
 )
 
 export default function ZglosPage() {

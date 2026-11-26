@@ -17,7 +17,7 @@ const config: Config = {
         'pedro-dark': '#2D3436',
       },
       fontFamily: {
-        headline: ['var(--font-dela-gothic)', 'var(--font-archivo-black)', 'sans-serif'],
+        headline: ['var(--font-dela-gothic)', 'sans-serif'],
         body: ['var(--font-inter)', 'var(--font-outfit)', 'sans-serif'],
       },
       fontSize: {
