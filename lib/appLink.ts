@@ -20,6 +20,7 @@ export type WebAppCtaPlace =
     | 'no_business'
     | 'dashboard'
     | 'billing'
+    | 'zglos'
 
 /** Ścieżki w aplikacji, do których wolno przejść po przekazaniu logowania (kontrakt T-058). */
 export type WebAppNext = '/' | '/partner/dashboard' | '/partner/create-offer'

@@ -93,3 +93,101 @@ Timestamp: ${new Date().toISOString()}
     throw error
   }
 }
+
+// T-096: „Zgłoś biznes do PEDRO” — mail na kontakt@pedro.app (automat poczty rozpoznaje temat)
+
+export interface ZglosEmailData {
+  link: string
+  name?: string
+  city?: string
+  note?: string
+  email?: string
+  owner?: boolean
+}
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch] as string)
+
+/** Domena z linku bez `www.` (np. `facebook.com`) — do tematu, gdy brak nazwy. */
+export const linkDomain = (link: string) => {
+  try {
+    return new URL(link).hostname.replace(/^www\./i, '')
+  } catch {
+    return link
+  }
+}
+
+/** Temat dokładnie: `[Zgłoszenie firmy] <nazwa lub domena z linku>` (jedna linia). */
+export const zglosSubject = (data: Pick<ZglosEmailData, 'link' | 'name'>) => {
+  const label = (data.name?.trim() || linkDomain(data.link)).replace(/[\r\n]+/g, ' ').slice(0, 100)
+  return `[Zgłoszenie firmy] ${label}`
+}
+
+export const sendZglosEmail = async (data: ZglosEmailData) => {
+  const apiKey = process.env.RESEND_API_KEY
+
+  if (!apiKey) {
+    const errorMsg = 'RESEND_API_KEY is not configured in environment variables'
+    logger.error('Resend configuration error', new Error(errorMsg))
+    throw new Error(errorMsg)
+  }
+
+  const resend = new Resend(apiKey)
+  const subject = zglosSubject(data)
+  const owner = data.owner ? 'tak' : 'nie'
+  const fields: [string, string][] = [
+    ['Link', data.link],
+    ['Nazwa', data.name || '—'],
+    ['Miasto', data.city || '—'],
+    ['Co tam fajnego?', data.note || '—'],
+    ['E-mail zgłaszającego', data.email || '—'],
+    ['Właściciel', owner],
+  ]
+
+  const htmlContent = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <div style="background: #6C5CE7; color: white; padding: 20px; text-align: center;">
+        <h1 style="margin: 0; font-size: 24px;">PEDRO.app</h1>
+        <p style="margin: 5px 0 0 0;">Zgłoszenie firmy (www.pedro.app/zglos/)</p>
+      </div>
+      <div style="padding: 30px; background: #f9f9f9;">
+        ${fields
+          .map(([label, value]) => `<p><strong>${label}:</strong> <span style="white-space: pre-wrap;">${escapeHtml(value)}</span></p>`)
+          .join('\n        ')}
+        <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+        <p style="color: #666; font-size: 12px;">Timestamp: ${new Date().toISOString()}</p>
+      </div>
+    </div>
+  `
+
+  const textContent = `
+Zgłoszenie firmy - PEDRO.app (www.pedro.app/zglos/)
+
+${fields.map(([label, value]) => `${label}: ${value}`).join('\n')}
+
+---
+Timestamp: ${new Date().toISOString()}
+  `.trim()
+
+  try {
+    const { data: responseData, error: sendError } = await resend.emails.send({
+      from: 'Kontakt Pedro <kontakt@pedro.app>',
+      to: 'kontakt@pedro.app',
+      ...(data.email ? { replyTo: data.email } : {}),
+      subject,
+      html: htmlContent,
+      text: textContent,
+    })
+
+    if (sendError) {
+      logger.error('Resend API returned an error (zglos)', new Error(sendError.message), { resendError: sendError })
+      throw new Error(`Resend error: ${sendError.message}`)
+    }
+
+    logger.info('Zglos email sent via Resend', { messageId: responseData?.id, subject })
+    return responseData
+  } catch (error) {
+    logger.error('Failed to send zglos email via Resend', error as Error, { subject })
+    throw error
+  }
+}

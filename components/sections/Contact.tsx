@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { contactSchema, ContactFormData } from '@/lib/validations'
@@ -79,6 +80,14 @@ export default function Contact() {
                 <div className="text-center mb-12 space-y-4">
                     <p className="text-lg text-pedro-dark">
                         📧 <a href="mailto:kontakt@pedro.app" className="font-bold hover:text-pedro-purple transition-colors">kontakt@pedro.app</a>
+                    </p>
+
+                    {/* T-096: zgłoszenie firmy */}
+                    <p className="text-base text-pedro-dark">
+                        {t('contact.reportBusiness')}{' '}
+                        <Link href="/zglos/" className="font-bold text-pedro-purple underline underline-offset-4 hover:text-pedro-dark transition-colors">
+                            {t('contact.reportBusinessLink')}
+                        </Link>
                     </p>
 
                     {/* Social Links */}

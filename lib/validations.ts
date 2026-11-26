@@ -58,6 +58,48 @@ export const contactSchema = z.object({
 
 export type ContactFormData = z.infer<typeof contactSchema>
 
+// T-096: „Zgłoś biznes do PEDRO” — tylko link obowiązkowy.
+// Komunikaty błędów to klucze tłumaczeń (messages/*.json → zglos.errors.*), formularz pokazuje je przez t().
+
+/** Dopisuje `https://`, gdy ktoś wpisał sam adres (np. `www.firma.pl`, `facebook.com/firma`). */
+export function normalizeBusinessLink(raw: string): string {
+  const value = raw.trim()
+  if (!value) return value
+  return /^https?:\/\//i.test(value) ? value : `https://${value}`
+}
+
+/** Poprawny adres http(s) z domeną (z kropką), np. https://facebook.com/firma. */
+export function isBusinessLink(raw: string): boolean {
+  try {
+    const url = new URL(normalizeBusinessLink(raw))
+    return (url.protocol === 'http:' || url.protocol === 'https:') && /\.[a-z]{2,}$/i.test(url.hostname)
+  } catch {
+    return false
+  }
+}
+
+export const ZGLOS_NOTE_MAX = 500
+
+export const zglosSchema = z.object({
+  link: z.string()
+    .trim()
+    .min(1, 'zglos.errors.linkRequired')
+    .max(500, 'zglos.errors.linkInvalid')
+    .refine(isBusinessLink, 'zglos.errors.linkInvalid'),
+  name: z.string().trim().max(100, 'zglos.errors.tooLong').optional(),
+  city: z.string().trim().max(60, 'zglos.errors.tooLong').optional(),
+  note: z.string().trim().max(ZGLOS_NOTE_MAX, 'zglos.errors.noteTooLong').optional(),
+  email: z.union([
+    z.literal(''),
+    z.string().trim().email('zglos.errors.emailInvalid').max(100, 'zglos.errors.emailInvalid'),
+  ]).optional(),
+  owner: z.boolean().optional(),
+  // Pułapka na boty (ukryte pole) — człowiek zostawia puste; trasa sprawdza i po cichu odrzuca
+  website: z.string().max(500).optional(),
+})
+
+export type ZglosFormData = z.infer<typeof zglosSchema>
+
 // User settings validation schemas
 export const updateEmailSchema = z.object({
   newEmail: z.string().email('Nieprawidłowy format email'),

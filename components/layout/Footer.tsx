@@ -30,6 +30,8 @@ export default function Footer() {
     const footerLinks = [
         // T-079: strony SEO z promocjami
         { label: t('footer.promos'), href: '/promocje/' },
+        // T-096: zgłoszenie firmy
+        { label: t('footer.report'), href: '/zglos/' },
         { label: t('footer.terms'), href: '/legal/regulamin' },
         { label: t('footer.privacy'), href: '/legal/polityka-prywatnosci' },
         { label: t('cookies.settings'), onClick: () => {

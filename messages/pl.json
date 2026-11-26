@@ -124,7 +124,54 @@
       "title": "Dziękujemy! 🎉",
       "message": "Twoja wiadomość została wysłana. Odpowiemy najszybciej jak to możliwe."
     },
-    "error": "Wystąpił błąd. Spróbuj ponownie."
+    "error": "Wystąpił błąd. Spróbuj ponownie.",
+    "reportBusiness": "Brakuje firmy w PEDRO?",
+    "reportBusinessLink": "Zgłoś ją tutaj →"
+  },
+  "zglos": {
+    "badge": "Zgłoś biznes",
+    "title": "Brakuje Twojej ulubionej knajpki?",
+    "titleAccent": "Zgłoś ją do PEDRO",
+    "subtitle": "Wklej link do firmy, a Pedro sprawdzi, czy ma promocje. Reszta pól jest nieobowiązkowa — to zajmie 20 sekund.",
+    "nextTitle": "Co dalej?",
+    "next1": "Sprawdzimy stronę firmy i jej aktualne promocje.",
+    "next2": "Jeśli znajdziemy prawdziwe, aktualne promocje — dodamy je do PEDRO.",
+    "next3": "Nie każde zgłoszenie trafi do aplikacji.",
+    "form": {
+      "link": "Link do firmy",
+      "linkPlaceholder": "np. facebook.com/twojaknajpka",
+      "linkHelper": "Strona www, Facebook, Instagram, Booksy albo Google Maps",
+      "name": "Nazwa firmy",
+      "namePlaceholder": "np. Pierogarnia u Pedra",
+      "city": "Miasto",
+      "cityPlaceholder": "np. Gdańsk",
+      "cityNearby": "okolice Trójmiasta",
+      "note": "Co tam fajnego?",
+      "notePlaceholder": "np. najlepsze pierogi w Oliwie, happy hours w czwartki",
+      "email": "Twój e-mail",
+      "emailPlaceholder": "twoj@email.pl",
+      "emailHelper": "Tylko żeby podziękować, gdy firma pojawi się w PEDRO",
+      "owner": "Jestem właścicielem / pracuję w tej firmie",
+      "optional": "(nieobowiązkowe)",
+      "submit": "Zgłoś firmę",
+      "sending": "Wysyłanie..."
+    },
+    "privacy": "E-mail jest nieobowiązkowy i używamy go tylko do podziękowania. Szczegóły:",
+    "privacyLink": "polityka prywatności",
+    "success": {
+      "title": "Dzięki! Pedro już węszy 🦝",
+      "message": "Zgłoszenie dotarło. Sprawdzimy stronę firmy i jej promocje — jeśli są aktualne, pojawią się w PEDRO.",
+      "open": "Otwórz PEDRO",
+      "another": "Zgłoś kolejną firmę"
+    },
+    "error": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie za chwilę.",
+    "errors": {
+      "linkRequired": "Podaj link do firmy",
+      "linkInvalid": "To nie wygląda na link. Wpisz np. www.firma.pl albo facebook.com/firma",
+      "tooLong": "Za długi tekst",
+      "noteTooLong": "Maksymalnie 500 znaków",
+      "emailInvalid": "Nieprawidłowy adres e-mail"
+    }
   },
   "footer": {
     "description1": "Twój osobisty asystent promocji.",
@@ -137,6 +184,7 @@
     "followUs": "Śledź nas",
     "madeWith": "Made with 🍕 in Gdańsk",
     "promos": "Promocje w Trójmieście",
+    "report": "Zgłoś firmę",
     "dbProtected": "Baza promocji chroniona prawem",
     "pedroBubble": "Do zobaczenia! 👋"
   },
